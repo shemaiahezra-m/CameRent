@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CameRent MNL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/footer.css">
+</head>
+<body>
+    <!--HEADER-->
+    <header id="header" class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class ="fas fa-camera"></i>
+                    <span>Came<span class="highlight-r">R</span>ent</span>
+                </div>
+                
+                <div class="header-right">
+                    <nav class="nav-desktop">
+                        <a href="home.html" class="nav-link active" data-page="home">Home</a>
+                        <a href="cameras.html" class="nav-link" data-page="cameras">Cameras</a>
+                        <a href="#" class="nav-link" data-page="about">About</a>
+                        <a href="#" class="nav-link" data-page="contact">Contact</a>
+                        <a href="#" class="nav-link" data-page="faq">FAQ</a>
+                        <a href="#" class="nav-link" data-page="resources">Resources</a>
+                        <a href="#" class="nav-link" data-page="bookings">Bookings</a>
+                    </nav>
+
+                    <div class="header-actions">
+                        <button class="compare-btn" id="compareBtn">
+                            <i class="fas fa-balance-scale"></i>
+                            <span class="badge" id="compareCount">0</span>
+                        </button>
+                        <button class="cart-btn" id="cartBtn">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="badge" id="cartCount">0</span>
+                        </button>
+                        <button class="mobile-menu-btn" id="mobileMenuBtn">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MOBILE MENU -->
+        <div class="mobile-menu" id="mobileMenu">
+            <nav class="mobile-menu-content">
+                <button class="mobile-menu-close" id="mobileMenuClose">
+                    <i class="fas fa-times"></i>
+                </button>
+                <nav class="mobile-nav">
+                    <a href="home.html" class="mobile-nav-link active" data-page="home">Home</a>
+                    <a href="cameras.html" class="mobile-nav-link" data-page="cameras">Cameras</a>
+                    <a href="#" class="mobile-nav-link" data-page="about">About</a>
+                    <a href="#" class="mobile-nav-link" data-page="contact">Contact</a>
+                    <a href="#" class="mobile-nav-link" data-page="faq">FAQ</a>
+                    <a href="#" class="mobile-nav-link" data-page="resources">Resources</a>
+                    <a href="#" class="mobile-nav-link" data-page="bookings">Bookings</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main id="main-content">
+        <!-- HOME PAGE -->
+        <div id="home-page" class="page active">
+            <!-- HERO SECTION-->
+            <section class="hero">
+                <div class="container">
+                    <div class="hero-content">
+                        <div class="hero-text">
+                            <h1 class="hero-title">Frame Your Story with <span class="highlight-Ease">Ease</span></h1>
+                            <p class="hero-subtitle">Access the latest photography gear without the commitment. From DSLR cameras to professional lighting equipment.</p>
+                            
+                            <!-- RENT NOW BUTTON -->
+                            <div class="rent-section">
+                                <button class="rent-now-btn" id="rentNowBtn">
+                                    Rent Now
+                                </button>
+                                <!-- HOW TO RENT BUTTON -->
+                                <button class="how-to-rent-btn" id="howToRentBtn">
+                                    How to Rent
+                                </button>
+                            </div>
+                        </div>
+                        <div class="hero-image">
+                            <div class="hero-carousel">
+                                <div class="carousel-slides">
+                                    <div class="slide active">
+                                        <img src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=600&h=400&fit=crop" alt="Concert Photography">
+                                        <div class="slide-overlay">
+                                            <h3>Concert Photography</h3>
+                                            <p>Capture live performances</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="slide">
+                                        <img src="https://images.unsplash.com/photo-1539650116574-75c0c6d73685?w=600&h=400&fit=crop" alt="Travel Photography">
+                                        <div class="slide-overlay">
+                                            <h3>Travel Adventures</h3>
+                                            <p>Document your journeys</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="slide">
+                                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop" alt="Nature Photography">
+                                        <div class="slide-overlay">
+                                            <h3>Nature & Hiking</h3>
+                                            <p>Explore the outdoors</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="slide">
+                                        <img src="https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=600&h=400&fit=crop" alt="Beach Photography">
+                                        <div class="slide-overlay">
+                                            <h3>Beach & Ocean</h3>
+                                            <p>Capture coastal beauty</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="slide">
+                                        <img src="https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=600&h=400&fit=crop" alt="Wedding Photography">
+                                        <div class="slide-overlay">
+                                            <h3>Special Events</h3>
+                                            <p>Memorable occasions</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Dot indicators -->
+                                <div class="carousel-dots">
+                                    <span class="dot active" data-slide="0"></span>
+                                    <span class="dot" data-slide="1"></span>
+                                    <span class="dot" data-slide="2"></span>
+                                    <span class="dot" data-slide="3"></span>
+                                    <span class="dot" data-slide="4"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Brands Section -->
+            <section class="brands">
+                <div class="container">
+                    <h2 class="section-title">Available Brands</h2>
+                    <div class="brands-grid" id="brandsGrid">
+                        <!-- Brands will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Promotional Products -->
+            <section class="promo-products">
+                <div class="container">
+                    <h2 class="section-title">Special Offers</h2>
+                    <div class="products-grid" id="promoProductsGrid">
+                        <!-- Promo products will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- All Products -->
+            <section class="all-products">
+                <div class="container">
+                    <h2 class="section-title">All Products</h2>
+                    <div class="products-grid" id="allProductsGrid">
+                        <!-- All products will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+
+</main>
+
+<footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>CameRent</h3>
+                    <p>Preserving memories doesn't need to be expensive</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#" data-page="home">Home</a></li>
+                        <li><a href="#" data-page="cameras">Cameras</a></li>
+                        <li><a href="#" data-page="about">About</a></li>
+                        <li><a href="#" data-page="contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Phone: +1 (555) 123-4567</p>
+                    <p>Email: info@camerarent.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 CameraRent. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FLOATING DATE PICKER -->
+    <div class="floating-date-picker">
+        <div class="date-inputs">
+            <div class="form-group">
+                <label for="pickupDate">Pickup Date</label>
+                <input type="date" id="pickupDate" class="form-input" placeholder="mm/dd/yyyy">
+            </div>
+            <div class="form-group">
+                <label for="returnDate">Return Date</label>
+                <input type="date" id="returnDate" class="form-input" placeholder="mm/dd/yyyy">
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO CAROUSEL -->
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentSlide = index;
+                showSlide(currentSlide);
+            });
+        });
+
+        setInterval(nextSlide, 4000);
+        const heroCarousel = document.querySelector('.hero-carousel');
+        let autoSlideInterval = setInterval(nextSlide, 4000);
+
+        heroCarousel.addEventListener('mouseenter', () => {
+            clearInterval(autoSlideInterval);
+        });
+
+        heroCarousel.addEventListener('mouseleave', () => {
+            autoSlideInterval = setInterval(nextSlide, 4000);
+        });
+    </script>
+
+</body>
+</html>

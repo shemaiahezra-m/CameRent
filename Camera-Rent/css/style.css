@@ -1,0 +1,486 @@
+/* BASE STYLES */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #fff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* UTILITY CLASSES */
+.hidden {
+    display: none !important;
+}
+
+.active {
+    display: block !important;
+}
+
+
+
+/* PAGE STYLES */
+.page {
+    display: none;
+    min-height: calc(100vh - 200px);
+}
+
+.page.active {
+    display: block;
+}
+
+.page-title {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    margin: 40px 0;
+    color: #1f2937;
+}
+
+/* HERO SECTION */
+.hero {
+    background-color: #f5f5f5;
+    color:#000000;
+    padding:60px 20px;
+}
+
+.hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 40px;
+}
+
+.hero-title {
+    font-size: 60px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+.highlight-Ease {
+    font-size: 60px;
+    color: #764ba2;
+    font-weight: bold;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.here-subtitle {
+    font-size: 18px;
+    margin-bottom: 30px;
+    opacity: 0.6;
+}
+
+/* HERO CAROUSEL */
+.hero-carousel {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-slides {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slide-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+    color: white;
+    padding: 2rem;
+}
+
+.slide-overlay h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.slide-overlay p {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.carousel-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem;
+    z-index: 10;
+}
+
+.dot {
+    width: 40px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background: #7c3aed;
+    width: 60px;
+}
+
+.dot:hover {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.rent-section {
+    margin-top: 2rem;
+}
+
+/* FLOATING DATE PICKER */
+.floating-date-picker {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem 2rem;
+    z-index: 999;
+}
+
+.date-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.form-input,
+.form-textarea,
+.filter-select {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 1rem;
+    font-size: 1rem;
+    background: #f9fafb;
+    transition: all 0.3s ease;
+    color: #6b7280;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.filter-select:focus {
+    outline: none;
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+    background: #fff;
+}
+
+.form-input::placeholder {
+    color: #9ca3af;
+    font-size: 1rem;
+}
+
+/* Add padding to body to prevent content overlap with floating picker */
+body {
+    padding-bottom: 120px;
+}
+
+/* Responsive design for floating date picker */
+@media (max-width: 768px) {
+    .floating-date-picker {
+        padding: 1rem;
+    }
+    
+    .date-inputs {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+    
+    body {
+        padding-bottom: 180px;
+    }
+}
+
+.rent-now-btn,
+.submit-btn {
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50px;
+    font-size: 15x;
+    font-weight: 300;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+}
+
+.rent-now-btn:hover,
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(124, 58, 237, 0.4);
+    background: linear-gradient(135deg, #6d28d9, #9333ea);
+}
+
+.how-to-rent-btn {
+    border: none;
+    color: #7d7d7d;
+    font-size: 15px;
+    font-weight: 300;
+    margin: 10px 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+/* HERO CAROUSEL */
+@media (max-width: 768px) {
+    .hero-carousel {
+        height: 300px;
+    }
+    
+    .slide-overlay {
+        padding: 1.5rem;
+    }
+    
+    .slide-overlay h3 {
+        font-size: 1.3rem;
+    }
+    
+    .slide-overlay p {
+        font-size: 0.9rem;
+    }
+    
+    .carousel-dots {
+        bottom: 15px;
+    }
+    
+    .dot {
+        width: 30px;
+        height: 3px;
+    }
+    
+    .dot.active {
+        width: 45px;
+    }
+}
+
+/* Brands Section */
+.brands {
+    padding: 4rem 0;
+    background: #f9fafb;
+}
+
+.brands-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.brand-item {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.brand-item:hover {
+    transform: translateY(-5px);
+}
+
+.brand-logo {
+    width: 80px;
+    height: 40px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+}
+
+/* Products Grid */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.product-card {
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.product-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.product-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-img {
+    transform: scale(1.05);
+}
+
+.product-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: #ef4444;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.product-info {
+    padding: 1.5rem;
+}
+
+.product-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #1f2937;
+}
+
+.product-price {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.current-price {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #2563eb;
+}
+
+.old-price {
+    font-size: 1rem;
+    color: #9ca3af;
+    text-decoration: line-through;
+}
+
+.product-rating {
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+.star {
+    color: #fbbf24;
+}
+
+.star.empty {
+    color: #d1d5db;
+}
+
+.product-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.add-to-cart-btn,
+.compare-btn-product {
+    flex: 1;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.add-to-cart-btn {
+    background: #2563eb;
+    color: white;
+}
+
+.add-to-cart-btn:hover {
+    background: #1d4ed8;
+}
+
+.compare-btn-product {
+    background: #f3f4f6;
+    color: #666;
+}
+
+.compare-btn-product:hover {
+    background: #e5e7eb;
+}
