@@ -179,11 +179,27 @@
     "id": 13,
     "firstName": "Shemaiah",
     "lastName": "Magpayo",
+    "full_name": "Shemaiah Magpayo",
     "email": "ezrama@gmail.com",
     "phone": "09218634320",
-    "passwordHash": "scrypt:32768:8:1$054tgaiolMuOLo5L$6f43e080a4a927bbba899ac5d642fc624b52984bad6dc86cefe0d6da8b2936f0de29f23ea344193f124e4806fa06e08d10b91c6fc36742cc4db1ef0de056fb47",
-    "full_name": "Shemaiah Magpayo",
     "phone_number": "09218634320",
+    "address": null,
+    "id_verification_url": null,
+    "passwordHash": "scrypt:32768:8:1$054tgaiolMuOLo5L$6f43e080a4a927bbba899ac5d642fc624b52984bad6dc86cefe0d6da8b2936f0de29f23ea344193f124e4806fa06e08d10b91c6fc36742cc4db1ef0de056fb47",
+    "role": "Customer",
+    "isAdmin": false,
+    "resetToken": null,
+    "resetExpiry": null
+  },
+  {
+    "id": 14,
+    "firstName": "Shemaiah",
+    "lastName": "Magpayo",
+    "email": "shemaiahezra@gmail.com",
+    "phone": "+639218634320",
+    "passwordHash": "scrypt:32768:8:1$CixfiwTP4Knwx5X1$4b6c68e46f8d1863396097cee6f26fb20abb420879fde737584cfad98d310e09ae627eeeb52e5d747664548212fd34603f1a5edf5c0dd5279b45756f1900f318",
+    "full_name": "Shemaiah Magpayo",
+    "phone_number": "+639218634320",
     "role": "Customer"
   }
 ]
