@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="oct9.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>October 7</title>
+    
+</head>
+
+<body>
+
+   
+    <h1>Pawssion Project</h1> <hr>
+
+
+    <hgroup>
+        <h2>ABOUT US</h2>
+        <h3> Paw Passion Project</h3>
+            <p> Pawssion Project is a non-profit organization founded in October 2018 by Malou Perez, sparked by the heartbreaking reality of dogs on death row—scheduled to be killed by gunshot.
+                What started in Bacolod with nothing but hope, courage, and a small circle of passionate supporters, quickly grew into a nationwide movement. Following that first life-saving pound rescue, the outpouring of calls for help became impossible to ignore. By mid-2019, a second shelter was opened in Bulacan.
+                Since then, Pawssion Project has rescued over 3,000 abused and neglected animals—and found loving homes for more than 2,000 of them.
+                Join us in giving every animal the second chance they deserve.
+            </p>
+    </hgroup>
+
+    <a href="https://www.instagram.com/shemaiahezra"> Donate Now </a>
+
+            <br><br>
+
+    <h3> <center> Our Shelters </center> </h3>
+        <section>
+        <h3> Bacolod Shelter </h3>
+            <p>Pawssion Project Permanent Sanctuary, Hacienda Feliza, Brgy. Granada, Bacolod City</p>
+            <p>Phillip Perez  (0915) 262 1574</p>
+            <a href="https://www.instagram.com/shemaiahezra" class="book-visit"> Book a Visit </a>
+            <a href="https://www.instagram.com/shemaiahezra" class="maps"> Get Directions </a>
+
+        </section>
+
+        <section>
+        <h3> Bacolod Shelter </h3>
+            <p>Paradise Drive, Tungkong Mangga, City of San Jose Del Monte Bulacan, 3023</p>
+            <p>Phillip Perez  (0915) 262 1574</p>
+            <a href="https://www.instagram.com/shemaiahezra" class="book-visit"> Book a Visit </a>
+            <a href="https://www.instagram.com/shemaiahezra" class="maps"> Get Directions </a>
+
+        </section>
+
+    <h3> <center> How you can help </center> </h3>
+            
+            <hgroup><p>There are many ways you can help support the Pawssion Project and the animals in our care:</p></hgroup>
+        <section>
+        <h3> Donate </h3>
+            <p>We rely on your support to rescue and care for animals in need.</p>
+            <a href="https://www.instagram.com/shemaiahezra" class="save"> Help save a life </a>
+        </section>
+
+        <br>
+        <section class="full-section">
+    <h2> <center> TESTIMONIALS </center> </h2>
+    <h3> <center> Happy Families, Happy Stories </center> </h3>
+            <hgroup><p> With your support, we can rescue animals from overcrowded shelters, provide them with medical care and rehabilitation, and match them with loving forever families.</p></hgroup>
+    
+
+    <div class="carousel">
+    <div class="slides" id="slides">
+      <div class="slide">
+        <h2>The Atienzas</h2>
+        <p>We want you to know you're not alone anymore. You'll never feel hunger again...</p>
+      </div>
+      <div class="slide">
+        <h2>Second Family</h2>
+        <p>Thank you for adopting and giving love. You’ve made our lives more meaningful...</p>
+      </div>
+      <div class="slide">
+        <h2>Third Family</h2>
+        <p>We are always here for you, no matter what. You won’t be abandoned; you’re safe now.</p>
+      </div>
+    </div>
+
+    <div class="dots" id="dots"></div>
+  </div>
+  </section>
+        </body>
+
+<script>
+    const slides = document.getElementById("slides");
+    const totalSlides = slides.children.length;
+    const dotsContainer = document.getElementById("dots");
+
+    let index = 0;
+
+    // Create dots dynamically
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement("span");
+      dot.classList.add("dot");
+      if (i === 0) dot.classList.add("active");
+      dot.addEventListener("click", () => goToSlide(i));
+      dotsContainer.appendChild(dot);
+    }
+
+    const dots = document.querySelectorAll(".dot");
+
+    function showSlide(i) {
+      slides.style.transform = `translateX(${-i * 100}%)`;
+      dots.forEach(dot => dot.classList.remove("active"));
+      dots[i].classList.add("active");
+    }
+
+    function goToSlide(i) {
+      index = i;
+      showSlide(index);
+    }
+
+    function autoSlide() {
+      index = (index + 1) % totalSlides;
+      showSlide(index);
+    }
+
+    setInterval(autoSlide, 4000); // auto-slide every 4 seconds
+</script>
+
+<footer>
+    2023 Pawssion Project. All rights reserved.
+</footer>
+</html>
