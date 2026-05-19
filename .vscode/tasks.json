@@ -1,0 +1,11 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "No build — CSS-only change",
+			"type": "shell",
+			"command": "echo 'CSS updated for banners'",
+			"group": "build"
+		}
+	]
+}

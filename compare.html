@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Cameras - CameRent MNL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/compare.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <script src="js/common.js" defer></script>
+    <script src="js/navigation.js" defer></script>
+    <script src="js/profile-modal.js" defer></script>
+    <script src="js/compare.js" defer></script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <main class="main-content">
+        <!-- Compare Section -->
+        <section class="compare-section">
+            <div class="container">
+                <!-- Empty State -->
+                <div class="compare-empty" id="compareEmpty">
+                    <i class="fas fa-balance-scale"></i>
+                    <h2>No Cameras to Compare</h2>
+                    <p>Add cameras from the catalog to compare their features</p>
+                    <a href="cameras.html" class="btn-primary">Browse Cameras</a>
+                </div>
+
+                <!-- Compare Grid -->
+                <div class="compare-grid" id="compareGrid" style="display: none;">
+                    <!-- Camera comparison cards will be inserted here -->
+                </div>
+
+                <!-- Compare Table -->
+                <div class="compare-table-container" id="compareTableContainer" style="display: none;">
+                    <table class="compare-table">
+                        <tbody id="compareTableBody">
+                            <!-- Comparison rows will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="compare-actions" id="compareActions" style="display: none;">
+                    <button class="btn-secondary" id="clearCompareBtn">
+                        <i class="fas fa-trash"></i>
+                        Clear All
+                    </button>
+                    <a href="cameras.html" class="btn-outlined">
+                        <i class="fas fa-plus"></i>
+                        Add More Cameras
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In - CameRent</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+    <div class="auth-container">
+        <!-- Left Side - Form -->
+        <div class="auth-form-section">
+            <div class="auth-card">
+                <!-- Logo -->
+                <a href="index.html" class="auth-logo">
+                    <img src="images/logos/logo-full.png" alt="CameRent Logo" style="height: 50px;">
+                </a>
+
+                <!-- Header -->
+                <div class="auth-header">
+                    <h1>Welcome Back</h1>
+                    <p>Log in to access your camera rentals</p>
+                </div>
+
+                <!-- Log In Form -->
+                <form class="auth-form" id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input type="email" id="loginEmail" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <div class="password-input">
+                            <input type="password" id="loginPassword" name="password" required>
+                            <button type="button" class="toggle-password" onclick="togglePassword('loginPassword')">
+                                <i class="fas fa-eye" id="loginPassword-icon"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="remember" name="remember">
+                            <span>Remember me</span>
+                        </label>
+                        <a href="forgot-password.html" class="forgot-link">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        <span>Log In</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+
+                <!-- Divider -->
+                <div class="auth-divider">
+                    <span>or continue with</span>
+                </div>
+
+                <!-- Social Log In -->
+                <div class="social-auth">
+                    <button class="social-btn google-btn">
+                        <i class="fab fa-google"></i>
+                        <span>Google</span>
+                    </button>
+                    <button class="social-btn facebook-btn">
+                        <i class="fab fa-facebook-f"></i>
+                        <span>Facebook</span>
+                    </button>
+                </div>
+
+                <!-- Footer -->
+                <div class="auth-footer">
+                    <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side - Visual -->
+        <div class="auth-visual">
+            <div class="visual-content">
+                <div class="visual-icon">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <h2>Continue Your Creative Journey</h2>
+                <p>Welcome back! Your next great shot is just a rental away.</p>
+                
+                <div class="visual-features">
+                    <div class="feature">
+                        <i class="fas fa-clock"></i>
+                        <span>24/7 Booking</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Secure Payments</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-headset"></i>
+                        <span>Live Support</span>
+                    </div>
+                </div>
+
+                <div class="visual-stats">
+                    <div class="stat">
+                        <span class="stat-number">50K+</span>
+                        <span class="stat-label">Rentals</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">99%</span>
+                        <span class="stat-label">Satisfaction</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Support</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Animated Background Elements -->
+            <div class="bg-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>

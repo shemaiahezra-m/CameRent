@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CameRent MNL</title>
+    <link rel="icon" href="images/logos/logo-icon.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <script src="js/common.js" defer></script>
+    <script src="js/navigation.js" defer></script>
+    <script src="js/profile-modal.js" defer></script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <!-- MAIN CONTENT -->
+    <main id="main-content">
+            <script>
+                (function() {
+                    const setupLogo = () => {
+                        const logoIcon = document.getElementById('colorLogo');
+                        if (!logoIcon) return;
+                        const logoColors = ["#764ba2", "#667eea", "#f7971e", "#43cea2", "#ff5858", "#2af598"];
+                        let logoColorIndex = 0;
+                        logoIcon.style.color = logoColors[0];
+                        logoIcon.addEventListener('click', function() {
+                            logoColorIndex = (logoColorIndex + 1) % logoColors.length;
+                            logoIcon.style.color = logoColors[logoColorIndex];
+                        });
+                    };
+
+                    if (document.getElementById('header')) {
+                        setupLogo();
+                    } else {
+                        window.addEventListener('header:loaded', setupLogo, { once: true });
+                        if (window.AppEvents && typeof window.AppEvents.on === 'function') {
+                            window.AppEvents.on('header:loaded', setupLogo);
+                        }
+                    }
+                })();
+            </script>
+        <!-- HOME PAGE -->
+        <div id="home-page" class="page active">
+            <!-- HERO SECTION-->
+            <section class="hero">
+                <div class="container">
+                    <div class="hero-content">
+                        <div class="hero-text">
+                            <h1 class="hero-title">Frame Your Story with <span class="highlight-Ease">Ease</span></h1>
+                            <p class="hero-subtitle">Rent professional cameras, lenses, and photography gear in Manila — fast, easy, and hassle-free.</p>
+                            
+                            <!-- RENT NOW BUTTON -->
+                            <div class="rent-section">
+                                <button class="rent-now-btn" id="rentNowBtn">
+                                    Rent Now
+                                </button>
+                            </div>
+                        </div>
+                        <div class="hero-image">
+                            <div class="hero-carousel-container">
+                                <div class="hero-carousel-scroll">
+                                    <div class="carousel-card">
+                                        <!-- TODO: Replace with your concert/events image -->
+                                        <img src="https://contents.pep.ph/images2/images2/2025/10/12/cup-of-joe-insert-2-1760267274.jpg" alt="Concert">
+                                        <div class="card-overlay">
+                                            <span class="card-location"><i class="fas fa-music"></i> Events</span>
+                                            <h3>CONCERT</h3>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="carousel-card">
+                                        <!-- TODO: Replace with your vlog/content creation image -->
+                                        <img src="https://blog.ninjavan.co/en-ph/wp-content/uploads/sites/2/2023/05/mom-vloggers-philippines.jpg" alt="Vlogs">
+                                        <div class="card-overlay">
+                                            <span class="card-location"><i class="fas fa-video"></i> Content</span>
+                                            <h3>VLOGS</h3>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="carousel-card">
+                                        <!-- TODO: Replace with your photoshoot/studio image -->
+                                        <img src="https://www.vice.com/wp-content/uploads/sites/2/2020/08/1597296265752-2020-08-02-012451-1-1.jpeg" alt="Shoot">
+                                        <div class="card-overlay">
+                                            <span class="card-location"><i class="fas fa-camera"></i> Studio</span>
+                                            <h3>SHOOT</h3>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="carousel-card">
+                                        <!-- TODO: Replace with your travel/destination image -->
+                                        <img src="https://img.freepik.com/free-photo/young-japanese-influencer-recording-vlog_23-2149187798.jpg?semt=ais_hybrid&w=740&q=80" alt="Travel Country">
+                                        <div class="card-overlay">
+                                            <span class="card-location"><i class="fas fa-plane"></i> Travel</span>
+                                            <h3>TRAVEL </h3>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="carousel-card">
+                                        <!-- TODO: Replace with your mountain/nature image -->
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDw0mzgLOAFi4fXX9Tno5ye2KSDhHUkkrzm2TfrduviCrm38XHW5iEaajJ9HG61c96XH0&usqp=CAU" alt="Mountain">
+                                        <div class="card-overlay">
+                                            <span class="card-location"><i class="fas fa-mountain"></i> Nature</span>
+                                            <h3>MOUNTAIN</h3>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="carousel-card">
+                                        <!-- TODO: Replace with your ocean/beach image -->
+                                        <img src="https://static.wixstatic.com/media/790173_1f4893b0647449b783f32be7863c4dfe~mv2.jpg/v1/fill/w_480,h_644,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/790173_1f4893b0647449b783f32be7863c4dfe~mv2.jpg" alt="Ocean">
+                                        <div class="card-overlay">
+                                            <span class="card-location"><i class="fas fa-water"></i> Beach</span>
+                                            <h3>BEACH</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Brands Section -->
+            <section class="brands scroll-animate">
+                <div class="container">
+                    <h2 class="section-title">Available Brands</h2>
+                </div>
+                <div class="brands-grid">
+                    <!-- First set -->
+                    <div class="brand-item scroll-scale">
+                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/apple.svg" alt="Apple" class="brand-logo">
+                    </div>
+                    <div class="brand-item scroll-scale">
+                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/samsung.svg" alt="Samsung" class="brand-logo">
+                    </div>
+                    <div class="brand-item scroll-scale">
+                        <span style="font-size:28px;font-weight:700;color:#6b7280;font-family:'Arial',sans-serif;letter-spacing:1px;">Canon</span>
+                    </div>
+                    <div class="brand-item scroll-scale">
+                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/sony.svg" alt="Sony" class="brand-logo">
+                    </div>
+                    <div class="brand-item scroll-scale">
+                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/fujifilm.svg" alt="Fujifilm" class="brand-logo">
+                    </div>
+                    <div class="brand-item scroll-scale">
+                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/nikon.svg" alt="Nikon" class="brand-logo">
+                    </div>
+                    <div class="brand-item scroll-scale">
+                        <span style="font-size:30px;font-weight:700;color:#6b7280;font-family:'Arial',sans-serif;">GoPro</span>
+                    </div>
+                    <div class="brand-item scroll-scale">
+                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/dji.svg" alt="DJI" class="brand-logo">
+                    </div>
+                    <div class="brand-item">
+                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/insta360.svg" alt="Insta360" class="brand-logo">
+                    </div>
+                    <div class="brand-item">
+                        <span style="font-size:24px;font-weight:600;color:#6b7280;font-family:'Arial',sans-serif;">Ray-Ban Meta</span>
+                    </div>
+                    <div class="brand-item">
+                        <span style="font-size:32px;font-weight:700;color:#6b7280;font-family:'Arial',sans-serif;">ANKER</span>
+                    </div>
+                    <div class="brand-item">
+                        <span style="font-size:28px;font-weight:600;color:#6b7280;font-family:'Arial',sans-serif;letter-spacing:0.5px;">CASETiFY</span>
+                    </div>
+                    
+                    <!-- Duplicate set for seamless loop -->
+                    <div class="brand-item">
+                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/apple.svg" alt="Apple" class="brand-logo">
+                    </div>
+                    <div class="brand-item">
+                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/samsung.svg" alt="Samsung" class="brand-logo">
+                    </div>
+                    <div class="brand-item">
+                        <span style="font-size:28px;font-weight:700;color:#6b7280;font-family:'Arial',sans-serif;letter-spacing:1px;">Canon</span>
+                    </div>
+                    <div class="brand-item">
+                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/sony.svg" alt="Sony" class="brand-logo">
+                    </div>
+                    <div class="brand-item">
+                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/fujifilm.svg" alt="Fujifilm" class="brand-logo">
+                    </div>
+                    <div class="brand-item">
+                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/nikon.svg" alt="Nikon" class="brand-logo">
+                    </div>
+                    <div class="brand-item">
+                        <span style="font-size:30px;font-weight:700;color:#6b7280;font-family:'Arial',sans-serif;">GoPro</span>
+                    </div>
+                    <div class="brand-item">
+                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/dji.svg" alt="DJI" class="brand-logo">
+                    </div>
+                    <div class="brand-item">
+                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/insta360.svg" alt="Insta360" class="brand-logo">
+                    </div>
+                    <div class="brand-item">
+                        <span style="font-size:24px;font-weight:600;color:#6b7280;font-family:'Arial',sans-serif;">Ray-Ban Meta</span>
+                    </div>
+                    <div class="brand-item">
+                        <span style="font-size:32px;font-weight:700;color:#6b7280;font-family:'Arial',sans-serif;">ANKER</span>
+                    </div>
+                    <div class="brand-item">
+                        <span style="font-size:28px;font-weight:600;color:#6b7280;font-family:'Arial',sans-serif;letter-spacing:0.5px;">CASETiFY</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Brand Product Highlights Video Carousel -->
+            <section class="product-highlights-carousel">
+                <div class="carousel-container">
+                    <button class="carousel-nav prev" id="prevSlide">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    
+                    <div class="carousel-slides">
+                        <div class="carousel-slide active">
+                            <video class="slide-video" autoplay muted loop playsinline>
+                                <source src="https://terra-1-g.djicdn.com/851d20f7b9f64838a34cd02351370894/WA150%20SHOT%20ON/F75_WA150__DJI_home_page_Shot_on_Video_CLEAN_2400x1440_N_N.mp4" type="video/mp4">
+                            </video>
+                            <div class="slide-overlay"></div>
+                            <div class="slide-content">
+                                <h2 class="slide-title">Shot on<br>DJI Mini 4 Pro</h2>
+                                <div class="slide-actions">
+                                    <a href="cameras.html?filter=dji-mini-4-pro" class="btn-learn-more">Learn More ›</a>
+                                    <a href="cameras.html?id=dji-mini-4-pro" class="btn-buy-now">Rent Now ›</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <video class="slide-video" muted loop playsinline>
+                                <source src="https://terra-1-g.djicdn.com/851d20f7b9f64838a34cd02351370894/OM308%20shot%20on/DJI_home_page_Shot_on_Video%202400x1440.mp4" type="video/mp4">
+                            </video>
+                            <div class="slide-overlay"></div>
+                            <div class="slide-content">
+                                <h2 class="slide-title">Shot on<br>Galaxy S23 Ultra</h2>
+                                <div class="slide-actions">
+                                    <a href="cameras.html?filter=sony-a7iii" class="btn-learn-more">Learn More ›</a>
+                                    <a href="cameras.html?id=sony-a7iii" class="btn-buy-now">Rent Now ›</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <video class="slide-video" muted loop playsinline>
+                                <source src="https://www.pexels.com/download/video/15653370/" type="video/mp4">
+                            </video>
+                            <div class="slide-overlay"></div>
+                            <div class="slide-content">
+                                <h2 class="slide-title">Shot on<br>Canon EOS M50 Mark II</h2>
+                                <div class="slide-actions">
+                                    <a href="cameras.html?filter=canon-eos-m50-mark-ii" class="btn-learn-more">Learn More ›</a>
+                                    <a href="cameras.html?id=canon-eos-m50-mark-ii" class="btn-buy-now">Rent Now ›</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <video class="slide-video" muted loop playsinline>
+                                <source src="https://static.gopro.com/assets/blta2b8522e5372af40/blte7ae0bc991da5e67/68aee89ab1a8c074294ff73e/07-h13-hp-awards-1920.mp4" type="video/mp4">
+                            </video>
+                            <div class="slide-overlay"></div>
+                            <div class="slide-content">
+                                <h2 class="slide-title">Shot on<br>GoPro HERO 13</h2>
+                                <div class="slide-actions">
+                                    <a href="cameras.html?filter=gopro-hero-13" class="btn-learn-more">Learn More ›</a>
+                                    <a href="cameras.html?id=gopro-hero-13" class="btn-buy-now">Rent Now ›</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="carousel-nav next" id="nextSlide">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    
+                    <div class="carousel-indicators">
+                        <button class="indicator active" data-slide="0"></button>
+                        <button class="indicator" data-slide="1"></button>
+                        <button class="indicator" data-slide="2"></button>
+                        <button class="indicator" data-slide="3"></button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Promo Banners -->
+            <section class="promo-banners scroll-animate">
+                <div class="container">
+                    <h2 class="section-title">Limited Time Offers</h2>
+                    <!-- Lesson 2: aside with q (quote) tag -->
+                    <aside style="background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%); padding: 15px 20px; border-radius: 10px; margin: 15px 0; border-left: 4px solid #764ba2;">
+                        <h5 style="margin: 0 0 8px 0; color: #764ba2; font-size: 1rem;">💡 Customer Tip</h5>
+                        <p style="margin: 0; color: #4b5563; font-size: 0.95rem;">
+                            <q>The best camera is the one you have with you</q> - and with CameRent, you can have the perfect camera for every occasion!
+                        </p>
+                    </aside>
+                    <div class="banners-wrapper">
+                        <div class="promo-banner banner-large scroll-slide-left">
+                            <div class="banner-badge">LIMITED TIME</div>
+                            <div class="banner-content">
+                                <div class="discount-circle">
+                                    <span class="discount-number">10%</span>
+                                    <span class="discount-text">OFF</span>
+                                </div>
+                                <div class="banner-info">
+                                    <h3 class="banner-title">New Customer Special</h3>
+                                    <p class="banner-description">Save on rentals over 4 days </p>
+                                    <button class="btn-banner-new" onclick="window.location.href='cameras.html'">Claim Offer →</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="promo-banner banner-large banner-secondary scroll-slide-right">
+                            <div class="banner-badge badge-gold">BEST VALUE</div>
+                            <div class="banner-content">
+                                <div class="discount-circle circle-gold">
+                                    <span class="discount-number">15%</span>
+                                    <span class="discount-text">OFF</span>
+                                </div>
+                                <div class="banner-info">
+                                    <h3 class="banner-title">Extended Rental Deal</h3>
+                                    <p class="banner-description">For bookings over 11 days</p>
+                                    <button class="btn-banner-new" onclick="window.location.href='cameras.html'">Get Started →</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Why Choose Us -->
+            <section class="why-choose-us">
+                <div class="container">
+                    <!-- Lesson 2: article element -->
+                    <article class="why-choose-content">
+                        <div class="why-choose-image scroll-slide-left">
+                            <!-- Lesson 5: figure with id, img with src/style/width/height, figcaption with class -->
+                            <!-- TODO: Replace with your own image URL below -->
+                            <figure id="featured-equipment" style="margin: 0; text-align: center;">
+                          <img src="https://i.pinimg.com/1200x/23/fb/76/23fb76dc3936d301e75c048b25eea05d.jpg"
+                              alt="Professional and Beginner Camera Gear available for rent"
+                              usemap="#featured-gear-map"
+                              style="border-radius: 12px; box-shadow: 0 8px 24px rgba(118, 75, 162, 0.3); object-fit: cover; width: 500px; height: 500px;">
+                                <figcaption class="equipment-caption" style="margin-top: 12px; color: #6b7280; font-size: 14px; font-style: italic;">
+                                    Professional and Beginner Camera Gear available for rent
+                                </figcaption>
+                            </figure>
+                            <map name="featured-gear-map">
+                                <!-- DJI Camera area - click to view Action Cameras -->
+                                <area shape="rect" coords="150,200,350,400" 
+                                      href="cameras.html?category=action-camera" 
+                                      alt="Action Cameras - DJI and more" 
+                                      title="Click to view Action Cameras">
+                            </map>
+                        </div>
+                        <div class="why-choose-text scroll-slide-right">
+                            <h2 class="why-choose-title">
+                                <span class="highlight-purple">We are the solution </span>for your problem
+                            </h2>
+                            <p class="why-choose-description">
+                                Whether you're capturing concerts, creating vlogs, or documenting travels, we provide the perfect equipment for every moment. Smart rentals are the way to go! Our cameras and gear are professionally maintained and ready to help you create stunning content.
+                            </p>
+                            <ul class="why-choose-list">
+                                <li>Premium quality equipment</li>
+                                <li>Affordable rental rates</li>
+                                <li>Complete accessories included</li>
+                            </ul>
+                            <button class="btn-read-more" onclick="window.location.href='about.html'">Read More</button>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Lesson 5: Interactive Metro Manila Map Section -->
+            <section class="service-areas-section" style="padding: 60px 0; background: #f9fafb;">
+                <div class="container">
+                    <h2 class="section-title">We Serve All of Metro Manila</h2>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d247138.36392715425!2d120.85590293480719!3d14.56845294152643!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c8d26026386d%3A0x5fed23daac9278d0!2sMetro%20Manila!5e0!3m2!1sen!2sph!4v1760510347379!5m2!1sen!2sph" 
+                                    width="100%" 
+                                    height="400" 
+                                    style="border:0; border-radius: 12px;" 
+                                    allowfullscreen="" 
+                                    loading="lazy" 
+                                    referrerpolicy="no-referrer-when-downgrade"
+                                    title="Metro Manila on Google Maps">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sneak Peek Section -->
+            <section class="sneak-peek">
+                <div class="container">
+                    <div class="sneak-peek-wrapper">
+                        <!-- Camera Collections Preview -->
+                        <div class="sneak-peek-half">
+                            <div class="peek-header">
+                                <h2 class="peek-main-title">Camera Collections</h2>
+                                <a href="cameras.html" class="peek-view-all">View All →</a>
+                            </div>
+                            <div class="camera-preview-grid">
+                                <div class="camera-preview-item" onclick="window.location.href='cameras.html'">
+                                    <div class="camera-preview-image">
+                                        <!-- TODO: Replace with smartphone camera image -->
+                                        <img src="https://www.apple.com/ph/iphone/home/images/meta/iphone__cud4q04omsuq_og.png?202510080055" alt="Smartphones" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+                                    </div>
+                                    <div class="camera-preview-info">
+                                        <h4>Smartphones</h4>
+                                        <p>Latest models</p>
+                                    </div>
+                                </div>
+                                <div class="camera-preview-item" onclick="window.location.href='cameras.html'">
+                                    <div class="camera-preview-image">
+                                        <!-- TODO: Replace with mirrorless camera image -->
+                                        <img src="https://f8photo.ph/cdn/shop/files/2_c2b30fe4-0c39-4e62-89f7-e57002f4bbc8.png?v=1729305992&width=1946" alt="Mirrorless" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+                                    </div>
+                                    <div class="camera-preview-info">
+                                        <h4>Mirrorless</h4>
+                                        <p>Compact & powerful</p>
+                                    </div>
+                                </div>
+                                <div class="camera-preview-item" onclick="window.location.href='cameras.html'">
+                                    <div class="camera-preview-image">
+                                        <!-- TODO: Replace with action camera image -->
+                                        <img src="https://www.hobbydynamics.ph/cdn/shop/collections/action-camera-gimbal-camera-532966.jpg?v=1741786306" alt="Action Cams" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+                                    </div>
+                                    <div class="camera-preview-info">
+                                        <h4>Action Cams</h4>
+                                        <p>Adventure ready</p>
+                                    </div>
+                                </div>
+                                <div class="camera-preview-item" onclick="window.location.href='cameras.html'">
+                                    <div class="camera-preview-image">
+                                        <!-- TODO: Replace with drone camera image -->
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ74FLrLGWqTM8f-5mZd1RhbdWId970JCyGMA&s" alt="Drones" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+                                    </div>
+                                    <div class="camera-preview-info">
+                                        <h4>Drones</h4>
+                                        <p>Aerial photography</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Resources Preview -->
+                        <div class="sneak-peek-half">
+                            <div class="peek-header">
+                                <h2 class="peek-main-title">Resources & Guides</h2>
+                                <a href="#" class="peek-view-all">View All →</a>
+                            </div>
+                            <div class="resources-list">
+                                <div class="resource-item" onclick="window.location.href='faq.html'">
+                                    <h4>Beginner's Guide</h4>
+                                    <p>Getting started with camera rentals</p>
+                                </div>
+                                <div class="resource-item" onclick="window.location.href='faq.html'">
+                                    <h4>Photography Tips</h4>
+                                    <p>Professional techniques and tricks</p>
+                                </div>
+                                <div class="resource-item" onclick="window.location.href='faq.html'">
+                                    <h4>Video Production</h4>
+                                    <p>Create stunning video content</p>
+                                </div>
+                                <div class="resource-item" onclick="window.location.href='faq.html'">
+                                    <h4>Equipment Care</h4>
+                                    <p>Maintenance and handling tips</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Customer Reviews -->
+            <section class="customer-reviews">
+                <div class="container">
+                    <h2 class="section-title">What Our Customers Say</h2>
+                    <h6 style="text-align: center; color: #9ca3af; font-size: 0.9rem; margin: -10px 0 30px 0; font-weight: 400;">Real reviews from real customers who trust CameRent</h6>
+                    
+                    <div class="reviews-carousel-wrapper">
+                        <button class="review-nav review-prev" id="reviewPrev">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        
+                        <div class="reviews-carousel">
+                        <div class="review-card review-slide active">
+                            <div class="review-top">
+                                <div class="review-stars">★★★★★</div>
+                                <span class="product-rented">Rented: Canon EOS M50 Mark II</span>
+                            </div>
+                            <p class="review-text">
+                                "First time ko mag-rent ng camera for my Palawan trip. CameRent made everything so easy! Yung Canon M50 na nirenta ko was in perfect condition. Their communication was on point and sobrang helpful ng team. Definitely renting again for my next adventure!"
+                            </p>
+                            <div class="review-header">
+                                <div class="reviewer-avatar" style="background: #667eea;">JD</div>
+                                <div class="reviewer-info">
+                                    <h4 class="reviewer-name">Juan Dela Cruz</h4>
+                                    <p style="margin: 0; color: #9ca3af; font-size: 0.85rem;">Quezon City</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-card review-slide">
+                            <div class="review-top">
+                                <div class="review-stars">★★★★★</div>
+                                <span class="product-rented">Rented: DJI Mini 4 Pro</span>
+                            </div>
+                            <p class="review-text">
+                                "Grabe! I rented a DJI Mini 4 Pro for my content creation and sobrang worth it! Brand new condition, complete accessories, and ang affordable ng rates. The pick-up and drop-off process was super smooth. Highly recommended for vloggers and content creators!"
+                            </p>
+                            <div class="review-header">
+                                <div class="reviewer-avatar" style="background: #ec4899;">MS</div>
+                                <div class="reviewer-info">
+                                    <h4 class="reviewer-name">Maria Santos</h4>
+                                    <p style="margin: 0; color: #9ca3af; font-size: 0.85rem;">Makati City</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-card review-slide">
+                            <div class="review-top">
+                                <div class="review-stars">★★★★★</div>
+                                <span class="product-rented">Rented: Sony A7III</span>
+                            </div>
+                            <p class="review-text">
+                                "Best camera rental service in Metro Manila! I needed a Sony A7III for a client shoot and CameRent delivered on time with all the accessories I needed. Professional service, reasonable prices, and excellent equipment quality. Will definitely use them again!"
+                            </p>
+                            <div class="review-header">
+                                <div class="reviewer-avatar" style="background: #3b82f6;">RL</div>
+                                <div class="reviewer-info">
+                                    <h4 class="reviewer-name">Rico Lopez</h4>
+                                    <p style="margin: 0; color: #9ca3af; font-size: 0.85rem;">Taguig City</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-card review-slide">
+                            <div class="review-top">
+                                <div class="review-stars">★★★★★</div>
+                                <span class="product-rented">Rented: Fujifilm X-T4</span>
+                            </div>
+                            <p class="review-text">
+                                "Sobrang helpful ng CameRent team! As a beginner photographer, they recommended the perfect camera for my needs. Yung booking process madali lang and transparent ang pricing. The equipment was well-maintained and ready to use. Thank you, CameRent!"
+                            </p>
+                            <div class="review-header">
+                                <div class="reviewer-avatar" style="background: #10b981;">AB</div>
+                                <div class="reviewer-info">
+                                    <h4 class="reviewer-name">Anna Bautista</h4>
+                                    <p style="margin: 0; color: #9ca3af; font-size: 0.85rem;">Manila</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-card review-slide">
+                            <div class="review-top">
+                                <div class="review-stars">★★★★★</div>
+                                <span class="product-rented">Rented: GoPro HERO 13</span>
+                            </div>
+                            <p class="review-text">
+                                "Rented a GoPro HERO 13 for my Siargao trip and I'm so glad I did! Hassle-free booking, affordable rates, and the camera was in pristine condition. CameRent's service is top-notch. Perfect for travelers who want quality gear without buying!"
+                            </p>
+                            <div class="review-header">
+                                <div class="reviewer-avatar" style="background: #f59e0b;">MC</div>
+                                <div class="reviewer-info">
+                                    <h4 class="reviewer-name">Miguel Cruz</h4>
+                                    <p style="margin: 0; color: #9ca3af; font-size: 0.85rem;">Pasig City</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-card review-slide">
+                            <div class="review-top">
+                                <div class="review-stars">★★★★★</div>
+                                <span class="product-rented">Rented: Samsung Galaxy S23 Ultra</span>
+                            </div>
+                            <p class="review-text">
+                                "👍 CameRent is THE place to rent cameras in Manila! Smooth onboarding process, responsive customer service, and walang hidden charges. Yung camera quality sobrang ganda and complete lahat ng accessories. Highly recommended for everyone! Keep it up, CameRent! 👍"
+                            </p>
+                            <div class="review-header">
+                                <div class="reviewer-avatar" style="background: #ef4444;">LR</div>
+                                <div class="reviewer-info">
+                                    <h4 class="reviewer-name">Luis Reyes</h4>
+                                    <p style="margin: 0; color: #9ca3af; font-size: 0.85rem;">Mandaluyong</p>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        
+                        <button class="review-nav review-next" id="reviewNext">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="review-indicators">
+                        <button class="review-dot active" data-slide="0"></button>
+                        <button class="review-dot" data-slide="1"></button>
+                        <button class="review-dot" data-slide="2"></button>
+                        <button class="review-dot" data-slide="3"></button>
+                        <button class="review-dot" data-slide="4"></button>
+                        <button class="review-dot" data-slide="5"></button>
+                    </div>
+                </div>
+            </section>
+</main>
+
+    <!-- HERO CAROUSEL SCRIPT -->
+    <script>
+        const heroSection = document.querySelector('.hero');
+        const carouselScroll = document.querySelector('.hero-carousel-scroll');
+        let originalCards = Array.from(document.querySelectorAll('.carousel-card'));
+        
+        // Clone cards multiple times for infinite scroll effect
+        const cloneCount = 10; // Create 10 sets of cards for smooth infinite scrolling
+        for (let i = 0; i < cloneCount; i++) {
+            originalCards.forEach(card => {
+                const clone = card.cloneNode(true);
+                carouselScroll.appendChild(clone);
+            });
+        }
+        
+        // Get all cards including clones
+        let allCards = document.querySelectorAll('.carousel-card');
+        
+        // Calculate dimensions
+        const cardWidth = 160; // Card width
+        const cardGap = 15; // Gap between cards
+        const totalCardWidth = cardWidth + cardGap;
+        const originalSetWidth = originalCards.length * totalCardWidth;
+        
+        // Start at the middle set to allow scrolling both directions
+        const middlePosition = originalSetWidth * 5;
+        carouselScroll.scrollLeft = middlePosition;
+
+        // Set background based on card element
+        function setBackground(card) {
+            const imgSrc = card.querySelector('img').src;
+            heroSection.style.backgroundImage = `url(${imgSrc})`;
+            
+            // Remove active class from all cards
+            allCards.forEach(c => c.classList.remove('active'));
+            // Add active class to clicked card
+            card.classList.add('active');
+        }
+
+        // Set initial background to first card
+        setBackground(allCards[0]);
+
+        // Handle infinite scroll - reset position when reaching edges
+        let isResetting = false;
+        carouselScroll.addEventListener('scroll', () => {
+            if (isResetting) return;
+            
+            const scrollLeft = carouselScroll.scrollLeft;
+            const maxScroll = carouselScroll.scrollWidth - carouselScroll.clientWidth;
+            
+            // If scrolled near the end, reset to equivalent position in middle
+            if (scrollLeft >= maxScroll - originalSetWidth) {
+                isResetting = true;
+                carouselScroll.scrollLeft = middlePosition + (scrollLeft % originalSetWidth);
+                setTimeout(() => { isResetting = false; }, 50);
+            }
+            // If scrolled near the beginning, reset to equivalent position in middle
+            else if (scrollLeft <= originalSetWidth) {
+                isResetting = true;
+                carouselScroll.scrollLeft = middlePosition + (scrollLeft % originalSetWidth);
+                setTimeout(() => { isResetting = false; }, 50);
+            }
+        });
+
+        // Update first visible card styling
+        function updateFirstVisibleCard() {
+            allCards.forEach(c => c.classList.remove('first-visible'));
+            
+            const containerRect = carouselScroll.getBoundingClientRect();
+            const scrollLeft = carouselScroll.scrollLeft;
+            
+            // Find the leftmost visible card
+            let firstVisibleCard = null;
+            let minDistance = Infinity;
+            
+            allCards.forEach(card => {
+                const cardLeft = card.offsetLeft - scrollLeft;
+                if (cardLeft >= 0 && cardLeft < minDistance) {
+                    minDistance = cardLeft;
+                    firstVisibleCard = card;
+                }
+            });
+            
+            if (firstVisibleCard) {
+                firstVisibleCard.classList.add('first-visible');
+            }
+        }
+
+        // Add click event to scroll card to left and change background
+        allCards.forEach((card) => {
+            card.addEventListener('click', () => {
+                setBackground(card);
+                
+                // Scroll clicked card to the leftmost position
+                const cardOffset = card.offsetLeft - carouselScroll.offsetLeft;
+                carouselScroll.scrollTo({
+                    left: cardOffset - 10,
+                    behavior: 'smooth'
+                });
+                
+                // Update first visible after scroll completes
+                setTimeout(updateFirstVisibleCard, 500);
+            });
+        });
+
+        // Update first visible card on scroll
+        carouselScroll.addEventListener('scroll', updateFirstVisibleCard);
+        
+        // Initial update
+        updateFirstVisibleCard();
+
+        // Auto-rotate every 6 seconds
+        setInterval(() => {
+            carouselScroll.scrollLeft += totalCardWidth;
+            
+            // Update background based on visible card
+            const visibleIndex = Math.round(carouselScroll.scrollLeft / totalCardWidth) % originalCards.length;
+            setBackground(allCards[visibleIndex]);
+            
+            // Update first visible card
+            setTimeout(updateFirstVisibleCard, 100);
+        }, 6000);
+    </script>
+
+    <!-- DATE PICKER LOGIC -->
+    <script>
+        const pickupInput = document.getElementById('pickupDate');
+        const returnInput = document.getElementById('returnDate');
+        const rentNowBtn = document.querySelector('.btn-rent-now');
+
+        // Check if both dates are selected
+        function checkDates() {
+            if (pickupInput.value && returnInput.value) {
+                rentNowBtn.classList.add('show');
+            } else {
+                rentNowBtn.classList.remove('show');
+            }
+        }
+
+        // Add event listeners
+        pickupInput.addEventListener('change', checkDates);
+        returnInput.addEventListener('change', checkDates);
+
+        // Handle Rent Now button click
+        rentNowBtn.addEventListener('click', () => {
+            const pickup = pickupInput.value;
+            const returnDate = returnInput.value;
+            
+            // Save dates to localStorage
+            localStorage.setItem('pickupDate', pickup);
+            localStorage.setItem('returnDate', returnDate);
+            
+            // Redirect to cameras page
+            window.location.href = 'cameras.html';
+        });
+
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        pickupInput.setAttribute('min', today);
+        
+        // Update return date minimum when pickup is selected
+        pickupInput.addEventListener('change', () => {
+            returnInput.setAttribute('min', pickupInput.value);
+        });
+        </script>
+
+        <!-- PRODUCT HIGHLIGHTS CAROUSEL LOGIC -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const slides = document.querySelectorAll('.carousel-slide');
+                const indicators = document.querySelectorAll('.indicator');
+                const prevBtn = document.getElementById('prevSlide');
+                const nextBtn = document.getElementById('nextSlide');
+                let currentSlide = 0;
+                let autoPlayInterval;
+
+                function showSlide(index) {
+                    // Remove active class from all slides and indicators
+                    slides.forEach(slide => {
+                        slide.classList.remove('active');
+                        const video = slide.querySelector('.slide-video');
+                        video.pause();
+                        video.currentTime = 0;
+                    });
+                    indicators.forEach(ind => ind.classList.remove('active'));
+
+                    // Add active class to current slide and indicator
+                    slides[index].classList.add('active');
+                    indicators[index].classList.add('active');
+                    
+                    // Play current video
+                    const activeVideo = slides[index].querySelector('.slide-video');
+                    activeVideo.play();
+
+                    currentSlide = index;
+                }
+
+                function nextSlide() {
+                    let next = (currentSlide + 1) % slides.length;
+                    showSlide(next);
+                }
+
+                function prevSlide() {
+                    let prev = (currentSlide - 1 + slides.length) % slides.length;
+                    showSlide(prev);
+                }
+
+                function startAutoPlay() {
+                    autoPlayInterval = setInterval(nextSlide, 8000); // Change slide every 8 seconds
+                }
+
+                function stopAutoPlay() {
+                    clearInterval(autoPlayInterval);
+                }
+
+                // Event listeners
+                nextBtn.addEventListener('click', () => {
+                    nextSlide();
+                    stopAutoPlay();
+                    startAutoPlay();
+                });
+
+                prevBtn.addEventListener('click', () => {
+                    prevSlide();
+                    stopAutoPlay();
+                    startAutoPlay();
+                });
+
+                indicators.forEach((indicator, index) => {
+                    indicator.addEventListener('click', () => {
+                        showSlide(index);
+                        stopAutoPlay();
+                        startAutoPlay();
+                    });
+                });
+
+                // Start autoplay
+                startAutoPlay();
+                
+                // Play first video
+                const firstVideo = slides[0].querySelector('.slide-video');
+                firstVideo.play();
+            });
+        </script>
+
+        <!-- Scroll-up button logic (kept inside body for valid structure) -->
+        <script>
+            // Get the button
+            const scrollUpBtn = document.getElementById("scrollUpBtn");
+
+            // Show button when scrolling down 100px
+            window.onscroll = function() {
+                if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                    scrollUpBtn.style.display = "block";
+                } else {
+                    scrollUpBtn.style.display = "none";
+                }
+            };
+
+            // When clicked, scroll to the top smoothly
+            scrollUpBtn.onclick = function() {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            };
+        </script>
+
+        <!-- REVIEWS CAROUSEL SCRIPT -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const reviewSlides = document.querySelectorAll('.review-slide');
+                const reviewDots = document.querySelectorAll('.review-dot');
+                const prevBtn = document.getElementById('reviewPrev');
+                const nextBtn = document.getElementById('reviewNext');
+                let currentReview = 0;
+                let reviewAutoPlay;
+
+                function showReview(index) {
+                    // Remove active class from all slides and dots
+                    reviewSlides.forEach(slide => slide.classList.remove('active'));
+                    reviewDots.forEach(dot => dot.classList.remove('active'));
+
+                    // Add active class to current slide and dot
+                    reviewSlides[index].classList.add('active');
+                    reviewDots[index].classList.add('active');
+
+                    currentReview = index;
+                }
+
+                function nextReview() {
+                    let next = (currentReview + 1) % reviewSlides.length;
+                    showReview(next);
+                }
+
+                function prevReview() {
+                    let prev = (currentReview - 1 + reviewSlides.length) % reviewSlides.length;
+                    showReview(prev);
+                }
+
+                function startReviewAutoPlay() {
+                    reviewAutoPlay = setInterval(nextReview, 5000); // Change every 5 seconds
+                }
+
+                function stopReviewAutoPlay() {
+                    clearInterval(reviewAutoPlay);
+                }
+
+                // Event listeners
+                if (prevBtn) {
+                    prevBtn.addEventListener('click', () => {
+                        prevReview();
+                        stopReviewAutoPlay();
+                        startReviewAutoPlay();
+                    });
+                }
+
+                if (nextBtn) {
+                    nextBtn.addEventListener('click', () => {
+                        nextReview();
+                        stopReviewAutoPlay();
+                        startReviewAutoPlay();
+                    });
+                }
+
+                reviewDots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => {
+                        showReview(index);
+                        stopReviewAutoPlay();
+                        startReviewAutoPlay();
+                    });
+                });
+
+                // Start autoplay
+                startReviewAutoPlay();
+
+                // Pause on hover
+                const carouselWrapper = document.querySelector('.reviews-carousel-wrapper');
+                if (carouselWrapper) {
+                    carouselWrapper.addEventListener('mouseenter', stopReviewAutoPlay);
+                    carouselWrapper.addEventListener('mouseleave', startReviewAutoPlay);
+                }
+            });
+        </script>
+
+        <!-- FOOTER -->
+        <div id="footer-placeholder"></div>
+
+        <button id="scrollUpBtn" title="Go to top">↑</button>
+
+</body>
+
+</html>

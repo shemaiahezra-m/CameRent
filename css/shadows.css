@@ -1,0 +1,20 @@
+/* CONSISTENT SHADOW SYSTEM */
+/* Use these CSS variables for all shadows across the site */
+
+:root {
+    /* Card shadows */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.12);
+    --shadow-2xl: 0 20px 48px rgba(0, 0, 0, 0.15);
+    
+    /* Brand colored shadows */
+    --shadow-brand-sm: 0 4px 12px rgba(139, 92, 246, 0.15);
+    --shadow-brand-md: 0 6px 20px rgba(139, 92, 246, 0.25);
+    --shadow-brand-lg: 0 10px 30px rgba(139, 92, 246, 0.3);
+    
+    /* Hover state shadows */
+    --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.15);
+    --shadow-brand-hover: 0 12px 36px rgba(139, 92, 246, 0.35);
+}

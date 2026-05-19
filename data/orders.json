@@ -1,0 +1,268 @@
+[
+  {
+    "id": 12,
+    "userId": 13,
+    "items": [
+      {
+        "product_id": "iphone-16-pro-max",
+        "name": "iPhone 16 Pro Max (256GB)",
+        "quantity": 1,
+        "price": 1499
+      }
+    ],
+    "total": 5392.94,
+    "status": "confirmed",
+    "createdAt": 1768379021,
+    "start_date": 1768262400,
+    "end_date": 1768521600,
+    "payment_method": "card",
+    "shipping_method": "makati",
+    "security_deposit_status": null
+  },
+  {
+    "id": 12,
+    "userId": 13,
+    "items": [
+      {
+        "product_id": "iphone-16-pro-max",
+        "name": "iPhone 16 Pro Max (256GB)",
+        "quantity": 1,
+        "price": 1499
+      }
+    ],
+    "total": 5392.94,
+    "status": "confirmed",
+    "createdAt": 1768379021,
+    "start_date": 1768262400,
+    "end_date": 1768521600,
+    "payment_method": "card",
+    "shipping_method": "makati",
+    "security_deposit_status": null
+  },
+  {
+    "id": 11,
+    "userId": 9,
+    "items": [
+      {
+        "product_id": "iphone-16-pro-max",
+        "name": "iPhone 16 Pro Max (256GB)",
+        "quantity": 1,
+        "price": 1499
+      }
+    ],
+    "total": 3563.96,
+    "status": "new",
+    "createdAt": 1768377973,
+    "start_date": 1768262400,
+    "end_date": 1768435200,
+    "payment_method": "cod",
+    "shipping_method": "manila",
+    "security_deposit_status": null
+  },
+  {
+    "id": 10,
+    "userId": 9,
+    "items": [
+      {
+        "product_id": "iphone-16-pro-max",
+        "name": "iPhone 16 Pro Max (256GB)",
+        "quantity": 1,
+        "price": 1499
+      }
+    ],
+    "total": 3563.96,
+    "status": "confirmed",
+    "createdAt": 1768377217,
+    "start_date": 1768262400,
+    "end_date": 1768435200,
+    "payment_method": "card",
+    "shipping_method": "makati",
+    "security_deposit_status": null
+  },
+  {
+    "id": 9,
+    "userId": 12,
+    "items": [
+      {
+        "product_id": "iphone-16-pro-max",
+        "name": "iPhone 16 Pro Max (256GB)",
+        "quantity": 1,
+        "price": 1499
+      }
+    ],
+    "total": 5041.94,
+    "status": "confirmed",
+    "createdAt": 1768377034,
+    "start_date": 1768262400,
+    "end_date": 1768521600,
+    "payment_method": "card",
+    "shipping_method": "makati",
+    "security_deposit_status": null
+  },
+  {
+    "id": 8,
+    "userId": 12,
+    "items": [
+      {
+        "product_id": "iphone-16-pro-max",
+        "name": "iPhone 16 Pro Max (256GB)",
+        "quantity": 1,
+        "price": 1499
+      }
+    ],
+    "total": 3614.96,
+    "status": "new",
+    "createdAt": 1768376809,
+    "start_date": 1768262400,
+    "end_date": 1768435200,
+    "payment_method": "cod",
+    "shipping_method": "makati",
+    "security_deposit_status": null
+  },
+  {
+    "id": 7,
+    "userId": 12,
+    "items": [
+      {
+        "product_id": "iphone-16-pro-max",
+        "name": "iPhone 16 Pro Max (256GB)",
+        "quantity": 1,
+        "price": 1499
+      }
+    ],
+    "total": 5296.94,
+    "status": "new",
+    "createdAt": 1768376155,
+    "start_date": 1768262400,
+    "end_date": 1768521600,
+    "payment_method": "cod",
+    "shipping_method": "manila",
+    "security_deposit_status": null
+  },
+  {
+    "id": 6,
+    "userId": 9,
+    "items": [
+      {
+        "product_id": "iphone-16-pro-max",
+        "name": "iPhone 16 Pro Max (256GB)",
+        "quantity": 1,
+        "price": 1499
+      }
+    ],
+    "total": 2034.98,
+    "status": "confirmed",
+    "createdAt": 1768375402,
+    "start_date": 1768348800,
+    "end_date": 1768435200,
+    "payment_method": "card",
+    "shipping_method": "qc",
+    "security_deposit_status": null
+  },
+  {
+    "id": 5,
+    "userId": 12,
+    "items": [
+      {
+        "product_id": "iphone-13-pro-max",
+        "name": "iPhone 13 Pro Max (128GB Sierra Blue)",
+        "quantity": 1,
+        "price": 699
+      }
+    ],
+    "total": 1880.96,
+    "status": "new",
+    "createdAt": 1768374880,
+    "start_date": 1768262400,
+    "end_date": 1768435200,
+    "payment_method": "cod",
+    "shipping_method": "makati",
+    "security_deposit_status": null
+  },
+  {
+    "id": 4,
+    "userId": 11,
+    "items": [
+      {
+        "product_id": "iphone-16-pro-max",
+        "name": "iPhone 16 Pro Max (256GB)",
+        "quantity": 1,
+        "price": 1499
+      }
+    ],
+    "total": 1983.98,
+    "status": "new",
+    "createdAt": 1768374227,
+    "start_date": 1768953600,
+    "end_date": 1769040000,
+    "payment_method": "cod",
+    "shipping_method": "manila",
+    "security_deposit_status": null
+  },
+  {
+    "id": 3,
+    "userId": 11,
+    "items": [
+      {
+        "product_id": "iphone-14-pro",
+        "name": "iPhone 14 Pro (128GB)",
+        "quantity": 1,
+        "price": 899
+      }
+    ],
+    "total": 3454.94,
+    "status": "new",
+    "createdAt": 1768373780,
+    "start_date": 1768262400,
+    "end_date": 1768521600,
+    "payment_method": "paymaya",
+    "shipping_method": "manila",
+    "security_deposit_status": null
+  },
+  {
+    "id": 2,
+    "userId": 11,
+    "items": [
+      {
+        "product_id": "iphone-16-pro-max",
+        "name": "iPhone 16 Pro Max (256GB)",
+        "quantity": 1,
+        "price": 1499
+      },
+      {
+        "product_id": "iphone-14-pro",
+        "name": "iPhone 14 Pro (128GB)",
+        "quantity": 1,
+        "price": 899
+      }
+    ],
+    "total": 3206.96,
+    "status": "new",
+    "createdAt": 1768373393,
+    "start_date": 1768780800,
+    "end_date": 1768867200,
+    "payment_method": "cod",
+    "shipping_method": "makati",
+    "security_deposit_status": null
+  },
+  {
+    "id": 1,
+    "userId": 7,
+    "items": [
+      {
+        "product_id": "iphone-16-pro-max",
+        "name": "iPhone 16 Pro Max (256GB)",
+        "quantity": 1,
+        "price": 1499
+      }
+    ],
+    "total": 6107.12,
+    "status": "new",
+    "createdAt": 1768195475,
+    "start_date": 1768262400,
+    "end_date": 1768608000,
+    "payment_method": "cod",
+    "shipping_method": "manila",
+    "security_deposit_status": null
+  }
+]

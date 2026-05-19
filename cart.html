@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - CameRent MNL</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 512'><path fill='%238b5cf6' d='M149.1 64.8L138.7 96H64C28.7 96 0 124.7 0 160V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H373.3L362.9 64.8C356.4 45.2 338.1 32 317.4 32H194.6c-20.7 0-39 13.2-45.5 32.8zM256 192a96 96 0 1 1 0 192 96 96 0 1 1 0-192z'/></svg>" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <script src="js/common.js" defer></script>
+    <script src="js/navigation.js" defer></script>
+    <script src="js/profile-modal.js" defer></script>
+    <script src="js/cart.js" defer></script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <!-- Cart Section -->
+    <section class="cart-section">
+        <div class="container">
+            
+            <!-- Empty Cart State -->
+            <div class="empty-cart" id="emptyCart" style="display: none;">
+                <div class="empty-cart-icon">
+                    <i class="fas fa-shopping-bag"></i>
+                </div>
+                <h2>Your Cart is Empty</h2>
+                <p>Browse our camera collection and add items to your cart</p>
+                <a href="cameras.html" class="btn-browse">Browse Cameras</a>
+            </div>
+
+            <!-- Cart with Items -->
+            <div class="cart-content" id="cartContent">
+                <h1 class="cart-title">Shopping Cart</h1>
+
+                <div class="cart-layout">
+                    <!-- Cart Items -->
+                    <div class="cart-items">
+                        <!-- Items will be loaded here by JavaScript from localStorage -->
+                    </div>
+
+                    <!-- Order Summary -->
+                    <div class="order-summary">
+                        <h2>Order Summary</h2>
+                        
+                        <div class="summary-items">
+                            <div class="summary-item">
+                                <span>Canon G7X Mark III (1)</span>
+                                <span>₱3500.00</span>
+                            </div>
+                            <div class="summary-item">
+                                <span>DJI Osmo Pocket 3 (1)</span>
+                                <span>₱4550.00</span>
+                            </div>
+                            <div class="summary-item">
+                                <span>Insta360 One X2 (1)</span>
+                                <span>₱3850.00</span>
+                            </div>
+                        </div>
+
+                        <div class="summary-divider"></div>
+
+                        <div class="summary-totals">
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span id="subtotal">₱11900.00</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Tax (2%)</span>
+                                <span id="tax">₱1190.00</span>
+                            </div>
+                        </div>
+
+                        <div class="summary-divider"></div>
+
+                        <div class="summary-total">
+                            <span>Total</span>
+                            <span id="total">₱13090.00</span>
+                        </div>
+
+                        <button class="btn-checkout">
+                            Proceed to Checkout
+                        </button>
+
+                        <button class="btn-continue">
+                            Continue Shopping
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <div id="footer-placeholder"></div>
+</body>
+</html>

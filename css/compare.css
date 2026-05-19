@@ -1,0 +1,426 @@
+/* COMPARE PAGE STYLES */
+
+/* Hero Section */
+.compare-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 100px 20px 60px;
+    text-align: center;
+}
+
+.compare-hero .page-title {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: white;
+}
+
+.compare-hero .page-subtitle {
+    font-size: 20px;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Compare Section */
+.compare-section {
+    padding: 80px 20px;
+    background: #ffffff;
+    min-height: 60vh;
+}
+
+/* Empty State */
+.compare-empty {
+    text-align: center;
+    padding: 80px 20px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.compare-empty i {
+    font-size: 80px;
+    color: #764ba2;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.compare-empty h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: #1f2937;
+}
+
+.compare-empty p {
+    font-size: 18px;
+    color: #6b7280;
+    margin-bottom: 30px;
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 14px 32px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(118, 75, 162, 0.3);
+}
+
+.btn-secondary {
+    padding: 12px 24px;
+    background: #1d1d1f;
+    color: white;
+    text-decoration: none;
+    border-radius: 980px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-secondary:hover {
+    background: #424245;
+}
+
+.btn-outlined {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 980px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 14px;
+}
+
+.btn-outlined:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+}
+
+/* Compare Grid */
+.compare-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 12px;
+    margin-bottom: 50px;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.compare-card {
+    background: #fbfbfd;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid #e8e8ed;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.compare-card:hover {
+    border-color: #667eea;
+    box-shadow: 0 4px 24px rgba(102, 126, 234, 0.12);
+}
+
+.compare-card-image {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+.compare-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.compare-card-remove {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(10px);
+    color: #1d1d1f;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    z-index: 10;
+}
+
+.compare-card-remove:hover {
+    background: rgba(239, 68, 68, 0.95);
+    color: white;
+    transform: scale(1.05);
+}
+
+.compare-card-info {
+    padding: 24px;
+    text-align: center;
+}
+
+.compare-card-category {
+    font-size: 11px;
+    font-weight: 600;
+    color: #764ba2;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.compare-card-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1d1d1f;
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+
+.compare-card-price {
+    font-size: 28px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+}
+
+.compare-card-specs {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+.compare-card-specs li {
+    padding: 12px 0;
+    border-bottom: 1px solid #e8e8ed;
+    font-size: 14px;
+    color: #86868b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.compare-card-specs li:last-child {
+    border-bottom: none;
+}
+
+/* Compare Table */
+.compare-table-container {
+    background: #fbfbfd;
+    border-radius: 18px;
+    overflow-x: auto;
+    border: 1px solid #e8e8ed;
+    margin-bottom: 40px;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+    table-layout: auto;
+}
+
+.compare-table tr {
+    border-bottom: 1px solid #e8e8ed;
+}
+
+.compare-table tr:last-child {
+    border-bottom: none;
+}
+
+.compare-table th,
+.compare-table td {
+    padding: 20px 24px;
+    text-align: left;
+}
+
+.compare-table th {
+    background: #ffffff;
+    font-weight: 500;
+    color: #1d1d1f;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+    width: 180px;
+    min-width: 150px;
+    white-space: nowrap;
+}
+
+.compare-table td {
+    font-size: 14px;
+    color: #86868b;
+    vertical-align: middle;
+    background: #fbfbfd;
+    min-width: 200px;
+}
+
+.compare-table .table-header-row th {
+    background: #ffffff;
+    color: #1d1d1f;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 600;
+    padding: 30px 20px;
+    border-bottom: 2px solid #e8e8ed;
+}
+
+.compare-table .table-image {
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+    border-radius: 12px;
+    margin: 0 auto;
+    display: block;
+    background: white;
+    padding: 15px;
+}
+
+.compare-table .highlight {
+    color: #667eea;
+    font-weight: 600;
+}
+
+/* Compare Actions */
+.compare-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    padding: 20px 0;
+}
+
+/* Add to Compare Button (for camera cards) */
+.add-to-compare-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(102, 126, 234, 0.9);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 18px;
+    z-index: 10;
+    opacity: 0;
+}
+
+.camera-card:hover .add-to-compare-btn {
+    opacity: 1;
+}
+
+.add-to-compare-btn:hover {
+    background: #764ba2;
+    transform: scale(1.1);
+}
+
+.add-to-compare-btn.active {
+    background: #16a34a;
+    opacity: 1;
+}
+
+.add-to-compare-btn.active:hover {
+    background: #15803d;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .compare-hero .page-title {
+        font-size: 36px;
+    }
+
+    .compare-hero .page-subtitle {
+        font-size: 16px;
+    }
+
+    .compare-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .compare-card-image {
+        height: 200px;
+        padding: 20px;
+    }
+
+    .compare-card-info {
+        padding: 16px;
+    }
+
+    .compare-card-name {
+        font-size: 15px;
+    }
+
+    .compare-card-price {
+        font-size: 22px;
+    }
+
+    .compare-table th {
+        width: 120px;
+        font-size: 12px;
+        padding: 15px 10px;
+    }
+
+    .compare-table td {
+        font-size: 13px;
+        padding: 15px 10px;
+    }
+
+    .compare-table .table-image {
+        width: 80px;
+        height: 80px;
+    }
+
+    .compare-actions {
+        flex-direction: column;
+    }
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-outlined {
+        width: 100%;
+        justify-content: center;
+    }
+}

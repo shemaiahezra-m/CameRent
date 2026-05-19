@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - CameRent MNL</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 512'><path fill='%238b5cf6' d='M149.1 64.8L138.7 96H64C28.7 96 0 124.7 0 160V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H373.3L362.9 64.8C356.4 45.2 338.1 32 317.4 32H194.6c-20.7 0-39 13.2-45.5 32.8zM256 192a96 96 0 1 1 0 192 96 96 0 1 1 0-192z'/></svg>" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/resources.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <script src="js/common.js" defer></script>
+    <script src="js/navigation.js" defer></script>
+    <script src="js/profile-modal.js" defer></script>
+    <script src="js/resources.js" defer></script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <!-- Resources Hero Section -->
+    <section class="resources-hero">
+        <div class="container">
+            <h1 class="hero-title">Learn with CameRent</h1>
+            <p class="hero-subtitle">Tips, guides, and insights to help you capture perfect moments</p>
+        </div>
+    </section>
+
+    <!-- Blog Categories -->
+    <section class="blog-categories">
+        <div class="container">
+            <div class="category-filters">
+                <button class="category-btn active" data-category="all">All Articles</button>
+                <button class="category-btn" data-category="beginner">Beginner Tips</button>
+                <button class="category-btn" data-category="advanced">Advanced Techniques</button>
+                <button class="category-btn" data-category="equipment">Equipment Guides</button>
+                <button class="category-btn" data-category="events">Event Photography</button>
+            </div>
+            <div class="category-dropdown-container">
+                <label for="category-select" class="category-label">
+                    <i class="fas fa-filter"></i> Category:
+                </label>
+                <select id="category-select" class="category-dropdown">
+                    <option value="all">All Articles</option>
+                    <option value="beginner">Beginner Tips</option>
+                    <option value="advanced">Advanced Techniques</option>
+                    <option value="equipment">Equipment Guides</option>
+                    <option value="events">Event Photography</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Blog -->
+    <section class="featured-blog">
+        <div class="container">
+            <div class="featured-card">
+                <div class="featured-image">
+                    <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=800" alt="Featured Blog">
+                    <span class="featured-badge">Featured</span>
+                </div>
+                <div class="featured-content">
+                    <div class="blog-meta">
+                        <span class="category-tag">Beginner Tips</span>
+                        <span class="read-time"><i class="far fa-clock"></i> 6 min read</span>
+                    </div>
+                    <h2>Creating Insta-Worthy Photos: What You Need to Know</h2>
+                    <p>You've seen them. The photos with the perfect composition, the right filters, and the perfect amount of light. They make you stop in your tracks, and you can't help but double-tap in envy. What you may not know is that most of these Insta-worthy photos didn't happen by accident. There's a lot of careful thought and technique behind every stunning post.</p>
+                    <div class="blog-footer">
+                        <div class="author-info">
+                            <img src="https://i.pravatar.cc/50?img=1" alt="Author">
+                            <div>
+                                <span class="author-name">Maria Santos</span>
+                                <span class="publish-date">October 10, 2025</span>
+                            </div>
+                        </div>
+                        <button class="read-more-btn">Read More <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Grid -->
+    <section class="blog-section">
+        <div class="container">
+            <div class="blog-grid" id="blogGrid">
+                <!-- Blog Card 1 -->
+                <article class="blog-card" data-category="beginner">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=400" alt="Photography Basics">
+                        <span class="category-badge">Beginner Tips</span>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="read-time"><i class="far fa-clock"></i> 5 min read</span>
+                        </div>
+                        <h3>10 Essential Photography Tips for Beginners</h3>
+                        <p>Master the fundamentals of photography with these essential tips. Learn about composition, lighting, and camera settings.</p>
+                        <div class="blog-footer">
+                            <div class="author-info">
+                                <img src="https://i.pravatar.cc/50?img=2" alt="Author">
+                                <span class="author-name">John Reyes</span>
+                            </div>
+                            <button class="read-more-link">Read More <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Blog Card 2 -->
+                <article class="blog-card" data-category="advanced">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1606918801925-e2c914c4b503?w=400" alt="Long Exposure">
+                        <span class="category-badge">Advanced Techniques</span>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="read-time"><i class="far fa-clock"></i> 12 min read</span>
+                        </div>
+                        <h3>Mastering Long Exposure Photography</h3>
+                        <p>Create stunning light trails and silky water effects with long exposure techniques. Complete guide with camera settings.</p>
+                        <div class="blog-footer">
+                            <div class="author-info">
+                                <img src="https://i.pravatar.cc/50?img=3" alt="Author">
+                                <span class="author-name">Sarah Cruz</span>
+                            </div>
+                            <button class="read-more-link">Read More <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Blog Card 3 -->
+                <article class="blog-card" data-category="equipment">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1606951254634-ca441bdc5947?w=400" alt="Camera Lenses">
+                        <span class="category-badge">Equipment Guides</span>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="read-time"><i class="far fa-clock"></i> 7 min read</span>
+                        </div>
+                        <h3>Understanding Camera Lenses: A Complete Guide</h3>
+                        <p>Learn the differences between prime and zoom lenses, focal lengths, and how to choose the right lens for every situation.</p>
+                        <div class="blog-footer">
+                            <div class="author-info">
+                                <img src="https://i.pravatar.cc/50?img=4" alt="Author">
+                                <span class="author-name">Miguel Torres</span>
+                            </div>
+                            <button class="read-more-link">Read More <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Blog Card 4 -->
+                <article class="blog-card" data-category="events">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400" alt="Wedding Photography">
+                        <span class="category-badge">Event Photography</span>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="read-time"><i class="far fa-clock"></i> 10 min read</span>
+                        </div>
+                        <h3>Wedding Photography: Tips from the Pros</h3>
+                        <p>Capture unforgettable moments on the big day. Learn essential techniques for wedding photography success.</p>
+                        <div class="blog-footer">
+                            <div class="author-info">
+                                <img src="https://i.pravatar.cc/50?img=5" alt="Author">
+                                <span class="author-name">Ana Lopez</span>
+                            </div>
+                            <button class="read-more-link">Read More <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Blog Card 5 -->
+                <article class="blog-card" data-category="beginner">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400" alt="Composition Rules">
+                        <span class="category-badge">Beginner Tips</span>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="read-time"><i class="far fa-clock"></i> 6 min read</span>
+                        </div>
+                        <h3>The Rule of Thirds and Other Composition Techniques</h3>
+                        <p>Improve your photography instantly by mastering these timeless composition rules and techniques.</p>
+                        <div class="blog-footer">
+                            <div class="author-info">
+                                <img src="https://i.pravatar.cc/50?img=6" alt="Author">
+                                <span class="author-name">Carlos Mendoza</span>
+                            </div>
+                            <button class="read-more-link">Read More <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Blog Card 6 -->
+                <article class="blog-card" data-category="advanced">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=400" alt="Low Light Photography">
+                        <span class="category-badge">Advanced Techniques</span>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="read-time"><i class="far fa-clock"></i> 9 min read</span>
+                        </div>
+                        <h3>Low Light Photography Techniques</h3>
+                        <p>Master the art of shooting in challenging lighting conditions. Learn about ISO, aperture, and noise reduction.</p>
+                        <div class="blog-footer">
+                            <div class="author-info">
+                                <img src="https://i.pravatar.cc/50?img=7" alt="Author">
+                                <span class="author-name">Lisa Garcia</span>
+                            </div>
+                            <button class="read-more-link">Read More <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Blog Card 7 -->
+                <article class="blog-card" data-category="equipment">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?w=400" alt="Camera Accessories">
+                        <span class="category-badge">Equipment Guides</span>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="read-time"><i class="far fa-clock"></i> 8 min read</span>
+                        </div>
+                        <h3>Essential Camera Accessories Every Photographer Needs</h3>
+                        <p>Build the perfect camera kit with these must-have accessories. From tripods to memory cards and beyond.</p>
+                        <div class="blog-footer">
+                            <div class="author-info">
+                                <img src="https://i.pravatar.cc/50?img=8" alt="Author">
+                                <span class="author-name">David Ramos</span>
+                            </div>
+                            <button class="read-more-link">Read More <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Blog Card 8 -->
+                <article class="blog-card" data-category="events">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=400" alt="Concert Photography">
+                        <span class="category-badge">Event Photography</span>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="read-time"><i class="far fa-clock"></i> 11 min read</span>
+                        </div>
+                        <h3>Concert and Live Event Photography Guide</h3>
+                        <p>Capture the energy and excitement of live performances. Professional tips for shooting in dynamic environments.</p>
+                        <div class="blog-footer">
+                            <div class="author-info">
+                                <img src="https://i.pravatar.cc/50?img=9" alt="Author">
+                                <span class="author-name">Emma Santos</span>
+                            </div>
+                            <button class="read-more-link">Read More <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Blog Card 9 -->
+                <article class="blog-card" data-category="beginner">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1495121553079-4c61bcce1894?w=400" alt="Manual Mode">
+                        <span class="category-badge">Beginner Tips</span>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="read-time"><i class="far fa-clock"></i> 7 min read</span>
+                        </div>
+                        <h3>Getting Out of Auto Mode: Understanding Manual Settings</h3>
+                        <p>Take full control of your camera. Learn how to use manual mode effectively for better creative control.</p>
+                        <div class="blog-footer">
+                            <div class="author-info">
+                                <img src="https://i.pravatar.cc/50?img=10" alt="Author">
+                                <span class="author-name">Rico Fernandez</span>
+                            </div>
+                            <button class="read-more-link">Read More <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Color Planner toggle (CSS-driven) + modal -->
+    <input type="checkbox" id="colorToolToggle" class="sr-only" aria-hidden="true">
+    <label for="colorToolToggle" id="openColorToolBtn" class="floating-color-btn" aria-controls="colorToolModal" title="Open Color Planner">
+        <i class="fas fa-palette"></i>
+        <span class="btn-label">Color Planner</span>
+    </label>
+
+    <div id="colorToolModal" class="color-tool-modal" role="dialog" aria-modal="true" aria-labelledby="colorToolTitle">
+        <div class="color-tool-dialog">
+            <label for="colorToolToggle" class="color-tool-close" id="closeColorToolBtn" aria-label="Close color planner"><i class="fas fa-times"></i></label>
+            <div class="container">
+                <div class="tool-card">
+                    <header class="tool-header">
+                        <div class="tool-title">
+                            <div class="icon-circle"><i class="fas fa-palette"></i></div>
+                            <div>
+                                <h2 id="colorToolTitle">Planning & Color Reference Tool</h2>
+                                <p class="subtitle">Design your color palette before your shoot</p>
+                            </div>
+                        </div>
+                    </header>
+
+                    <div class="tool-body">
+                        <div class="left-col">
+                            <label class="label">Select Color</label>
+                            <div class="color-canvas-wrap">
+                                <canvas id="colorCanvas" width="360" height="360" aria-label="Color picker square"></canvas>
+                                <div id="pickerDot" aria-hidden="true" class="picker-dot"></div>
+                            </div>
+
+                            <label class="label">Hue Rotation</label>
+                            <input id="hueRange" type="range" min="0" max="360" value="0" class="hue-range">
+                        </div>
+
+                        <aside class="right-col">
+                            <label class="label">Current Color</label>
+                            <div id="currentColor" class="current-swatch"></div>
+
+                            <label class="label">Hex Code</label>
+                            <div class="hex-row">
+                                <input id="hexCode" class="hex-input" readonly value="#f04747">
+                                <button id="copyHex" class="copy-btn" title="Copy hex"><i class="fas fa-copy"></i></button>
+                            </div>
+
+                            <div class="rgb-row">
+                                <div class="rgb-col">
+                                    <label>R</label>
+                                    <input id="rInput" type="number" min="0" max="255">
+                                </div>
+                                <div class="rgb-col">
+                                    <label>G</label>
+                                    <input id="gInput" type="number" min="0" max="255">
+                                </div>
+                                <div class="rgb-col">
+                                    <label>B</label>
+                                    <input id="bInput" type="number" min="0" max="255">
+                                </div>
+                            </div>
+
+                            <div class="rgb-sliders">
+                                <input id="rRange" type="range" min="0" max="255">
+                                <input id="gRange" type="range" min="0" max="255">
+                                <input id="bRange" type="range" min="0" max="255">
+                            </div>
+
+                            <button id="saveColor" class="save-btn"><i class="fas fa-save"></i> Save to Palette</button>
+                        </aside>
+                    </div>
+                    
+                    <!-- Saved palette and usage tips (full width, below picker) -->
+                    <div class="palette-and-tips" style="margin-top:18px;">
+                        <h4 class="section-sub">Saved Palette <span id="paletteCount" class="muted-label"></span></h4>
+                        <div id="savedPalette" class="saved-palette" style="margin-bottom:14px"></div>
+                        
+                        <div style="display: flex; gap: 10px; margin-bottom: 18px;">
+                            <button id="exportPaletteBtn" class="export-btn" style="flex: 1; padding: 10px 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.2s;">
+                                <i class="fas fa-download"></i> Export Palette
+                            </button>
+                            <button id="clearPaletteBtn" class="clear-btn" style="padding: 10px 16px; background: #ef4444; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.2s;">
+                                <i class="fas fa-trash"></i> Clear All
+                            </button>
+                        </div>
+
+                        <div class="tips-box">
+                            <h4><i class="fas fa-lightbulb"></i> How to Use This Tool</h4>
+                            <ul>
+                                <li><strong>Plan Before You Rent:</strong> Design your color scheme before booking your camera</li>
+                                <li><strong>For Vloggers:</strong> Create thumbnail palettes & outfit coordination plans</li>
+                                <li><strong>For Concert Shooters:</strong> Match stage lighting colors and plan your shots</li>
+                                <li><strong>For Travelers:</strong> Build Instagram feed color themes before your trip</li>
+                                <li><strong>Save & Export:</strong> Copy hex codes to use in Lightroom, VSCO, CapCut, or Premiere Pro</li>
+                                <li><strong>Share with Your Team:</strong> Save your palette and share color codes with your crew</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lesson 5: Video Tutorials Section -->
+    <section class="video-tutorials" style="background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%); padding: 60px 0;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h2 style="font-size: 2rem; color: #1f2937; margin-bottom: 10px;">Video Tutorials</h2>
+                <p style="color: #6b7280; font-size: 1.1rem;">Learn photography techniques through our curated video guides</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto;">
+                <!-- Video Tutorial 1 - iframe -->
+                <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    <h3 style="color: #764ba2; margin: 0 0 15px 0; font-size: 1.2rem;">🎬 Camera Basics for Beginners</h3>
+                    <p style="color: #4b5563; font-size: 0.95rem; margin-bottom: 15px;">Master the fundamentals of DSLR and mirrorless cameras</p>
+                    
+                    <!-- Lesson 5.6: iframe with src -->
+                    <iframe src="https://www.youtube.com/embed/hVuTuib65WM" 
+                            width="100%" 
+                            height="250" 
+                            style="border: none; border-radius: 8px;"
+                            title="Camera Basics Tutorial"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                    </iframe>
+                    <p style="margin-top: 10px; color: #6b7280; font-size: 0.85rem;">Duration: 12:30</p>
+                </div>
+
+                <!-- Video Tutorial 2 - HTML5 video with controls -->
+                <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    <h3 style="color: #764ba2; margin: 0 0 15px 0; font-size: 1.2rem;">📸 Composition Techniques</h3>
+                    <p style="color: #4b5563; font-size: 0.95rem; margin-bottom: 15px;">Learn professional composition rules and techniques</p>
+
+                    <iframe src="https://www.youtube.com/embed/8XBYt-_U4WE?si=_oQh6t---xOQInbB" width="100%" 
+                            height="250" 
+                            style="border: none; border-radius: 8px;"
+                            title="Lighting Masterclass"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                    </iframe>
+                    <p style="margin-top: 10px; color: #6b7280; font-size: 0.85rem;">Duration: 20:37</p>
+                </div>
+
+                <!-- Video Tutorial 3 - Another iframe -->
+                <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    <h3 style="color: #764ba2; margin: 0 0 15px 0; font-size: 1.2rem;">💡 Lighting Masterclass</h3>
+                    <p style="color: #4b5563; font-size: 0.95rem; margin-bottom: 15px;">Understanding natural and artificial lighting for perfect shots</p>
+                    
+                    <iframe src="https://www.youtube.com/embed/AyDNxia8GYw" 
+                            width="100%" 
+                            height="250" 
+                            style="border: none; border-radius: 8px;"
+                            title="Lighting Masterclass"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                    </iframe>
+                    <p style="margin-top: 10px; color: #6b7280; font-size: 0.85rem;">Duration: 15:20</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Article Modal -->
+    <div class="article-modal" id="articleModal">
+        <div class="article-modal-content">
+            <button class="article-close" id="articleClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <article class="article-full">
+                <div class="article-header">
+                    <span class="article-category">Beginner Tips</span>
+                    <h1>Creating Insta-Worthy Photos: What You Need to Know</h1>
+                    <div class="article-meta">
+                        <div class="author-info">
+                            <img src="https://i.pravatar.cc/50?img=1" alt="Maria Santos">
+                            <div>
+                                <span class="author-name">Maria Santos</span>
+                                <span class="publish-date">October 10, 2025</span>
+                            </div>
+                        </div>
+                        <span class="read-time"><i class="far fa-clock"></i> 6 min read</span>
+                    </div>
+                </div>
+
+                <!-- Lofi Background Music for Article -->
+                <div style="position: sticky; top: 20px; right: 20px; float: right; margin: 20px 0 20px 20px; z-index: 100;">
+                    <div style="background: rgba(255,255,255,0.95); padding: 15px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); backdrop-filter: blur(10px);">
+                        <p style="margin: 0 0 10px 0; color: #764ba2; font-weight: 600; font-size: 0.85rem; display: flex; align-items: center; gap: 6px;">
+                            <i class="fas fa-volume-high"></i> Lofi Reading Music
+                        </p>
+                        <audio id="articleAudio" controls loop style="width: 220px; height: 32px;">
+                            <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+
+                <div class="article-image">
+                    <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=1200" alt="Creating Insta-Worthy Photos">
+                </div>
+
+                <div class="article-content">
+                    <p class="article-intro">You've seen them. The photos with the perfect composition, the right filters, and the perfect amount of light. They make you stop in your tracks, and you can't help but double-tap in envy. What you may not know is that most of these Insta-worthy photos didn't happen by accident. There's a lot of careful thought and technique behind every stunning post.</p>
+
+                    <h2>Understanding Composition</h2>
+                    <p>The foundation of any great Instagram photo starts with composition. The rule of thirds is your best friend here. Imagine your camera viewfinder divided into a 3x3 grid. Place your subject along these lines or at their intersections to create a more balanced and visually appealing image.</p>
+                    
+                    <p>Leading lines are another powerful tool. Use natural elements like roads, fences, or even shadows to guide the viewer's eye toward your main subject. This creates depth and makes your photo more engaging.</p>
+
+                    <h2>Mastering Light</h2>
+                    <p>Light can make or break your photo. The golden hours—just after sunrise and before sunset—offer the most flattering natural light. The soft, warm tones during these times add a magical quality to your images.</p>
+
+                    <p>Avoid harsh midday sun when possible. If you must shoot during this time, look for shaded areas or use the harsh light creatively to create dramatic shadows and contrast.</p>
+
+                    <h2>The Art of Editing</h2>
+                    <p>Post-processing is where good photos become great. Start with basic adjustments:</p>
+                    <ul>
+                        <li><strong>Brightness and Exposure:</strong> Ensure your photo isn't too dark or washed out</li>
+                        <li><strong>Contrast:</strong> Add depth by adjusting the difference between light and dark areas</li>
+                        <li><strong>Saturation:</strong> Enhance colors, but don't overdo it—keep it natural</li>
+                        <li><strong>Sharpness:</strong> Add clarity to make your subject pop</li>
+                    </ul>
+
+                    <h2>Choosing the Right Equipment</h2>
+                    <p>While you don't need expensive gear to create Insta-worthy photos, having the right equipment helps. At CameRent MNL, we offer a wide range of cameras perfect for content creators:</p>
+                    
+                    <p>For beginners, mirrorless cameras like the Sony A6400 or Canon EOS M50 are excellent choices. They're lightweight, easy to use, and produce professional-quality images. For more advanced users, the Sony A7 III or Canon EOS R series offer incredible image quality and versatility.</p>
+
+                    <h2>Consistency is Key</h2>
+                    <p>Successful Instagram feeds have a cohesive look. Choose a color palette or editing style and stick with it. This creates a recognizable brand for your content and makes your grid more visually appealing.</p>
+
+                    <p>Consider using presets—custom filter settings you can apply to maintain consistency across your photos. Many photographers create their own presets or purchase them from professionals.</p>
+
+                    <h2>Location Matters</h2>
+                    <p>In Manila, we're blessed with incredible photo locations. From the historic streets of Intramuros to the modern skyline of BGC, the golden sunsets at Manila Bay to the vibrant street art in Poblacion—each location tells a different story.</p>
+
+                    <p>Scout your locations in advance. Visit at different times of the day to see how the light changes. Early mornings often provide the best opportunity for crowd-free shots at popular locations.</p>
+
+                    <h2>Practice and Experiment</h2>
+                    <p>The secret to creating consistently stunning photos is practice. Try different angles, experiment with various compositions, and don't be afraid to break the rules once you understand them.</p>
+
+                    <p>Study photos you admire on Instagram. What makes them stand out? How did the photographer use light, color, and composition? Apply these lessons to your own work.</p>
+
+                    <h2>Final Thoughts</h2>
+                    <p>Creating Insta-worthy photos is part technical skill, part artistic vision, and part persistence. Start with the basics—good composition and lighting—then add your unique perspective. Remember, every great photographer started as a beginner.</p>
+
+                    <p>Ready to take your Instagram game to the next level? Check out our camera rental options at CameRent MNL and start creating those scroll-stopping posts today!</p>
+
+                    <div class="article-cta">
+                        <h3>Ready to Create Amazing Content?</h3>
+                        <p>Rent professional camera equipment and start capturing stunning photos today!</p>
+                        <a href="cameras.html" class="cta-button">Browse Our Cameras</a>
+                    </div>
+                </div>
+
+                <div class="article-tags">
+                    <span class="tag">Photography Tips</span>
+                    <span class="tag">Instagram</span>
+                    <span class="tag">Beginner Guide</span>
+                    <span class="tag">Composition</span>
+                    <span class="tag">Camera Rental</span>
+                </div>
+
+                <div class="article-share">
+                    <h4>Share this article:</h4>
+                    <div class="share-buttons">
+                        <button class="share-btn facebook"><i class="fab fa-facebook-f"></i> Facebook</button>
+                        <button class="share-btn twitter"><i class="fab fa-twitter"></i> Twitter</button>
+                        <button class="share-btn linkedin"><i class="fab fa-linkedin-in"></i> LinkedIn</button>
+                        <button class="share-btn copy"><i class="fas fa-link"></i> Copy Link</button>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+    <div id="footer-placeholder"></div>
+</body>
+</html>

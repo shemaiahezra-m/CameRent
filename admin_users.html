@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin — Users</title>
+  <style>
+    body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial;padding:24px}
+    table{width:100%;border-collapse:collapse;margin-top:12px}
+    th,td{padding:8px;border:1px solid #e5e7eb;text-align:left}
+    th{background:#f3f4f6}
+    button{padding:6px 10px;border-radius:6px;border:none;background:#ef4444;color:white;cursor:pointer}
+    .small{font-size:0.9rem;color:#6b7280}
+  </style>
+</head>
+<body>
+  <h1>Users</h1>
+  <div style="margin-top:12px; padding:12px; background:#f8fafc; border-radius:8px">
+    <h3>Create user</h3>
+    <form id="createForm" onsubmit="event.preventDefault(); createUser();">
+      <input id="c_first" placeholder="First name" required />
+      <input id="c_last" placeholder="Last name" required />
+      <input id="c_email" placeholder="Email" required />
+      <input id="c_phone" placeholder="Phone" />
+      <input id="c_password" placeholder="Password (min 8)" required type="password" />
+      <label style="display:block;margin-top:8px"><input type="checkbox" id="c_isadmin" /> Make admin</label>
+      <div style="margin-top:8px"><button type="submit">Create user</button></div>
+    </form>
+  </div>
+
+  <div style="margin-top:12px; display:flex; gap:12px; align-items:center">
+    <div>
+      <label class="small">Search: <input id="search" placeholder="name or email" /></label>
+    </div>
+    <div>
+      <label class="small">Per page: 
+        <select id="perPage">
+          <option>5</option>
+          <option selected>10</option>
+          <option>25</option>
+        </select>
+      </label>
+    </div>
+    <div style="margin-left:auto" id="pagerContainer"></div>
+  </div>
+
+  <div id="status" class="small">Loading…</div>
+  <div id="users"></div>
+
+  <script>
+    // client-side storage for users and rendering helpers
+    window.__USERS = [];
+    window.__CSRF = window.__CSRF || '';
+    let currentPage = 1;
+
+    function renderUsers(){
+      const q = (document.getElementById('search').value || '').toLowerCase().trim();
+      const perPage = parseInt(document.getElementById('perPage').value, 10) || 10;
+      const filtered = window.__USERS.filter(u => {
+        if (!q) return true;
+        const hay = `${u.firstName} ${u.lastName} ${u.email} ${u.phone||''}`.toLowerCase();
+        return hay.includes(q);
+      });
+      const total = filtered.length;
+      const pages = Math.max(1, Math.ceil(total / perPage));
+      if (currentPage > pages) currentPage = pages;
+      const start = (currentPage - 1) * perPage;
+      const pageSlice = filtered.slice(start, start + perPage);
+
+      const container = document.getElementById('users');
+      if (!pageSlice.length) {
+        container.innerHTML = '<p>No users found.</p>';
+        document.getElementById('status').textContent = '';
+        renderPager(1, pages, total);
+        return;
+      }
+
+      let html = '<table><thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Admin</th><th>Actions</th></tr></thead><tbody>';
+      pageSlice.forEach(u => {
+        html += `<tr id="user-${u.id}"><td>${u.id}</td><td>${u.firstName} ${u.lastName}</td><td>${u.email}</td><td>${u.phone||''}</td><td>${u.isAdmin? '✓' : ''}</td><td><button data-id="${u.id}" onclick="editUser(${u.id})">Edit</button> <button data-id="${u.id}" onclick="deleteUser(${u.id})">Delete</button></td></tr>`;
+      });
+      html += '</tbody></table>';
+      container.innerHTML = html;
+      document.getElementById('status').textContent = `${total} users`;
+      renderPager(currentPage, pages, total);
+    }
+
+    function renderPager(page, pages, total){
+      const c = document.getElementById('pagerContainer');
+      if (pages <= 1){ c.innerHTML = `<span class="small">${total} users</span>`; return; }
+      let html = `<button onclick="gotoPage(1)">« First</button> `;
+      html += `<button onclick="gotoPage(${page-1})" ${page===1? 'disabled': ''}>‹ Prev</button> `;
+      html += `<span class="small"> Page ${page} / ${pages} </span>`;
+      html += ` <button onclick="gotoPage(${page+1})" ${page===pages? 'disabled': ''}>Next ›</button> `;
+      html += `<button onclick="gotoPage(${pages})">Last »</button>`;
+      c.innerHTML = html;
+    }
+
+    function gotoPage(n){
+      const perPage = parseInt(document.getElementById('perPage').value, 10) || 10;
+      const q = (document.getElementById('search').value || '').toLowerCase().trim();
+      const filtered = window.__USERS.filter(u => {
+        if (!q) return true;
+        const hay = `${u.firstName} ${u.lastName} ${u.email} ${u.phone||''}`.toLowerCase();
+        return hay.includes(q);
+      });
+      const pages = Math.max(1, Math.ceil(filtered.length / perPage));
+      if (n < 1) n = 1; if (n > pages) n = pages;
+      currentPage = n;
+      renderUsers();
+    }
+
+    document.getElementById('search').addEventListener('input', ()=>{ currentPage = 1; renderUsers(); });
+    document.getElementById('perPage').addEventListener('change', ()=>{ currentPage = 1; renderUsers(); });
+
+    async function loadUsers(){
+      document.getElementById('status').textContent = 'Loading...';
+      const res = await fetch('/admin/users.json');
+      const data = await res.json();
+      window.__USERS = data.users || [];
+      window.__CSRF = data.csrf || window.__CSRF || '';
+      renderUsers();
+    }
+
+    async function deleteUser(id){
+      if (!confirm('Delete user ID ' + id + '?')) return;
+      const token = window.__CSRF || '';
+      const res = await fetch('/admin/users/delete', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json', 'X-CSRF-Token': token},
+        body: JSON.stringify({id})
+      });
+      const data = await res.json();
+      if (data.ok) {
+        // remove from local cache and re-render
+        window.__USERS = window.__USERS.filter(u => u.id !== id);
+        renderUsers();
+      } else {
+        alert('Delete failed: ' + (data.message || 'unknown'));
+      }
+    }
+
+    loadUsers();
+
+    async function createUser(){
+      const payload = {
+        firstName: document.getElementById('c_first').value,
+        lastName: document.getElementById('c_last').value,
+        email: document.getElementById('c_email').value,
+        phone: document.getElementById('c_phone').value,
+        password: document.getElementById('c_password').value
+      };
+      // include CSRF token header
+      const token = window.__CSRF || '';
+      payload.isAdmin = document.getElementById('c_isadmin').checked ? true : false;
+      const res = await fetch('/admin/users/create', {
+        method: 'POST', headers: {'Content-Type':'application/json', 'X-CSRF-Token': token}, body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (data.ok){
+        // clear form and reload
+        document.getElementById('createForm').reset();
+        loadUsers();
+      } else {
+        alert('Create failed: ' + (data.message||'unknown'));
+      }
+    }
+
+    async function editUser(id){
+      const user = window.__USERS.find(u=>u.id===id) || {};
+      const first = prompt('First name', user.firstName||'');
+      if (first === null) return;
+      const last = prompt('Last name', user.lastName||''); if (last === null) return;
+      const email = prompt('Email', user.email||''); if (email === null) return;
+      const phone = prompt('Phone (optional)', user.phone||''); if (phone === null) return;
+      const password = prompt('New password (leave blank to keep)');
+
+      const payload = { id, firstName: first, lastName: last, email: email, phone: phone };
+      if (password) payload.password = password;
+
+      const token = window.__CSRF || '';
+      const res = await fetch('/admin/users/edit', {method:'POST', headers:{'Content-Type':'application/json', 'X-CSRF-Token': token}, body: JSON.stringify(payload)});
+      const data = await res.json();
+      if (data.ok){ loadUsers(); } else { alert('Edit failed: ' + (data.message||'unknown')); }
+    }
+  </script>
+</body>
+</html>

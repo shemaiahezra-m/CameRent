@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin — Orders</title>
+  <style>
+    body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial;padding:24px}
+    table{width:100%;border-collapse:collapse;margin-top:12px}
+    th,td{padding:8px;border:1px solid #e5e7eb;text-align:left}
+    th{background:#f3f4f6}
+    button{padding:6px 10px;border-radius:6px;border:none;background:#ef4444;color:white;cursor:pointer}
+    select{padding:6px}
+    .small{font-size:0.9rem;color:#6b7280}
+    /* modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.4);display:none;align-items:center;justify-content:center}
+    .modal{background:white;border-radius:8px;padding:16px;max-width:900px;width:92%;max-height:80vh;overflow:auto;box-shadow:0 10px 30px rgba(0,0,0,0.2)}
+    .modal pre{background:#111827;color:#f9fafb;padding:12px;border-radius:6px;overflow:auto}
+    .modal .row{display:flex;gap:12px}
+    .modal .col{flex:1}
+    
+    /* View Toggle */
+    .view-toggle{margin:16px 0;display:flex;gap:8px}
+    .view-toggle button{background:#3b82f6}
+    .view-toggle button.active{background:#1d4ed8}
+    
+    /* Calendar View */
+    .calendar-container{display:none}
+    .calendar-container.active{display:block}
+    .calendar-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+    .calendar-header h2{margin:0}
+    .calendar-nav{display:flex;gap:8px}
+    .calendar-nav button{background:#3b82f6}
+    .calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:16px}
+    .calendar-day-header{background:#f3f4f6;padding:12px;text-align:center;font-weight:600;border-radius:6px}
+    .calendar-day{background:white;border:2px solid #e5e7eb;border-radius:8px;padding:12px;min-height:100px;position:relative}
+    .calendar-day.other-month{opacity:0.4}
+    .calendar-day.today{border-color:#3b82f6;background:#eff6ff}
+    .day-number{font-weight:600;margin-bottom:8px;color:#111827}
+    .booking-indicator{display:flex;align-items:center;gap:4px;font-size:0.75rem;padding:4px 6px;margin:2px 0;border-radius:4px;cursor:pointer;transition:all 0.2s}
+    .booking-indicator:hover{transform:scale(1.05);box-shadow:0 2px 4px rgba(0,0,0,0.1)}
+    .booking-indicator.pickup{background:#dcfce7;color:#166534;border-left:3px solid #22c55e}
+    .booking-indicator.return{background:#fef3c7;color:#92400e;border-left:3px solid #f59e0b}
+    .booking-indicator.ongoing{background:#dbeafe;color:#1e40af;border-left:3px solid #3b82f6}
+    .booking-icon{font-size:0.85rem}
+    .list-container{display:block}
+    .list-container.hidden{display:none}
+    
+    /* Legend */
+    .calendar-legend{display:flex;gap:16px;margin:16px 0;padding:12px;background:#f9fafb;border-radius:6px}
+    .legend-item{display:flex;align-items:center;gap:6px;font-size:0.85rem}
+    .legend-color{width:16px;height:16px;border-radius:3px}
+    .legend-color.pickup{background:#dcfce7;border-left:3px solid #22c55e}
+    .legend-color.return{background:#fef3c7;border-left:3px solid #f59e0b}
+    .legend-color.ongoing{background:#dbeafe;border-left:3px solid #3b82f6}
+  </style>
+</head>
+<body>
+  <h1>Orders</h1>
+  <div id="status" class="small">Loading…</div>
+  
+  <!-- View Toggle -->
+  <div class="view-toggle">
+    <button id="listViewBtn" class="active" onclick="switchView('list')">📋 List View</button>
+    <button id="calendarViewBtn" onclick="switchView('calendar')">📅 Calendar View</button>
+  </div>
+  
+  <!-- List View -->
+  <div id="listContainer" class="list-container">
+    <div id="orders"></div>
+  </div>
+  
+  <!-- Calendar View -->
+  <div id="calendarContainer" class="calendar-container">
+    <div class="calendar-legend">
+      <div class="legend-item">
+        <div class="legend-color pickup"></div>
+        <span>📦 Pickup</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color return"></div>
+        <span>📮 Return</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color ongoing"></div>
+        <span>🔄 Ongoing Rental</span>
+      </div>
+    </div>
+    <div class="calendar-header">
+      <button class="calendar-nav" onclick="changeMonth(-1)">← Previous</button>
+      <h2 id="currentMonth"></h2>
+      <button class="calendar-nav" onclick="changeMonth(1)">Next →</button>
+    </div>
+    <div class="calendar-grid" id="calendarGrid"></div>
+  </div>
+  
+  <div id="debug" class="small" style="margin-top:8px;color:#6b7280"></div>
+
+  <script>
+    async function loadOrders(){
+      const statusEl = document.getElementById('status');
+      const debugEl = document.getElementById('debug');
+      try {
+        statusEl.textContent = 'Loading...';
+        const res = await fetch('/admin/orders.json');
+        if (res.status === 401) { location.href = '/admin/login?next=/admin/orders'; return; }
+        if (!res.ok) {
+          const txt = await res.text().catch(()=>'<no body>');
+          debugEl.textContent = `Fetch failed: ${res.status} ${res.statusText} - ${txt}`;
+          statusEl.textContent = 'Error loading orders';
+          return;
+        }
+        const data = await res.json();
+      
+    
+      window.__CSRF = data.csrf || window.__CSRF || '';
+      const orders = data.orders || [];
+      const users = data.users || [];
+      // expose for modal/debug
+      window.__ORDERS = orders;
+      const userMap = {};
+      users.forEach(u => { userMap[u.id] = (u.firstName||'') + ' ' + (u.lastName||''); });
+      window.__USERS_MAP = userMap;
+      document.getElementById('debug').textContent = `Fetched ${orders.length} orders, ${users.length} users`;
+      users.forEach(u => { window.__USERS_MAP[u.id] = u; });
+      const container = document.getElementById('orders');
+      if (!orders.length) { container.innerHTML = '<p>No orders found.</p>'; document.getElementById('status').textContent = ''; return; }
+
+      let html = '<table><thead><tr><th>ID</th><th>Customer</th><th>Contact</th><th>Items</th><th>Total</th><th>Pickup</th><th>Return</th><th>Payment</th><th>Status</th><th>Created</th><th>Actions</th></tr></thead><tbody>';
+      orders.forEach(o => {
+        const items = (o.items || []).map(it => {
+          const name = it.name || it.title || (`item-${it.id||''}`);
+          const qty = it.qty || it.quantity || 1;
+          const price = (it.price !== undefined) ? ` @ ${it.price}` : '';
+          return `${name} x${qty}${price}`;
+        }).join('; ');
+        const userName = o.userId ? (userMap[o.userId] || o.userId) : '';
+        const pickup = o.start_date ? (typeof o.start_date === 'number' ? new Date(o.start_date*1000).toLocaleDateString() : o.start_date) : '';
+        const ret = o.end_date ? (typeof o.end_date === 'number' ? new Date(o.end_date*1000).toLocaleDateString() : o.end_date) : '';
+        const pay = o.payment_method || '';
+        // contact info lookup
+        const userObj = window.__USERS_MAP && window.__USERS_MAP[o.userId] ? window.__USERS_MAP[o.userId] : null;
+        const contactHtml = userObj ? `${userObj.email || ''}<br>${userObj.phone || ''}` : '';
+        html += `<tr id="order-${o.id}"><td>${o.id}</td><td>${userName}</td><td>${contactHtml}</td><td>${items}</td><td>${o.total||''}</td><td>${pickup}</td><td>${ret}</td><td>${pay}</td><td><select id="status-${o.id}"><option value="new">new</option><option value="processing">processing</option><option value="paid">paid</option><option value="shipped">shipped</option><option value="cancelled">cancelled</option></select></td><td>${o.createdAt? new Date(o.createdAt*1000).toLocaleString() : ''}</td><td><button onclick="viewOrder(${o.id})">View</button> <button onclick="updateStatus(${o.id})">Update</button> <button onclick="deleteOrder(${o.id})">Delete</button></td></tr>`;
+      });
+      html += '</tbody></table>';
+      container.innerHTML = html;
+
+      // set select values
+      orders.forEach(o=>{
+        const s = document.getElementById('status-' + o.id);
+        if (s) s.value = o.status || 'new';
+      });
+
+      // debug: show full JSON on request (development)
+      const dbg = document.getElementById('debug');
+      if (dbg) dbg.dataset.raw = JSON.stringify(data);
+
+      document.getElementById('status').textContent = `${orders.length} orders`;
+      if (debugEl && debugEl.dataset && debugEl.dataset.raw) {
+        // show short summary in debug title
+        debugEl.textContent = debugEl.textContent + ' (data loaded)';
+      }
+      return;
+      } catch (err) {
+        console.error('loadOrders error', err);
+        const dbg = document.getElementById('debug');
+        if (dbg) dbg.textContent = 'Error: ' + (err && err.message ? err.message : String(err));
+        const statusEl2 = document.getElementById('status');
+        if (statusEl2) statusEl2.textContent = 'Error loading orders';
+      }
+    }
+
+    async function updateStatus(id){
+      const sel = document.getElementById('status-' + id);
+      if (!sel) return;
+      const status = sel.value;
+      const token = window.__CSRF || '';
+      const res = await fetch('/admin/orders/update', {method:'POST', headers:{'Content-Type':'application/json', 'X-CSRF-Token': token}, body: JSON.stringify({id, status})});
+      const data = await res.json();
+      if (data.ok){ alert('Updated'); loadOrders(); } else { alert('Update failed: ' + (data.message||'unknown')); }
+    }
+
+    async function deleteOrder(id){
+      if (!confirm('Delete order ' + id + '?')) return;
+      const token = window.__CSRF || '';
+      const res = await fetch('/admin/orders/delete', {method:'POST', headers:{'Content-Type':'application/json', 'X-CSRF-Token': token}, body: JSON.stringify({id})});
+      const data = await res.json();
+      if (data.ok){ document.getElementById('order-' + id)?.remove(); } else { alert('Delete failed: ' + (data.message||'unknown')); }
+    }
+
+    loadOrders();
+
+    // View switching
+    let currentView = 'list';
+    let currentDate = new Date();
+    
+    function switchView(view){
+      currentView = view;
+      const listBtn = document.getElementById('listViewBtn');
+      const calendarBtn = document.getElementById('calendarViewBtn');
+      const listContainer = document.getElementById('listContainer');
+      const calendarContainer = document.getElementById('calendarContainer');
+      
+      if (view === 'list') {
+        listBtn.classList.add('active');
+        calendarBtn.classList.remove('active');
+        listContainer.classList.remove('hidden');
+        calendarContainer.classList.remove('active');
+      } else {
+        calendarBtn.classList.add('active');
+        listBtn.classList.remove('active');
+        listContainer.classList.add('hidden');
+        calendarContainer.classList.add('active');
+        renderCalendar();
+      }
+    }
+    
+    function changeMonth(direction){
+      currentDate.setMonth(currentDate.getMonth() + direction);
+      renderCalendar();
+    }
+    
+    function renderCalendar(){
+      const orders = window.__ORDERS || [];
+      const userMap = window.__USERS_MAP || {};
+      
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
+      
+      // Set month header
+      const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
+      
+      // Get calendar days
+      const firstDay = new Date(year, month, 1);
+      const lastDay = new Date(year, month + 1, 0);
+      const startDate = new Date(firstDay);
+      startDate.setDate(startDate.getDate() - firstDay.getDay()); // Start from Sunday
+      
+      const calendarGrid = document.getElementById('calendarGrid');
+      let html = '';
+      
+      // Day headers
+      const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      dayNames.forEach(day => {
+        html += `<div class="calendar-day-header">${day}</div>`;
+      });
+      
+      // Calendar days (6 weeks)
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      for (let i = 0; i < 42; i++) {
+        const currentDay = new Date(startDate);
+        currentDay.setDate(startDate.getDate() + i);
+        
+        const isOtherMonth = currentDay.getMonth() !== month;
+        const isToday = currentDay.getTime() === today.getTime();
+        
+        let dayClass = 'calendar-day';
+        if (isOtherMonth) dayClass += ' other-month';
+        if (isToday) dayClass += ' today';
+        
+        // Find bookings for this day
+        const dayBookings = [];
+        orders.forEach(order => {
+          const startDate = order.start_date ? (typeof order.start_date === 'number' ? new Date(order.start_date * 1000) : new Date(order.start_date)) : null;
+          const endDate = order.end_date ? (typeof order.end_date === 'number' ? new Date(order.end_date * 1000) : new Date(order.end_date)) : null;
+          
+          if (startDate) startDate.setHours(0, 0, 0, 0);
+          if (endDate) endDate.setHours(0, 0, 0, 0);
+          
+          const userName = order.userId ? (userMap[order.userId]?.firstName || userMap[order.userId] || 'User') : 'Guest';
+          const itemName = order.items && order.items[0] ? (order.items[0].name || 'Item') : 'Order';
+          
+          if (startDate && startDate.getTime() === currentDay.getTime()) {
+            dayBookings.push({type: 'pickup', order, userName, itemName});
+          }
+          if (endDate && endDate.getTime() === currentDay.getTime()) {
+            dayBookings.push({type: 'return', order, userName, itemName});
+          }
+          if (startDate && endDate && currentDay > startDate && currentDay < endDate) {
+            dayBookings.push({type: 'ongoing', order, userName, itemName});
+          }
+        });
+        
+        let bookingsHtml = '';
+        dayBookings.forEach(booking => {
+          const icon = booking.type === 'pickup' ? '📦' : booking.type === 'return' ? '📮' : '🔄';
+          const shortName = booking.itemName.length > 15 ? booking.itemName.substring(0, 12) + '...' : booking.itemName;
+          bookingsHtml += `<div class="booking-indicator ${booking.type}" onclick="viewOrder(${booking.order.id})" title="${booking.userName} - ${booking.itemName}">
+            <span class="booking-icon">${icon}</span>
+            <span>${shortName}</span>
+          </div>`;
+        });
+        
+        html += `<div class="${dayClass}">
+          <div class="day-number">${currentDay.getDate()}</div>
+          ${bookingsHtml}
+        </div>`;
+      }
+      
+      calendarGrid.innerHTML = html;
+    }
+
+    // Order detail modal
+    function showModal(){
+      const d = document.getElementById('modalBackdrop');
+      if (d) d.style.display = 'flex';
+    }
+    function hideModal(){
+      const d = document.getElementById('modalBackdrop');
+      if (d) d.style.display = 'none';
+    }
+
+    function viewOrder(id){
+      const orders = window.__ORDERS || [];
+      const users = window.__USERS_MAP || {};
+      const order = orders.find(o=>o.id==id) || null;
+      const modal = document.getElementById('orderDetailJson');
+      const contact = document.getElementById('orderContact');
+      if (!order){ alert('Order not found'); return; }
+      // show contact
+      let contactHtml = '';
+      if (order.userId){
+        const u = users[order.userId] || {};
+        if (u){ contactHtml = `<strong>${u.full_name|| (u.firstName||'') + ' ' + (u.lastName||'')}</strong><div>${u.email||''}</div><div>${u.phone||''}</div><div>${u.address? ('Address: ' + u.address) : ''}</div>`; }
+      }
+      if (!contactHtml) contactHtml = '<div>No customer contact available</div>';
+      contact.innerHTML = contactHtml;
+      // show pretty JSON
+      if (modal) modal.textContent = JSON.stringify(order, null, 2);
+      showModal();
+    }
+  </script>
+
+  <div id="modalBackdrop" class="modal-backdrop" onclick="hideModal()">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <h3 style="margin:0">Order Detail</h3>
+        <button onclick="hideModal()">Close</button>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h4>Customer</h4>
+          <div id="orderContact"></div>
+        </div>
+        <div class="col">
+          <h4>Order JSON</h4>
+          <pre id="orderDetailJson">{}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!-- HEADER -->
+<header id="header" class="header">
+    <div class="container">
+        <div class="header-content">
+            <a href="index.html" class="logo" style="text-decoration: none; color: inherit; cursor: pointer;">
+                <img src="images/logos/logo-full.png" alt="CameRent Logo">
+            </a>
+            
+            <div class="header-right">
+                <nav class="nav-desktop">
+                    <a href="index.html" class="nav-link" data-page="home">Home</a>
+                    <a href="cameras.html" class="nav-link" data-page="cameras">Cameras</a>
+                    
+                    <div class="nav-dropdown">
+                        <a href="about.html" class="nav-link dropdown-toggle" data-page="about">
+                            About <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="faq.html" class="dropdown-item">FAQ</a>
+                            <a href="resources.html" class="dropdown-item">Resources</a>
+                        </div>
+                    </div>
+                    
+                    <a href="bookings.html" class="nav-link" data-page="bookings">Bookings</a>
+                </nav>
+
+                <div class="header-actions">
+                    <button class="compare-btn" id="compareBtn">
+                        <i class="fas fa-balance-scale"></i>
+                        <span class="badge" id="compareCount">0</span>
+                    </button>
+                    <button class="cart-btn" id="cartBtn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="badge" id="cartCount">0</span>
+                    </button>
+                    <button class="profile-btn" id="profileBtn" title="Profile">
+                        <i class="fas fa-user-circle"></i>
+                    </button>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+        <nav class="mobile-menu-nav">
+            <a href="index.html" class="mobile-menu-link active">Home</a>
+            <a href="cameras.html" class="mobile-menu-link">Cameras</a>
+            <a href="compare.html" class="mobile-menu-link">Compare</a>
+            <a href="about.html" class="mobile-menu-link">About</a>
+            <a href="bookings.html" class="mobile-menu-link">Bookings</a>
+            <a href="faq.html" class="mobile-menu-link">FAQ</a>
+            <a href="resources.html" class="mobile-menu-link">Resources</a>
+        </nav>
+    </div>
+
+    <!-- EXPANDING PROFILE PANEL -->
+    <div id="profilePanel" class="profile-panel">
+        <div class="profile-panel-overlay"></div>
+        <div class="profile-panel-card">
+            <!-- Welcome Text (clickable to expand) -->
+            <div class="profile-welcome" id="profileWelcome">
+                <h3 class="welcome-heading">Welcome to CameRent</h3>
+                <p class="welcome-tagline">Capture More, Spend Less</p>
+            </div>
+            
+            <!-- Action Buttons (hidden initially) -->
+            <div class="profile-actions" id="profileActions">
+                <button class="profile-action-btn btn-primary" id="signupBtnPanel">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Sign Up</span>
+                </button>
+                
+                <button class="profile-action-btn btn-secondary" id="loginBtnPanel">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Log In</span>
+                </button>
+                
+                <a href="cameras.html" class="profile-action-btn btn-outlined">
+                    <i class="fas fa-camera-retro"></i>
+                    <span>Browse Cameras</span>
+                </a>
+            </div>
+
+            <!-- Rating Section -->
+            <div class="profile-rating-section" id="profileRatingSection">
+                <div class="rating-header">
+                    <h4>Rate Your Experience</h4>
+                    <p>Help us improve our service</p>
+                </div>
+                <div class="star-rating" id="starRating">
+                    <i class="far fa-star" data-rating="1"></i>
+                    <i class="far fa-star" data-rating="2"></i>
+                    <i class="far fa-star" data-rating="3"></i>
+                    <i class="far fa-star" data-rating="4"></i>
+                    <i class="far fa-star" data-rating="5"></i>
+                </div>
+                <p class="rating-text" id="ratingText">Click a star to rate</p>
+                <button class="submit-rating-btn" id="submitRatingBtn" style="display: none;">
+                    Submit Rating
+                </button>
+            </div>
+        </div>
+    </div>
+</header>

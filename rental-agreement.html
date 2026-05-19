@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rental Agreement - CameRent MNL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <style>
+        .agreement-section {
+            padding: 120px 20px 80px;
+            background: #ffffff;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .agreement-header {
+            margin-bottom: 50px;
+        }
+
+        .agreement-title {
+            font-size: 42px;
+            font-weight: 700;
+            color: #1d1d1f;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .agreement-subtitle {
+            font-size: 18px;
+            color: #86868b;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .important-notice {
+            background: #fff4e6;
+            border-left: 4px solid #ff9500;
+            padding: 20px;
+            margin-bottom: 40px;
+            border-radius: 8px;
+        }
+
+        .important-notice strong {
+            color: #ff9500;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .agreement-content {
+            margin-bottom: 40px;
+        }
+
+        .agreement-content h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .agreement-content h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #667eea;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .agreement-content p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #4a4a4a;
+            margin-bottom: 15px;
+        }
+
+        .agreement-content ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 20px;
+        }
+
+        .agreement-content ul li {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #4a4a4a;
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .agreement-content ul li:before {
+            content: "•";
+            color: #667eea;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .signature-section {
+            background: #f5f5f7;
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 50px;
+        }
+
+        .signature-section h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #1d1d1f;
+        }
+
+        .signature-field {
+            margin-bottom: 20px;
+        }
+
+        .signature-field label {
+            display: block;
+            font-size: 14px;
+            color: #86868b;
+            margin-bottom: 5px;
+        }
+
+        .signature-field input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d2d2d7;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+    </style>
+    <script src="js/common.js" defer></script>
+    <script src="js/navigation.js" defer></script>
+    <script src="js/profile-modal.js" defer></script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <main>
+        <section class="agreement-section">
+            <div class="container">
+                <div class="agreement-header">
+                    <h1 class="agreement-title">EQUIPMENT RENTAL AGREEMENT</h1>
+                    <p class="agreement-subtitle">This Equipment Lease Agreement ("Lease") is a legal contract between CameRent.com ("Owner") and the Current User ("Renter").</p>
+                </div>
+
+                <div class="important-notice">
+                    <strong>IMPORTANT:</strong> By clicking the "I agree, submit this order" button, you acknowledge that you have read, understood, and agreed to be bound by all terms and conditions listed below. CameRent reserves the right to modify these terms at any time.
+                </div>
+
+                <div class="agreement-content">
+                    <h2>1. CORE LEASE TERMS</h2>
+                    <ul>
+                        <li><strong>The Equipment:</strong> Refers to all items shown in the "Contents" area during checkout.</li>
+                        <li><strong>The Term:</strong> The rental period begins on the date of the first attempted delivery or the start date shown on your receipt. It expires on the end date shown on your receipt.</li>
+                        <li><strong>Ownership:</strong> The Equipment remains the exclusive property of CameRent. Renter has no rights to the equipment other than temporary use.</li>
+                        <li><strong>Disclaimer:</strong> Descriptions and prices are subject to change. CameRent reserves the right to correct errors.</li>
+                    </ul>
+
+                    <h2>2. PAYMENTS & SHIPPING</h2>
+                    <ul>
+                        <li><strong>Rent & Deposit:</strong> All fees must be paid in full and in advance.</li>
+                        <li><strong>Shipping Charges:</strong> Renter pays for both outgoing and return shipping at the time of transaction.</li>
+                        <li><strong>Shipping Estimates:</strong> CameRent provides estimated delivery times only and cannot guarantee exact dates.</li>
+                        <li><strong>Taxes:</strong> Renter is responsible for any taxes, duties, or liens levied against the equipment during the term.</li>
+                    </ul>
+
+                    <h2>3. LATE RETURNS & DEFAULT</h2>
+                    <ul>
+                        <li><strong>Late Fees:</strong> Charged daily at the standard rental rate.</li>
+                        <li><strong>Stolen Status:</strong> If the equipment is not returned 3 days after the due date and penalties cannot be collected, it will be declared stolen.</li>
+                        <li><strong>Replacement Value:</strong> Renter's payment method will be charged the full replacement value for stolen or unreturned gear.</li>
+                        <li><strong>Default:</strong> If payments fail, Renter is in default and liable for collection fees, private investigator costs, and attorney's fees.</li>
+                    </ul>
+
+                    <h2>4. USE & CARE OF EQUIPMENT</h2>
+                    <ul>
+                        <li><strong>Proper Use:</strong> Renter must comply with all laws and use the gear in a careful manner.</li>
+                        <li><strong>Condition:</strong> Gear is assumed to be in good condition unless damage is reported within 24 hours of possession.</li>
+                        <li><strong>Modifications:</strong> Material alterations are strictly prohibited. Renter will pay for restoration costs if the gear is modified.</li>
+                        <li><strong>Cleaning Fees:</strong> A fee may be charged for smoke, mud, sand, or other matter requiring professional cleaning.</li>
+                    </ul>
+
+                    <h2>5. DAMAGE & LOSS</h2>
+                    <ul>
+                        <li><strong>Risk of Loss:</strong> Renter bears all risk of damage or loss from any cause once they take possession.</li>
+                        <li><strong>Repair Authority:</strong> CameRent chooses the repair venue. Renter is responsible for the full cost of parts and labor.</li>
+                        <li><strong>Unreturned Status:</strong> If tracking does not show a pickup and the Renter has no drop-off receipt, the gear is considered unreturned.</li>
+                    </ul>
+
+                    <h2>6. PROTECTION PLANS (OPTIONAL)</h2>
+                    <ul>
+                        <li><strong>Lenscap Plan:</strong> Limits liability to the lesser of 10% of replacement cost or actual repair cost for ordinary negligence.</li>
+                        <li><strong>Not covered:</strong> Water damage, sun-exposed sensor damage, intentional/reckless abuse, or theft.</li>
+                        <li><strong>Lenscap+ Plan:</strong> Extends protection to include loss due to theft, fire, or natural disasters (proof required).</li>
+                    </ul>
+
+                    <h2>7. LIABILITY & CANCELLATIONS</h2>
+                    <ul>
+                        <li><strong>Indemnification:</strong> CameRent is not liable for any claims resulting from the use or malfunction of the equipment.</li>
+                        <li><strong>Malfunctions/Delays:</strong> CameRent's only liability is a prorated refund of the rent for the period the gear was unusable.</li>
+                        <li><strong>Cancellations:</strong>
+                            <ul>
+                                <li>By CameRent: Any time before delivery.</li>
+                                <li>By Renter: Any time until the gear is handed to the shipper.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Set current date
+        document.getElementById('currentDate').value = new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    </script>
+</body>
+</html>

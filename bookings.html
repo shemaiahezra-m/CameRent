@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings - CameRent MNL</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 512'><path fill='%238b5cf6' d='M149.1 64.8L138.7 96H64C28.7 96 0 124.7 0 160V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H373.3L362.9 64.8C356.4 45.2 338.1 32 317.4 32H194.6c-20.7 0-39 13.2-45.5 32.8zM256 192a96 96 0 1 1 0 192 96 96 0 1 1 0-192z'/></svg>" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bookings.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <script src="js/common.js" defer></script>
+    <script src="js/navigation.js" defer></script>
+    <script src="js/profile-modal.js" defer></script>
+    <script src="js/bookings.js" defer></script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <!-- Bookings Section -->
+    <section class="bookings-section">
+        <div class="container">
+            <div class="bookings-header">
+                <div>
+                    <h1 class="bookings-title">My Bookings</h1>
+                    <p class="bookings-subtitle">Track and manage your camera rental orders</p>
+                </div>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="bookings-filters" data-active="all">
+                <button class="filter-tab active" data-filter="all">
+                    All Orders <span class="filter-count">4</span>
+                </button>
+                <button class="filter-tab" data-filter="pending">
+                    Pending <span class="filter-count">1</span>
+                </button>
+                <button class="filter-tab" data-filter="confirmed">
+                    Confirmed <span class="filter-count">1</span>
+                </button>
+                <button class="filter-tab" data-filter="in-use">
+                    In Use <span class="filter-count">1</span>
+                </button>
+                <button class="filter-tab" data-filter="completed">
+                    Completed <span class="filter-count">1</span>
+                </button>
+            </div>
+
+            <!-- Bookings List -->
+            <div class="bookings-list" id="bookingsList">
+                <!-- Bookings will be loaded here from localStorage -->
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+</body>
+</html>

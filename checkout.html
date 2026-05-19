@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - CameRent MNL</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 512'><path fill='%238b5cf6' d='M149.1 64.8L138.7 96H64C28.7 96 0 124.7 0 160V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H373.3L362.9 64.8C356.4 45.2 338.1 32 317.4 32H194.6c-20.7 0-39 13.2-45.5 32.8zM256 192a96 96 0 1 1 0 192 96 96 0 1 1 0-192z'/></svg>" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/checkout.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <script>
+        console.log('✅ Checkout page loading...');
+        window.addEventListener('load', function() {
+            const regionSel = document.getElementById('region');
+            if (regionSel && regionSel.options.length > 0) {
+                console.log('✅ Region select loaded with', regionSel.options.length, 'options');
+            } else {
+                console.error('❌ ERROR: Region select has no options!');
+            }
+        });
+    </script>
+    <script src="js/common.js" defer></script>
+    <script src="js/navigation.js" defer></script>
+    <script src="js/profile-modal.js" defer></script>
+    <script src="js/checkout.js" defer></script>
+    <script>
+        // PH Location Data
+        const phLocations = {
+            'NCR': { provinces: ['Metro Manila'], cities: { 'Metro Manila': ['Manila', 'Quezon City', 'Makati', 'Pasig', 'Taguig', 'Caloocan', 'Las Piñas', 'Parañaque'] } },
+            'CAR': { provinces: ['Abra', 'Apayao', 'Benguet', 'Ifugao', 'Kalinga', 'Mountain Province'], cities: { 'Benguet': ['Baguio City', 'La Trinidad', 'Tuba'], 'Kalinga': ['Tabuk City', 'Banaue'] } },
+            'I': { provinces: ['Ilocos Norte', 'Ilocos Sur', 'La Union', 'Pangasinan'], cities: { 'Pangasinan': ['Dagupan City', 'Cabanatuan', 'San Carlos'], 'Ilocos Norte': ['Laoag City'] } },
+            'II': { provinces: ['Cagayan', 'Isabela', 'Nueva Vizcaya', 'Quirino'], cities: { 'Cagayan': ['Tuguegarao City', 'Cabanatuan'], 'Isabela': ['Ilagan City'] } },
+            'III': { provinces: ['Aurora', 'Bataan', 'Bulacan', 'Nueva Ecija', 'Pampanga', 'Tarlac', 'Zambales'], cities: { 'Pampanga': ['San Fernando', 'Mabalacat'], 'Nueva Ecija': ['Cabanatuan City', 'San Fernando'] } },
+            'IVA': { provinces: ['Batangas', 'Cavite', 'Laguna', 'Quezon', 'Rizal'], cities: { 'Cavite': ['Kawit', 'Dasmarinas', 'Cavite City'], 'Laguna': ['Santa Rosa', 'Biñan', 'San Pablo'] } },
+            'IVB': { provinces: ['Marinduque', 'Occidental Mindoro', 'Oriental Mindoro', 'Palawan', 'Romblon'], cities: { 'Palawan': ['Puerto Princesa', 'Coron'] } },
+            'V': { provinces: ['Albay', 'Camarines Norte', 'Camarines Sur', 'Catanduanes', 'Masbate', 'Sorsogon'], cities: { 'Albay': ['Legazpi City', 'Naga City'], 'Camarines Sur': ['Iriga City'] } },
+            'VI': { provinces: ['Aklan', 'Antique', 'Capiz', 'Guimaras', 'Iloilo', 'Negros Occidental'], cities: { 'Iloilo': ['Iloilo City', 'Oton'], 'Negros Occidental': ['Bacolod City', 'Cadiz'] } },
+            'VII': { provinces: ['Bohol', 'Cebu', 'Negros Oriental', 'Siquijor'], cities: { 'Cebu': ['Cebu City', 'Lapu-Lapu', 'Mandaue'], 'Bohol': ['Tagbilaran City'] } },
+            'VIII': { provinces: ['Biliran', 'Eastern Samar', 'Leyte', 'Northern Samar', 'Samar', 'Southern Leyte'], cities: { 'Leyte': ['Tacloban City', 'Ormoc City'] } },
+            'IX': { provinces: ['Zamboanga del Norte', 'Zamboanga del Sur', 'Zamboanga Sibugay'], cities: { 'Zamboanga del Sur': ['Pagadian City', 'Zamboanga City'] } },
+            'X': { provinces: ['Bukidnon', 'Camiguin', 'Lanao del Norte', 'Misamis Occidental', 'Misamis Oriental'], cities: { 'Misamis Oriental': ['Cagayan de Oro', 'Gingoog'], 'Bukidnon': ['Butuan City', 'Valencia'] } },
+            'XI': { provinces: ['Davao del Norte', 'Davao del Sur', 'Davao Occidental', 'Davao Oriental', 'Davao de Oro', 'Sarangani'], cities: { 'Davao del Sur': ['Davao City', 'Digos'], 'Sarangani': ['General Santos'] } },
+            'XII': { provinces: ['Cotabato', 'Sarangani', 'South Cotabato', 'Sultan Kudarat'], cities: { 'South Cotabato': ['Koronadal City', 'General Santos'], 'Cotabato': ['Kidapawan City'] } },
+            'XIII': { provinces: ['Agusan del Norte', 'Agusan del Sur', 'Dinagat Islands', 'Surigao del Norte', 'Surigao del Sur'], cities: { 'Surigao del Norte': ['Surigao City', 'Butuan'], 'Agusan del Sur': ['Butuan City'] } },
+            'BARMM': { provinces: ['Basilan', 'Lanao del Sur', 'Maguindanao del Norte', 'Maguindanao del Sur', 'Sulu', 'Tawi-Tawi'], cities: { 'Lanao del Sur': ['Marawi City'], 'Maguindanao del Sur': ['Cotabato City'] } }
+        };
+
+        function updateProvinces() {
+            const region = document.getElementById('region').value;
+            const provinceSelect = document.getElementById('province');
+            const citySelect = document.getElementById('city');
+            provinceSelect.innerHTML = '<option value=\"\">Select Province</option>';
+            citySelect.innerHTML = '<option value=\"\">Select City/Municipality</option>';
+            if (region && phLocations[region] && phLocations[region].provinces) {
+                phLocations[region].provinces.forEach(p => {
+                    const opt = document.createElement('option');
+                    opt.value = p;
+                    opt.textContent = p;
+                    provinceSelect.appendChild(opt);
+                });
+            }
+        }
+
+        function updateCities() {
+            const region = document.getElementById('region').value;
+            const province = document.getElementById('province').value;
+            const citySelect = document.getElementById('city');
+            citySelect.innerHTML = '<option value=\"\">Select City/Municipality</option>';
+            if (region && province && phLocations[region] && phLocations[region].cities && phLocations[region].cities[province]) {
+                phLocations[region].cities[province].forEach(c => {
+                    const opt = document.createElement('option');
+                    opt.value = c;
+                    opt.textContent = c;
+                    citySelect.appendChild(opt);
+                });
+            }
+        }
+
+        // Link rental agreement to name inputs
+        function updateAgreementName() {
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const fullName = (firstName + ' ' + lastName).trim();
+            document.getElementById('renterNameDisplay').textContent = fullName || '___________________';
+            document.getElementById('agreementFullName').textContent = fullName || '___________________';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstNameInput = document.getElementById('firstName');
+            const lastNameInput = document.getElementById('lastName');
+            if (firstNameInput) firstNameInput.addEventListener('input', updateAgreementName);
+            if (lastNameInput) lastNameInput.addEventListener('input', updateAgreementName);
+            
+            // Debug: Verify phLocations and region select
+            console.log('📍 phLocations keys:', Object.keys(phLocations));
+            const regionSelect = document.getElementById('region');
+            if (regionSelect) {
+                console.log('✅ Region select found');
+                console.log('📍 Options count:', regionSelect.options.length);
+                for (let i = 0; i < Math.min(3, regionSelect.options.length); i++) {
+                    console.log(`  Option ${i}:`, regionSelect.options[i].text, '=', regionSelect.options[i].value);
+                }
+            } else {
+                console.error('❌ Region select NOT FOUND');
+            }
+        });
+    </script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <!-- Checkout Header -->
+    <section class="checkout-section">
+        <div class="container">
+            <div class="bookings-header">
+                <div>
+                    <h1 class="bookings-title">Checkout</h1>
+                    <p class="bookings-subtitle">Complete your rental order</p>
+                </div>
+            </div>
+
+    <!-- Checkout Content -->
+            <div class="checkout-layout">
+                
+                <!-- Left Column - Forms -->
+                <div class="checkout-forms">
+                    
+                    <!-- Contact Information -->
+                    <div class="checkout-card">
+                        <div class="card-header">
+                            <div class="step-badge">1</div>
+                            <h2>Contact Information</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="email">Email Address <span class="required">*</span></label>
+                                <input type="email" id="email" placeholder="your.email@example.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number <span class="required">*</span></label>
+                                <input type="tel" id="phone" placeholder="+63 912 345 6789" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rental Details -->
+                    <div class="checkout-card">
+                        <div class="card-header">
+                            <div class="step-badge">2</div>
+                            <h2>Rental Details</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="pickupDate">Pickup Date <span class="required">*</span></label>
+                                    <input type="date" id="pickupDate" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="returnDate">Return Date <span class="required">*</span></label>
+                                    <input type="date" id="returnDate" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="pickupLocation">Pickup Location <span class="required">*</span></label>
+                                <select id="pickupLocation" required>
+                                    <option value="">Select pickup location</option>
+                                    <option value="manila">Manila - Main Branch</option>
+                                    <option value="makati">Makati - CBD Branch</option>
+                                    <option value="bgc">BGC - Taguig Branch</option>
+                                    <option value="qc">Quezon City - North Branch</option>
+                                    <option value="delivery">Home Delivery (+₱150)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Billing Information -->
+                    <div class="checkout-card">
+                        <div class="card-header">
+                            <div class="step-badge">3</div>
+                            <h2>Billing Information</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name <span class="required">*</span></label>
+                                    <input type="text" id="firstName" placeholder="Juan" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name <span class="required">*</span></label>
+                                    <input type="text" id="lastName" placeholder="Dela Cruz" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="region">Region <span class="required">*</span></label>
+                                    <input type="text" id="region" placeholder="e.g., NCR, Region IV-A" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="province">Province <span class="required">*</span></label>
+                                    <input type="text" id="province" placeholder="e.g., Metro Manila, Cavite" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="city">City/Municipality <span class="required">*</span></label>
+                                    <input type="text" id="city" placeholder="e.g., Makati, Quezon City" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="barangay">Barangay <span class="required">*</span></label>
+                                    <input type="text" id="barangay" placeholder="e.g., Barangay 1" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Street Address <span class="required">*</span></label>
+                                <input type="text" id="address" placeholder="123 Main Street / House Number / Building Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="zipCode">ZIP Code <span class="required">*</span></label>
+                                <input type="text" id="zipCode" placeholder="e.g., 1000" maxlength="4" pattern="\d{4}" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ID Verification -->
+                    <div class="checkout-card">
+                        <div class="card-header">
+                            <div class="step-badge">4</div>
+                            <h2>ID Verification <span class="required">*</span></h2>
+                        </div>
+                        <div class="card-body">
+                            <p class="info-text" style="margin-bottom: 1.5rem;">
+                                <i class="fas fa-info-circle"></i> We require a valid government-issued ID for safety and verification purposes.
+                            </p>
+                            <div class="form-group">
+                                <label for="idType">ID Type <span class="required">*</span></label>
+                                <select id="idType" required>
+                                    <option value="">Select ID type</option>
+                                    <option value="passport">Passport</option>
+                                    <option value="drivers-license">Driver's License</option>
+                                    <option value="sss">SSS ID</option>
+                                    <option value="tin">TIN ID</option>
+                                    <option value="umid">UMID</option>
+                                    <option value="voters-id">Voter's ID</option>
+                                    <option value="barangay-id">Barangay ID</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="idNumber">ID Number <span class="required">*</span></label>
+                                <input type="text" id="idNumber" placeholder="Enter your ID number" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="idPhoto">Upload ID Photo <span class="required">*</span></label>
+                                <div class="file-upload-wrapper">
+                                    <input type="file" id="idPhoto" accept="image/*" required>
+                                    <div class="file-upload-area">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <p>Click to upload or drag and drop</p>
+                                        <span class="file-upload-hint">PNG, JPG, GIF up to 5MB</span>
+                                    </div>
+                                    <div id="idPhotoName" style="margin-top: 0.5rem; color: #666;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div class="checkout-card">
+                        <div class="card-header">
+                            <div class="step-badge">5</div>
+                            <h2>Payment Method</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="payment-methods" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 1.5rem;">
+                                <label style="display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid #e5e7eb; border-radius: 6px; cursor: pointer;">
+                                    <input type="radio" name="paymentMethod" value="card" checked style="width: 18px; height: 18px; cursor: pointer;">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg" alt="Visa" style="height: 15px; width: auto;">
+                                    <span style="font-weight: 500; color: #1f2937;">Credit/Debit Card</span>
+                                </label>
+
+                                <label style="display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid #e5e7eb; border-radius: 6px; cursor: pointer;">
+                                    <input type="radio" name="paymentMethod" value="gcash" style="width: 18px; height: 18px; cursor: pointer;">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIdQL3kBabkOZJzpt6a_4D0oTjET6QLQvnBA&s" alt="GCash" style="height: 15px; width: auto;">
+                                    <span style="font-weight: 500; color: #1f2937;">GCash</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid #e5e7eb; border-radius: 6px; cursor: pointer;">
+                                    <input type="radio" name="paymentMethod" value="paymaya" style="width: 18px; height: 18px; cursor: pointer;">
+                                    <img src="https://brandlogos.net/wp-content/uploads/2025/03/maya-logo_brandlogos.net_y6kkp.png" alt="Maya" style="height: 15px; width: auto;">
+                                    <span style="font-weight: 500; color: #1f2937;">Maya</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid #e5e7eb; border-radius: 6px; cursor: pointer;">
+                                    <input type="radio" name="paymentMethod" value="cod" style="width: 18px; height: 18px; cursor: pointer;">
+                                    <span style="font-size: 20px;">💵</span>
+                                    <span style="font-weight: 500; color: #1f2937;">Cash on Pickup</span>
+                                </label>
+                            </div>                            <!-- Card Details (shown when card is selected) -->
+                            <div id="cardDetails" class="payment-details">
+                                <div class="form-group">
+                                    <label for="cardNumber">Card Number <span class="required">*</span></label>
+                                    <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="expiryDate">Expiry Date <span class="required">*</span></label>
+                                        <input type="text" id="expiryDate" placeholder="MM/YY" maxlength="5">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cvv">CVV <span class="required">*</span></label>
+                                        <input type="text" id="cvv" placeholder="123" maxlength="4">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cardName">Name on Card <span class="required">*</span></label>
+                                    <input type="text" id="cardName" placeholder="JUAN DELA CRUZ">
+                                </div>
+                            </div>
+
+                            <!-- GCash Details -->
+                            <div id="gcashDetails" class="payment-details" style="display: none;">
+                                <div class="form-group">
+                                    <label for="gcashNumber">GCash Mobile Number <span class="required">*</span></label>
+                                    <input type="tel" id="gcashNumber" placeholder="+63 912 345 6789">
+                                </div>
+                                <p class="payment-note">
+                                    <i class="fas fa-info-circle"></i> You will receive a payment request on your GCash app
+                                </p>
+                            </div>
+
+                            <!-- PayMaya Details -->
+                            <div id="paymayaDetails" class="payment-details" style="display: none;">
+                                <div class="form-group">
+                                    <label for="paymayaNumber">PayMaya Mobile Number <span class="required">*</span></label>
+                                    <input type="tel" id="paymayaNumber" placeholder="+63 912 345 6789">
+                                </div>
+                                <p class="payment-note">
+                                    <i class="fas fa-info-circle"></i> You will be redirected to PayMaya for payment
+                                </p>
+                            </div>
+
+                            <!-- COD Details -->
+                            <div id="codDetails" class="payment-details" style="display: none;">
+                                <p class="payment-note">
+                                    <i class="fas fa-info-circle"></i> Payment will be collected when you pick up your rental items. Please bring exact amount if possible.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Notes -->
+                    <div class="checkout-card">
+                        <div class="card-header">
+                            <div class="step-badge">6</div>
+                            <h2>Rental Protection & Add-ons</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="insurance-options">
+                                <div class="insurance-option">
+                                    <input type="checkbox" id="damageInsurance" value="damage-protection">
+                                    <div class="insurance-card">
+                                        <div class="insurance-icon">
+                                            <i class="fas fa-shield-alt"></i>
+                                        </div>
+                                        <div class="insurance-info">
+                                            <span class="insurance-name">Damage Protection</span>
+                                            <span class="insurance-desc">₱200 - Covers accidental damage (not theft)</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="insurance-option">
+                                    <input type="checkbox" id="fullInsurance" value="full-coverage">
+                                    <div class="insurance-card">
+                                        <div class="insurance-icon">
+                                            <i class="fas fa-umbrella"></i>
+                                        </div>
+                                        <div class="insurance-info">
+                                            <span class="insurance-name">Full Coverage Insurance</span>
+                                            <span class="insurance-desc">₱500 - Covers damage, loss & theft</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rental Agreement -->
+                    <div class="checkout-card">
+                        <div class="card-header">
+                            <div class="step-badge">7</div>
+                            <h2>Rental Agreement</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group" style="margin: 0;">
+                                <label class="checkbox-container" style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer;">
+                                    <input type="checkbox" id="agreeTerms" required style="margin-top: 4px; width: 20px; height: 20px; cursor: pointer; flex-shrink: 0;">
+                                    <span style="font-size: 14px; line-height: 1.6; color: #374151;">
+                                        I agree to the <a href="#" id="viewAgreementLink" class="link-primary" style="color: #7c3aed; text-decoration: none; font-weight: 600;">Rental Agreement Contract</a> and <a href="#" id="viewTermsLink" class="link-primary" style="color: #7c3aed; text-decoration: none; font-weight: 600;">Terms of Use</a>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rental Agreement Modal -->
+                    <div id="agreementModal" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3>Rental Agreement Contract</h3>
+                                <span class="modal-close">&times;</span>
+                            </div>
+                            <div class="modal-body">
+                                <div class="rental-agreement-content">
+                                    <p class="agreement-intro">
+                                        I, the Renter, <strong id="renterNameDisplay">___________________</strong>, hereby enter into this Rental Agreement 
+                                        with the Owner, <strong>Shemaiah Ezra</strong>, for the temporary use of rental equipment. By 
+                                        booking and/or accepting delivery of the item, I agree to abide by the following terms 
+                                        and conditions:
+                                    </p>
+
+                                    <div class="agreement-terms">
+                                        <div class="agreement-item">
+                                            <h4>1. Item Condition</h4>
+                                            <p>Items must be returned in the same condition, with all accessories and packaging. 
+                                            You're responsible for any missing or damaged parts.</p>
+                                        </div>
+
+                                        <div class="agreement-item">
+                                            <h4>2. Damage</h4>
+                                            <p>You're fully liable for any damage during the rental. Repair or penalty fees will apply.</p>
+                                        </div>
+
+                                        <div class="agreement-item">
+                                            <h4>3. Loss/Theft</h4>
+                                            <p>If lost or stolen, you must pay the full replacement value or provide an approved equivalent.</p>
+                                        </div>
+
+                                        <div class="agreement-item">
+                                            <h4>4. Reservation Fee</h4>
+                                            <p>A non-refundable 50% fee is required to book. The full balance must be paid before pickup.</p>
+                                        </div>
+
+                                        <div class="agreement-item">
+                                            <h4>5. Security Deposit</h4>
+                                            <p>A refundable security deposit is required upon item pick-up or delivery:</p>
+                                            <ul>
+                                                <li>PHP 500 for rentals lasting 1-2 days</li>
+                                                <li>PHP 1,000 for rentals of 3 days or more</li>
+                                            </ul>
+                                            <p>The security deposit will be refunded in full after the item is returned in good 
+                                            condition. I understand that I will be liable for any late return charges, damage costs, 
+                                            or missing accessories, which will be deducted from the deposit.</p>
+                                        </div>
+
+                                        <div class="agreement-item">
+                                            <h4>6. Late Returns</h4>
+                                            <p>Late returns will be liable to a charge of PHP 100 per hour beyond the agreed-upon return time.</p>
+                                        </div>
+
+                                        <div class="agreement-item">
+                                            <h4>7. Cancellations</h4>
+                                            <p>Confirmed bookings are strictly non-refundable.</p>
+                                        </div>
+
+                                        <div class="agreement-item">
+                                            <h4>8. Rescheduling</h4>
+                                            <p>Must be requested at least 24 hours in advance. Approval is subject to item availability.</p>
+                                        </div>
+
+                                        <div class="agreement-item">
+                                            <h4>9. Delivery & Return</h4>
+                                            <p>Renter covers delivery fees (pick-up and return) via Move It Padala to the specified location.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="agreement-acknowledgment">
+                                        <h4>Acknowledgment and Agreement</h4>
+                                        <p>By signing below, I confirm that I have read, understood, and agreed to the terms and 
+                                        conditions outlined in this Rental Agreement.</p>
+                                        
+                                        <div class="signature-fields">
+                                            <div class="signature-field">
+                                                <label>Full Name: <span id="agreementFullName">___________________</span></label>
+                                            </div>
+                                            <div class="signature-field">
+                                                <label>Date: <span id="agreementDate">___________________</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Return & Inspection Info -->
+                    <div class="checkout-card">
+                        <div class="card-header">
+                            <div class="step-badge">9</div>
+                            <h2>Return & Equipment Inspection</h2>
+                        </div>
+                        <div class="card-body">
+                            <p class="info-text">
+                                <i class="fas fa-camera"></i> <strong>What happens when you return:</strong>
+                            </p>
+                            <div class="return-process">
+                                <div class="process-step">
+                                    <div class="step-number">1</div>
+                                    <div class="step-content">
+                                        <h4>Equipment Inspection</h4>
+                                        <p>We'll inspect the equipment for damage, missing parts, or issues.</p>
+                                    </div>
+                                </div>
+                                <div class="process-step">
+                                    <div class="step-number">2</div>
+                                    <div class="step-content">
+                                        <h4>Documentation</h4>
+                                        <p>Photos will be taken to document condition. No disputes later!</p>
+                                    </div>
+                                </div>
+                                <div class="process-step">
+                                    <div class="step-number">3</div>
+                                    <div class="step-content">
+                                        <h4>Deposit Refund</h4>
+                                        <p>If everything is okay, we refund your security deposit within 1-2 business days.</p>
+                                    </div>
+                                </div>
+                                <div class="process-step">
+                                    <div class="step-number">4</div>
+                                    <div class="step-content">
+                                        <h4>Receipt & Feedback</h4>
+                                        <p>You'll receive a digital return receipt and we'd love your feedback!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="checklist-reminder" style="margin-top: 1.5rem; padding: 1rem; background: #f3f4f6; border-radius: 8px; border-left: 4px solid #7c3aed;">
+                                <h4 style="margin-top: 0;">Before You Return, Make Sure:</h4>
+                                <ul style="margin: 0.5rem 0 0 1.5rem;">
+                                    <li>All accessories are included (batteries, chargers, cables, manuals)</li>
+                                    <li>No SD cards or external storage left inside</li>
+                                    <li>Equipment is clean and in returned condition</li>
+                                    <li>All caps and protective covers are in place</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Column - Order Summary -->
+                <div class="order-summary-sidebar">
+                    <div class="summary-card sticky">
+                        <h3>Order Summary</h3>
+                        
+                        <div class="order-items" id="orderItems">
+                            <!-- Items will be loaded here by JavaScript -->
+                            <p class="empty-cart">No items in cart</p>
+                        </div>
+
+                        <div class="summary-breakdown">
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span id="subtotal">₱0</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Delivery Fee</span>
+                                <span id="deliveryFee">₱0</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Tax (2%)</span>
+                                <span id="tax">₱0</span>
+                            </div>
+                            <div class="summary-row discount" id="discountRow" style="display: none;">
+                                <span>Discount</span>
+                                <span id="discount">-₱0</span>
+                            </div>
+                            <div class="summary-row total">
+                                <span>Total</span>
+                                <span id="total">₱0</span>
+                            </div>
+                        </div>
+
+                        <button class="btn-place-order" id="placeOrderBtn">
+                            <i class="fas fa-lock"></i> Place Order
+                        </button>
+
+                        <!-- Debug controls (shown when ?debug=1) -->
+                        <div id="debugControls" style="display:none; margin-top: 12px;">
+                            <button class="btn-place-order" style="background:#3b82f6;" id="debugReloadBtn">🔄 Reload Cart</button>
+                            <button class="btn-place-order" style="background:#10b981;" id="debugForceBtn">💪 Force Render</button>
+                        </div>
+
+                        <div class="security-badges">
+                            <i class="fas fa-shield-alt"></i> Secure Checkout
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+        <!-- Debug loader: visit checkout.html?debug=1 to auto-run emergency fix -->
+        <script>
+            (function(){
+                try {
+                    var params = new URLSearchParams(window.location.search);
+                    if (params.get('debug') === '1') {
+                        var s = document.createElement('script');
+                        s.src = 'emergency-fix.js';
+                        s.onload = function(){ console.log('Emergency fix script loaded via ?debug=1'); };
+                        s.onerror = function(){ console.warn('Failed to load emergency-fix.js'); };
+                        document.head.appendChild(s);
+
+                        // Show inline debug controls
+                        var dc = document.getElementById('debugControls');
+                        if (dc) {
+                            dc.style.display = 'block';
+                            var reloadBtn = document.getElementById('debugReloadBtn');
+                            var forceBtn = document.getElementById('debugForceBtn');
+                            if (reloadBtn) reloadBtn.onclick = function(){
+                                try {
+                                    console.log('Debug: calling loadCartItems()');
+                                    if (typeof loadCartItems === 'function') {
+                                        loadCartItems();
+                                    } else {
+                                        alert('loadCartItems() not available yet. Try reloading the page.');
+                                    }
+                                } catch (e) {
+                                    console.error('Debug reload error:', e);
+                                }
+                            };
+                            if (forceBtn) forceBtn.onclick = function(){
+                                console.log('Debug: force render via emergency-fix.js');
+                                var s2 = document.createElement('script');
+                                s2.src = 'emergency-fix.js';
+                                document.head.appendChild(s2);
+                            };
+                        }
+                    }
+                } catch (e) {
+                    console.warn('Debug loader error:', e);
+                }
+            })();
+        </script>
+
+        <!-- Rental Agreement Modal -->
+        <div id="agreementModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Equipment Rental Agreement</h3>
+                    <span class="modal-close" onclick="closeModal('agreementModal')">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <p><strong>This Equipment Lease Agreement ("Lease") is a legal contract between CameRent.com ("Owner") and the Current User ("Renter").</strong></p>
+                    
+                    <p><strong>IMPORTANT:</strong> By clicking the "I agree, submit this order" button, you acknowledge that you have read, understood, and agreed to be bound by all terms and conditions listed below. CameRent reserves the right to modify these terms at any time.</p>
+                    
+                    <h4>1. CORE LEASE TERMS</h4>
+                    <p><strong>The Equipment:</strong> Refers to all items shown in the "Contents" area during checkout.</p>
+                    <p><strong>The Term:</strong> The rental period begins on the date of the first attempted delivery or the start date shown on your receipt. It expires on the end date shown on your receipt.</p>
+                    <p><strong>Ownership:</strong> The Equipment remains the exclusive property of CameRent. Renter has no rights to the equipment other than temporary use.</p>
+                    <p><strong>Disclaimer:</strong> Descriptions and prices are subject to change. CameRent reserves the right to correct errors.</p>
+                    
+                    <h4>2. PAYMENTS & SHIPPING</h4>
+                    <p><strong>Rent & Deposit:</strong> All fees must be paid in full and in advance.</p>
+                    <p><strong>Shipping Charges:</strong> Renter pays for both outgoing and return shipping at the time of transaction.</p>
+                    <p><strong>Shipping Estimates:</strong> CameRent provides estimated delivery times only and cannot guarantee exact dates.</p>
+                    <p><strong>Taxes:</strong> Renter is responsible for any taxes, duties, or liens levied against the equipment during the term.</p>
+                    
+                    <h4>3. LATE RETURNS & DEFAULT</h4>
+                    <p><strong>Late Fees:</strong> Charged daily at the standard rental rate.</p>
+                    <p><strong>Stolen Status:</strong> If the equipment is not returned 3 days after the due date and penalties cannot be collected, it will be declared stolen.</p>
+                    <p><strong>Replacement Value:</strong> Renter's payment method will be charged the full replacement value for stolen or unreturned gear.</p>
+                    <p><strong>Default:</strong> If payments fail, Renter is in default and liable for collection fees, private investigator costs, and attorney's fees.</p>
+                    
+                    <h4>4. USE & CARE OF EQUIPMENT</h4>
+                    <p><strong>Proper Use:</strong> Renter must comply with all laws and use the gear in a careful manner.</p>
+                    <p><strong>Condition:</strong> Gear is assumed to be in good condition unless damage is reported within 24 hours of possession.</p>
+                    <p><strong>Modifications:</strong> Material alterations are strictly prohibited. Renter will pay for restoration costs if the gear is modified.</p>
+                    <p><strong>Cleaning Fees:</strong> A fee may be charged for smoke, mud, sand, or other matter requiring professional cleaning.</p>
+                    
+                    <h4>5. DAMAGE & LOSS</h4>
+                    <p><strong>Risk of Loss:</strong> Renter bears all risk of damage or loss from any cause once they take possession.</p>
+                    <p><strong>Repair Authority:</strong> CameRent chooses the repair venue. Renter is responsible for the full cost of parts and labor.</p>
+                    <p><strong>Unreturned Status:</strong> If tracking does not show a pickup and the Renter has no drop-off receipt, the gear is considered unreturned.</p>
+                    
+                    <h4>6. PROTECTION PLANS (OPTIONAL)</h4>
+                    <p><strong>Lenscap Plan:</strong> Limits liability to the lesser of 10% of replacement cost or actual repair cost for ordinary negligence.</p>
+                    <p><strong>Not covered:</strong> Water damage, sun-exposed sensor damage, intentional/reckless abuse, or theft.</p>
+                    <p><strong>Lenscap+ Plan:</strong> Extends protection to include loss due to theft, fire, or natural disasters (proof required).</p>
+                    
+                    <h4>7. LIABILITY & CANCELLATIONS</h4>
+                    <p><strong>Indemnification:</strong> CameRent is not liable for any claims resulting from the use or malfunction of the equipment.</p>
+                    <p><strong>Malfunctions/Delays:</strong> CameRent's only liability is a prorated refund of the rent for the period the gear was unusable.</p>
+                    <p><strong>Cancellations:</strong></p>
+                    <ul>
+                        <li>By CameRent: Any time before delivery.</li>
+                        <li>By Renter: Any time until the gear is handed to the shipper.</li>
+                    </ul>
+                    
+                    <h4>8. SIGNATURE</h4>
+                    <p><strong>Renter Name:</strong> <span id="modalRenterName">___________________________</span></p>
+                    <p><strong>Owner:</strong> Shemaiah Ezra (CameRent.com)</p>
+                    <p><strong>Date:</strong> <span id="modalAgreementDate">___________________________</span></p>
+                    <p><strong>Signature:</strong> <span id="modalRenterSignature">___________________________</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terms of Use Modal -->
+        <div id="termsModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Terms of Use</h3>
+                    <span class="modal-close" onclick="closeModal('termsModal')">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <p>Welcome to CameRent.com. By accessing or using our Site, you agree to comply with the following terms.</p>
+                    
+                    <h4>1. ACCEPTANCE OF TERMS</h4>
+                    <p><strong>Agreement:</strong> By using this Site, you signify your agreement to these Terms of Use, our Privacy Policy, and our Disclaimer.</p>
+                    <p><strong>Electronic Transaction:</strong> You agree to transact with us electronically.</p>
+                    <p><strong>Right to Deny Access:</strong> CameRent reserves the right to deny access to anyone who violates these terms.</p>
+                    <p><strong>Modifications:</strong> We may change these terms at any time. Please check this page regularly for updates.</p>
+                    
+                    <h4>2. ELIGIBILITY & SERVICE DESCRIPTION</h4>
+                    <p><strong>Platform Role:</strong> CameRent provides an online platform connecting Lenders (Sellers) and Renters (Borrowers).</p>
+                    <p><strong>Legal Age:</strong> Users must be at least eighteen (18) years old and capable of forming binding legal contracts.</p>
+                    <p><strong>Service Changes:</strong> CameRent may update, suspend, or discontinue any aspect of the Service at any time without prior notice.</p>
+                    
+                    <h4>3. USER REGISTRATION</h4>
+                    <p>To use certain features, you agree to:</p>
+                    <ul>
+                        <li>Provide accurate, current, and complete information.</li>
+                        <li>Maintain the confidentiality of your password and account security.</li>
+                        <li>Accept full responsibility for all activities that occur under your account.</li>
+                    </ul>
+                    
+                    <h4>4. REPLACEMENT & REIMBURSEMENT (For Lenders)</h4>
+                    <p><strong>Maximum Liability:</strong> Our liability is limited to the depreciated value or replacement value of the item, whichever is higher.</p>
+                    <p><strong>Processing Time:</strong> Reimbursement for lost or damaged items is processed within 45 days once a decision is finalized.</p>
+                    <p><strong>Availability:</strong> Replacement of products depends on market availability of parts or units.</p>
+                    
+                    <h4>5. USER CONTENT & FEEDBACK</h4>
+                    <p><strong>Non-Confidentiality:</strong> Any feedback, comments, or suggestions sent to CameRent shall be deemed non-confidential.</p>
+                    <p><strong>Usage Rights:</strong> CameRent is free to use, reproduce, and distribute such feedback for any purpose, including marketing and product improvement, without limitation.</p>
+                    
+                    <h4>6. PAYMENTS & PRICING</h4>
+                    <p><strong>Accuracy:</strong> You warrant that all payment information (credit/debit/banking) provided is true and complete.</p>
+                    <p><strong>Honor Charges:</strong> You agree to pay all charges incurred, including applicable taxes.</p>
+                    <p><strong>Price Errors:</strong> We are not responsible for price variations due to technical issues or typographical errors.</p>
+                    <p><strong>Refunds:</strong> Approved refunds are typically processed within 5-7 working days.</p>
+                    
+                    <h4>7. MONITORING & DOWNTIME</h4>
+                    <p><strong>Access Logs:</strong> For security and statistics, we monitor requesting URLs, originating machines, and timestamps.</p>
+                    <p><strong>System Failures:</strong> The Site may be unavailable due to mechanical, software, or third-party vendor failures. CameRent is not liable for the duration of such downtime.</p>
+                    
+                    <h4>8. DISCLAIMER OF WARRANTIES</h4>
+                    <p><strong>Product Images:</strong> Images on the site are for illustrative purposes only and may not reflect the actual quality or exact specifications of the product.</p>
+                    <p><strong>Content Accuracy:</strong> We do not warrant that product descriptions or site content are error-free, complete, or current.</p>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Modal functions
+            function openModal(modalId) {
+                document.getElementById(modalId).style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                
+                // Auto-fill name, date, and signature when opening agreement modal
+                if (modalId === 'agreementModal') {
+                    const firstName = document.getElementById('firstName')?.value || '';
+                    const lastName = document.getElementById('lastName')?.value || '';
+                    const fullName = (firstName + ' ' + lastName).trim() || '___________________________';
+                    const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                    
+                    document.getElementById('modalRenterName').textContent = fullName;
+                    document.getElementById('modalAgreementDate').textContent = today;
+                    document.getElementById('modalRenterSignature').textContent = fullName;
+                }
+            }
+            
+            function closeModal(modalId) {
+                document.getElementById(modalId).style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+            
+            // Close modal when clicking outside
+            window.onclick = function(event) {
+                if (event.target.classList.contains('modal')) {
+                    event.target.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            }
+            
+            // Setup modal links
+            document.addEventListener('DOMContentLoaded', function() {
+                const agreementLink = document.getElementById('viewAgreementLink');
+                const termsLink = document.getElementById('viewTermsLink');
+                
+                if (agreementLink) {
+                    agreementLink.onclick = function(e) {
+                        e.preventDefault();
+                        openModal('agreementModal');
+                    };
+                }
+                
+                if (termsLink) {
+                    termsLink.onclick = function(e) {
+                        e.preventDefault();
+                        openModal('termsModal');
+                    };
+                }
+            });
+        </script>
+</body>
+</html>

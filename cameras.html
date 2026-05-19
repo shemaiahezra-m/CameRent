@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CameRent MNL</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 512'><path fill='%238b5cf6' d='M149.1 64.8L138.7 96H64C28.7 96 0 124.7 0 160V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H373.3L362.9 64.8C356.4 45.2 338.1 32 317.4 32H194.6c-20.7 0-39 13.2-45.5 32.8zM256 192a96 96 0 1 1 0 192 96 96 0 1 1 0-192z'/></svg>" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/cameras.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/compare.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <script src="js/auth.js" defer></script>
+    <script src="js/common.js" defer></script>
+    <script src="js/navigation.js" defer></script>
+    <script src="js/profile-modal.js" defer></script>
+    <script src="js/calendar.js" defer></script>
+    <script src="js/compare.js" defer></script>
+    <script src="js/cameras.js" defer></script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <h1 class="page-camera">Choose your <span class="highlight-Camera">Camera</span></h1>
+    <p class="page-description">Explore our wide range of cameras available for rent.</p>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="date-picker-card">
+                <p class="date-picker-title">Select your rental dates</p>
+                <div class="date-inputs">
+                    <div class="date-group">
+                        <label for="pickup-date">Pickup Date</label>
+                        <div class="custom-date-input" id="pickup-input">
+                            <span class="selected-date" id="pickup-display">Select Date</span>
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="calendar-popup" id="pickup-calendar">
+                            <div class="calendar-header">
+                                <button class="calendar-nav" id="pickup-prev">&lt;</button>
+                                <span class="calendar-month-year" id="pickup-month-year"></span>  
+                                <button class="calendar-nav" id="pickup-next">&gt;</button>
+                            </div>
+                            <div class="calendar-days">
+                                <div class="calendar-weekdays">
+                                    <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                                </div>
+                                <div class="calendar-dates" id="pickup-dates"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="date-group">
+                        <label for="return-date">Return Date</label>
+                        <div class="custom-date-input" id="return-input">
+                            <span class="selected-date" id="return-display">Select Date</span>
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="calendar-popup" id="return-calendar">
+                            <div class="calendar-header">
+                                <button class="calendar-nav" id="return-prev">&lt;</button>
+                                <span class="calendar-month-year" id="return-month-year"></span>
+                                <button class="calendar-nav" id="return-next">&gt;</button>
+                            </div>
+                            <div class="calendar-days">
+                                <div class="calendar-weekdays">
+                                    <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                                </div>
+                                <div class="calendar-dates" id="return-dates"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rental-period-display" id="rental-period" style="display: none;">
+                    <p class="rental-period-text">Rental period: <span id="rental-days">0</span> day(s)</p>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="filters-row">
+                    <div class="category-pills">
+                        <a href="#" class="pill active" data-category="all">All</a>
+                        <a href="#" class="pill" data-category="smartphone">Smartphones</a>
+                        <a href="#" class="pill" data-category="compact">Compact</a>
+                        <a href="#" class="pill" data-category="mirrorless">Mirrorless & DSLR</a>
+                        <a href="#" class="pill" data-category="action-camera">Action Cameras</a>
+                        <a href="#" class="pill" data-category="drone">Drones</a>
+                        <a href="#" class="pill" data-category="instant-film">Instant/Film</a>
+                        <a href="#" class="pill" data-category="other">Other</a>
+                    </div>
+                    
+                    <div class="sort-filter-container">
+                        <button id="sort-select" class="sort-icon-btn">
+                            <i class="fas fa-sort"></i>
+                        </button>
+                        <select id="sort-dropdown" class="sort-dropdown-menu">
+                            <option value="default">Default</option>
+                            <option value="name-asc">Name (A-Z)</option>
+                            <option value="name-desc">Name (Z-A)</option>
+                            <option value="price-asc">Price (Low to High)</option>
+                            <option value="price-desc">Price (High to Low)</option>
+                        </select>
+                    </div>
+                </div>
+        
+                <div class="cameras-grid">
+                    <div class="camera-card" data-category="smartphone" data-id="iphone-16-pro-max">
+                        <div class="discount-badge">-15%</div>
+                        <div class="camera-image">
+                            <img src="https://powermaccenter.com/cdn/shop/files/iPhone_16_Pro_Max_Natural_Titanium_PDP_Image_Position_1__en-WW_8b820b11-36e5-4147-af03-879b6cebfdfd_720x.jpg?v=1726238578" alt="iPhone 16 Pro Max" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="camera-info">
+                            <p class="camera-category">Smartphone</p>
+                            <h3>iPhone 16 Pro Max (256GB)</h3>
+                            <div class="rating-rents">
+                                <div class="rating"><i class="fas fa-star"></i> 4.9</div>
+                                <div class="rents">287 rents</div>
+                            </div>
+                            <div class="camera-price">
+                                <span class="price">₱1,499/day</span>
+                                <button class="add-to-cart-btn" 
+                                        data-id="iphone-16-pro-max"
+                                        data-name="iPhone 16 Pro Max (256GB)" 
+                                        data-category="Smartphone"
+                                        data-price="1499"
+                                        data-price-4plus="1349"
+                                        data-price-11plus="1274">
+                                    <i class="fas fa-bag-shopping"></i>
+                                    <i class="fas fa-plus plus-overlay"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="camera-card" data-category="smartphone" data-id="iphone-14-pro">
+                        <div class="camera-image">
+                            <img src="https://powermaccenter.com/cdn/shop/files/iPhone_14_Pro_Silver_PDP_Image_Position-1a__en-US_0e607d08-2dff-4f8b-8a40-7f5da49434b9.jpg?v=1705403393" alt="iPhone 14 Pro" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="camera-info">
+                            <p class="camera-category">Smartphone</p>
+                            <h3>iPhone 14 Pro (128GB)</h3>                            <div class="rating-rents">
+                                <div class="rating"><i class="fas fa-star"></i> 4.8</div>
+                                <div class="rents">412 rents</div>
+                            </div>                            <div class="camera-price">
+                                <span class="price">₱899/day</span>
+                                <button class="add-to-cart-btn" 
+                                        data-id="iphone-14-pro"
+                                        data-name="iPhone 14 Pro (128GB)" 
+                                        data-category="Smartphone"
+                                        data-price="899"
+                                        data-price-4plus="809"
+                                        data-price-11plus="764">
+                                    <i class="fas fa-bag-shopping"></i>
+                                    <i class="fas fa-plus plus-overlay"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="camera-card" data-category="smartphone" data-id="iphone-13-pro-max">
+                        <div class="discount-badge">-20%</div>
+                        <div class="camera-image">
+                            <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-max-blue-select?wid=470&hei=556&fmt=png-alpha&.v=1645552346295" alt="iPhone 13 Pro Max" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="camera-info">
+                            <p class="camera-category">Smartphone</p>
+                            <h3>iPhone 13 Pro Max (128GB)</h3>
+                            <div class="rating-rents">
+                                <div class="rating"><i class="fas fa-star"></i> 4.7</div>
+                                <div class="rents">523 rents</div>
+                            </div>
+                            <div class="camera-price">
+                                <span class="price">₱699/day</span>
+                                <button class="add-to-cart-btn" 
+                                        data-id="iphone-13-pro-max"
+                                        data-name="iPhone 13 Pro Max (128GB Sierra Blue)" 
+                                        data-category="Smartphone"
+                                        data-price="699"
+                                        data-price-4plus="629"
+                                        data-price-11plus="594">
+                                    <i class="fas fa-bag-shopping"></i>
+                                    <i class="fas fa-plus plus-overlay"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="camera-card" data-category="smartphone" data-id="samsung-s23-ultra">
+                        <button class="add-to-compare-btn" data-camera-id="samsung-s23-ultra" title="Add to Compare">
+                            <i class="fas fa-balance-scale"></i>
+                        </button>
+                        <div class="camera-image">
+                            <img src="https://images.samsung.com/is/image/samsung/p6pim/ph/2302/gallery/ph-galaxy-s23-s918-sm-s918bzkcphl-534856194?$684_547_PNG$" alt="Samsung Galaxy S23 Ultra" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="camera-info">
+                            <p class="camera-category">Smartphone</p>
+                            <h3>Galaxy S23 Ultra</h3>
+                            <div class="rating-rents">
+                                <div class="rating"><i class="fas fa-star"></i> 4.8</div>
+                                <div class="rents">351 rents</div>
+                            </div>
+                            <div class="camera-price">
+                                <span class="price">₱1,499/day</span>
+                                <button class="add-to-cart-btn" 
+                                        data-id="samsung-s23-ultra"
+                                        data-name="Galaxy S23 Ultra" 
+                                        data-category="Smartphone"
+                                        data-price="1499"
+                                        data-price-4plus="1349"
+                                        data-price-11plus="1274">
+                                    <i class="fas fa-bag-shopping"></i>
+                                    <i class="fas fa-plus plus-overlay"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="camera-card" data-category="smartphone" data-id="samsung-z-flip-5">
+                        <div class="camera-image">
+                            <img src="https://images.samsung.com/is/image/samsung/p6pim/za/2307/gallery/za-galaxy-z-flip5-f731-sm-f731bzeaafa-537230624?$684_547_PNG$" alt="Samsung Galaxy Z Flip 5" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="camera-info">
+                            <p class="camera-category">Smartphone</p>
+                            <h3>Galaxy Z Flip 5</h3>                            <div class="rating-rents">
+                                <div class="rating"><i class="fas fa-star"></i> 4.6</div>
+                                <div class="rents">198 rents</div>
+                            </div>                            <div class="camera-price">
+                                <span class="price">₱1,299/day</span>
+                                <button class="add-to-cart-btn" 
+                                        data-id="samsung-z-flip-5"
+                                        data-name="Galaxy Z Flip 5" 
+                                        data-category="Smartphone"
+                                        data-price="1299"
+                                        data-price-4plus="1169"
+                                        data-price-11plus="1104">
+                                    <i class="fas fa-bag-shopping"></i>
+                                    <i class="fas fa-plus plus-overlay"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="camera-card" data-category="compact" data-id="canon-g7x-mark-iii">
+                        <div class="discount-badge">-25%</div>
+                        <div class="camera-image">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvgk1L9bXg83yoruPuQ03jXEY8DhFAm0N6Qw&s" alt="Canon G7X Mark III" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="camera-info">
+                            <p class="camera-category">Compact</p>
+                            <h3>Canon G7X Mark III</h3>
+                            <div class="rating-rents">
+                                <div class="rating"><i class="fas fa-star"></i> 4.7</div>
+                                <div class="rents">634 rents</div>
+                            </div>
+                            <div class="camera-price">
+                                <span class="price">₱499/day</span>
+                                <button class="add-to-cart-btn" 
+                                        data-id="canon-g7x-mark-iii"
+                                        data-name="Canon G7X Mark III" 
+                                        data-category="Compact"
+                                        data-price="499"
+                                        data-price-4plus="449"
+                                        data-price-11plus="424">
+                                    <i class="fas fa-bag-shopping"></i>
+                                    <i class="fas fa-plus plus-overlay"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="camera-card" data-category="compact" data-id="sony-zv-1">
+                        <div class="camera-image">
+                            <img src="https://sony.scene7.com/is/image/sonyglobalsolutions/Primary_image-15?$S7Product$&fmt=png-alpha" alt="Sony ZV-1" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="camera-info">
+                            <p class="camera-category">Compact</p>
+                            <h3>Sony ZV-1</h3>                            <div class="rating-rents">
+                                <div class="rating"><i class="fas fa-star"></i> 4.9</div>
+                                <div class="rents">721 rents</div>
+                            </div>                            <div class="camera-price">
+                                <span class="price">₱599/day</span>
+                                <button class="add-to-cart-btn" 
+                                        data-id="sony-zv-1"
+                                        data-name="Sony ZV-1" 
+                                        data-category="Compact"
+                                        data-price="599"
+                                        data-price-4plus="539"
+                                        data-price-11plus="509">
+                                    <i class="fas fa-bag-shopping"></i>
+                                    <i class="fas fa-plus plus-overlay"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="camera-card" data-category="compact" data-id="fujifilm-x100vi">
+                        <div class="discount-badge">-12%</div>
+                        <div class="camera-image">
+                            <img src="https://f8photo.ph/cdn/shop/files/1_9b82c6eb-1a34-49c2-93fb-c8143fba1800.png?v=1725522241&width=1946" alt="Fujifilm X100VI" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="camera-info">
+                            <p class="camera-category">Compact</p>
+                            <h3>Fujifilm X100VI</h3>
+                            <div class="rating-rents">
+                                <div class="rating"><i class="fas fa-star"></i> 4.8</div>
+                                <div class="rents">156 rents</div>
+                            </div>
+                            <div class="camera-price">
+                                <span class="price">₱699/day</span>
+                                <button class="add-to-cart-btn" 
+                                        data-id="fujifilm-x100vi"
+                                        data-name="Fujifilm X100VI" 
+                                        data-category="Compact"
+                                        data-price="699"
+                                        data-price-4plus="629"
+                                        data-price-11plus="594">
+                                    <i class="fas fa-bag-shopping"></i>
+                                    <i class="fas fa-plus plus-overlay"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="camera-card" data-category="mirrorless" data-id="canon-eos-m50-mark-ii">
+                        <div class="discount-badge">-18%</div>
+                        <div class="camera-image">
+                            <img src="https://cafe24img.poxo.com/channelcomph/web/product/big/202207/7a6d2471a1bfa8b72c14147509b887c0.jpg" alt="Canon EOS M50 Mark II" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="camera-info">
+                            <p class="camera-category">Mirrorless</p>
+                            <h3>Canon EOS M50 Mark II</h3>
+                            <div class="rating-rents">
+                                <div class="rating"><i class="fas fa-star"></i> 4.6</div>
+                                <div class="rents">289 rents</div>
+                            </div>
+                            <div class="camera-price">
+                                <span class="price">₱499/day</span>
+                                <button class="add-to-cart-btn" 
+                                        data-id="canon-eos-m50-mark-ii"
+                                        data-name="Canon EOS M50 Mark II" 
+                                        data-category="Mirrorless"
+                                        data-price="499"
+                                        data-price-4plus="449"
+                                        data-price-11plus="424">
+                                    <i class="fas fa-bag-shopping"></i>
+                                    <i class="fas fa-plus plus-overlay"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="camera-card" data-category="mirrorless" data-id="sony-a7iii">
+                        <div class="discount-badge">-15%</div>
+                        <div class="camera-image">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSu5Ph0Hq_p4nIQrk8IEPowhv4-s_d464MuJg&s" alt="Sony A7III" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="camera-info">
+                            <p class="camera-category">Mirrorless</p>
+                            <h3>Sony A7III</h3>
+                            <div class="rating-rents">
+                                <div class="rating"><i class="fas fa-star"></i> 4.9</div>
+                                <div class="rents">512 rents</div>
+                            </div>
+                            <div class="camera-price">
+                                <span class="price">₱999/day</span>
+                                <button class="add-to-cart-btn" 
+                                        data-id="sony-a7iii"
+                                        data-name="Sony A7III" 
+                                        data-category="Mirrorless"
+                                        data-price="999"
+                                        data-price-4plus="899"
+                                        data-price-11plus="849">
+                                    <i class="fas fa-bag-shopping"></i>
+                                    <i class="fas fa-plus plus-overlay"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="camera-card" data-category="mirrorless" data-id="fujifilm-xt30-ii">
+                        <div class="camera-image">
+                            <img src="https://m.media-amazon.com/images/I/71IFO4AldiL._UF894,1000_QL80_.jpg" alt="Fujifilm X-T30 II" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="camera-info">
+                            <p class="camera-category">Mirrorless</p>
+                            <h3>Fujifilm X-T30 II</h3>
+                            <div class="rating-rents">
+                                <div class="rating"><i class="fas fa-star"></i> 4.7</div>
+                                <div class="rents">341 rents</div>
+                            </div>
+                            <div class="camera-price">
+                                <span class="price">₱899/day</span>
+                                <button class="add-to-cart-btn" 
+                                        data-id="fujifilm-xt30-ii"
+                                        data-name="Fujifilm X-T30 II" 
+                                        data-category="Mirrorless"
+                                        data-price="899"
+                                        data-price-4plus="809"
+                                        data-price-11plus="764">
+                                    <i class="fas fa-bag-shopping"></i>
+                                    <i class="fas fa-plus plus-overlay"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="camera-card" data-category="mirrorless" data-id="nikon-z50">
+                        <div class="discount-badge">-20%</div>
+                        <div class="camera-image">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjw0I2Yir2bW7BHCb3vBcd_pvEVbzdC5-vdw&s" alt="Nikon Z50" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="camera-info">
+                            <p class="camera-category">Mirrorless</p>
+                            <h3>Nikon Z50</h3>
+                            <div class="rating-rents">
+                                <div class="rating"><i class="fas fa-star"></i> 4.5</div>
+                                <div class="rents">276 rents</div>
+                            </div>
+                            <div class="camera-price">
+                                <span class="price">₱799/day</span>
+                                <button class="add-to-cart-btn" 
+                                        data-id="nikon-z50"
+                                        data-name="Nikon Z50" 
+                                        data-category="Mirrorless"
+                                        data-price="799"
+                                        data-price-4plus="719"
+                                        data-price-11plus="679">
+                                    <i class="fas fa-bag-shopping"></i>
+                                    <i class="fas fa-plus plus-overlay"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="camera-card" data-category="action-camera" data-id="gopro-hero-13">
+                        <div class="discount-badge">-10%</div>
+                        <div class="camera-image">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3IZqG7EdmnRKoHX_t0YYrffJ02-WEBgkz7A&s" alt="Go Pro Hero 13" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="camera-info">
+                            <p class="camera-category">Action Camera</p>
+                            <h3>GoPro HERO 13 Black</h3>
+                            <div class="rating-rents">
+                                <div class="rating"><i class="fas fa-star"></i> 4.8</div>
+                                <div class="rents">543 rents</div>
+                            </div>
+                            <div class="camera-price">
+                                <span class="price">₱499/day</span>
+                                <button class="add-to-cart-btn" 
+                                        data-id="gopro-hero-13"
+                                        data-name="GoPro HERO 13 Black" 
+                                        data-category="Action Camera"
+                                        data-price="499"
+                                        data-price-4plus="449">
+                                    <i class="fas fa-bag-shopping"></i>
+                                    <i class="fas fa-plus plus-overlay"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="camera-card" data-category="action-camera" data-id="dji-osmo-pocket-3">
+                        <div class="camera-image">
+                            <img src="https://www.gizmocentral.com/cdn/shop/files/1_35e44149-4d6c-4021-aee6-ff7ab501baf8_1200x1200.jpg?v=1698398653" alt="DJI Osmo Pocket 3 (Creator Combo)" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="camera-info">
+                            <p class="camera-category">Action Camera</p>
+                            <h3>DJI Osmo Pocket 3 (Creator Combo)</h3>
+                            <div class="rating-rents">
+                                <div class="rating"><i class="fas fa-star"></i> 4.9</div>
+                                <div class="rents">421 rents</div>
+                            </div>
+                            <div class="camera-price">
+                                <span class="price">₱599/day</span>
+                                <button class="add-to-cart-btn" 
+                                        data-id="dji-osmo-pocket-3"
+                                        data-name="DJI Osmo Pocket 3 (Creator Combo)" 
+                                        data-category="Action Camera"
+                                        data-price="599"
+                                        data-price-4plus="539">
+                                    <i class="fas fa-bag-shopping"></i>
+                                    <i class="fas fa-plus plus-overlay"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="camera-card" data-category="action-camera" data-id="insta360-x5">
+                        <div class="discount-badge">-22%</div>
+                        <div class="camera-image">
+                            <img src="https://hypehub.com.ph/wp-content/uploads/2023/10/X5.jpg" alt="Insta360 X5 (Bullet Time Bundle)" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="camera-info">
+                            <p class="camera-category">Action Camera</p>
+                            <h3>Insta360 X5 (Bullet Time Bundle)</h3>
+                            <div class="rating-rents">
+                                <div class="rating"><i class="fas fa-star"></i> 4.6</div>
+                                <div class="rents">198 rents</div>
+                            </div>
+                            <div class="camera-price">
+                                <span class="price">₱499/day</span>
+                                <button class="add-to-cart-btn" 
+                                        data-id="insta360-x5"
+                                        data-name="Insta360 X5 (Bullet Time Bundle)" 
+                                        data-category="Action Camera"
+                                        data-price="499"
+                                        data-price-4plus="449">
+                                    <i class="fas fa-bag-shopping"></i>
+                                    <i class="fas fa-plus plus-overlay"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="camera-card" data-category="drone" data-id="dji-mini-4-pro">
+                        <div class="discount-badge">-8%</div>
+                        <div class="camera-image">
+                            <img src="https://f8photo.ph/cdn/shop/files/1_3d43910f-2067-4925-ab9f-6794f52f9b02.png?v=1725596701" alt="DJI Mini 4 Pro" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="camera-info">
+                            <p class="camera-category">Drone</p>
+                            <h3>DJI Mini 4 Pro</h3>
+                            <div class="rating-rents">
+                                <div class="rating"><i class="fas fa-star"></i> 4.8</div>
+                                <div class="rents">367 rents</div>
+                            </div>
+                            <div class="camera-price">
+                                <span class="price">₱1,199/day</span>
+                                <button class="add-to-cart-btn" 
+                                        data-id="dji-mini-4-pro"
+                                        data-name="DJI Mini 4 Pro" 
+                                        data-category="Drone"
+                                        data-price="1199"
+                                        data-price-4plus="1079"
+                                        data-price-11plus="1019">
+                                    <i class="fas fa-bag-shopping"></i>
+                                    <i class="fas fa-plus plus-overlay"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="camera-card" data-category="instant-film" data-id="fujifilm-instax-sq1">
+                        <div class="discount-badge">-30%</div>
+                        <div class="camera-image">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTP1FpZx5p5y_Px_l1cmtXkxq9aKdIVOP2I1w&s" alt="Fujifilm Instax Square SQ1" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="camera-info">
+                            <p class="camera-category">Instant/Film</p>
+                            <h3>Fujifilm Instax Square SQ1</h3>
+                            <div class="rating-rents">
+                                <div class="rating"><i class="fas fa-star"></i> 4.5</div>
+                                <div class="rents">891 rents</div>
+                            </div>
+                            <div class="camera-price">
+                                <span class="price">₱299/day</span>
+                                <button class="add-to-cart-btn" 
+                                        data-id="fujifilm-instax-sq1"
+                                        data-name="Fujifilm Instax Square SQ1" 
+                                        data-category="Instant/Film"
+                                        data-price="299"
+                                        data-price-4plus="269">
+                                    <i class="fas fa-bag-shopping"></i>
+                                    <i class="fas fa-plus plus-overlay"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="camera-card" data-category="other" data-id="rayban-meta">
+                        <div class="camera-image">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSguDKRUIbKJLIAkRt5sVdeNbXrrFeFg5YOjA&s" alt="Ray-Ban Meta (Wayfarer)" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="camera-info">
+                            <p class="camera-category">Other</p>
+                            <h3>Ray-Ban Meta (Wayfarer)</h3>
+                            <div class="rating-rents">
+                                <div class="rating"><i class="fas fa-star"></i> 4.4</div>
+                                <div class="rents">112 rents</div>
+                            </div>
+                            <div class="camera-price">
+                                <span class="price">₱399/day</span>
+                                <button class="add-to-cart-btn" 
+                                        data-id="rayban-meta"
+                                        data-name="Ray-Ban Meta (Wayfarer)" 
+                                        data-category="Other"
+                                        data-price="399"
+                                        data-price-4plus="359">
+                                    <i class="fas fa-bag-shopping"></i>
+                                    <i class="fas fa-plus plus-overlay"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedPickup = localStorage.getItem('pickupDate');
+            const savedReturn = localStorage.getItem('returnDate');
+            if (savedPickup && savedReturn) {
+                const pickupDate = new Date(savedPickup);
+                const returnDate = new Date(savedReturn);
+                const options = { month: 'short', day: 'numeric', year: 'numeric' };
+                const pickupDisplay = document.getElementById('pickup-display');
+                const returnDisplay = document.getElementById('return-display');
+                if (pickupDisplay) pickupDisplay.textContent = pickupDate.toLocaleDateString('en-US', options);
+                if (returnDisplay) returnDisplay.textContent = returnDate.toLocaleDateString('en-US', options);
+                localStorage.removeItem('pickupDate');
+                localStorage.removeItem('returnDate');
+            }
+        });
+    </script>
+
+    <div id="footer-placeholder"></div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile - CameRent</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <style>
+    .profile-wrap { max-width: 720px; margin: 40px auto; background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+    .profile-header { display:flex; align-items:center; gap:14px; margin-bottom:16px; }
+    .avatar { width:56px; height:56px; border-radius:50%; background:#7c3aed; color:#fff; display:grid; place-items:center; font-weight:700; font-size:18px; }
+    .muted { color:#6b7280; }
+    .row { display:grid; grid-template-columns:150px 1fr; gap:12px; padding:10px 0; border-bottom:1px solid #f3f4f6; }
+    .row:last-child { border-bottom:none; }
+    .actions { display:flex; gap:10px; margin-top:20px; }
+    .btn { padding:10px 14px; border-radius:10px; border:1px solid #7c3aed; color:#7c3aed; background:#f5f3ff; cursor:pointer; font-weight:600; }
+    .btn.logout { border-color:#ef4444; color:#b91c1c; background:#fef2f2; }
+    #status { margin-top:12px; color:#6b7280; font-size:14px; }
+  </style>
+  <script src="js/common.js" defer></script>
+  <script src="js/navigation.js" defer></script>
+  <script src="js/profile.js" defer></script>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <main class="container" style="padding:40px 16px;">
+    <div class="profile-wrap">
+      <div class="profile-header">
+        <div class="avatar" id="avatar">--</div>
+        <div>
+          <h2 style="margin:0;">My Profile</h2>
+          <div class="muted" id="email">Loading...</div>
+        </div>
+      </div>
+      <div id="details">
+        <div class="row"><div class="muted">Name</div><div id="name">Loading...</div></div>
+        <div class="row"><div class="muted">Email</div><div id="emailRow">Loading...</div></div>
+        <div class="row"><div class="muted">Phone</div><div id="phone">Loading...</div></div>
+      </div>
+      <div class="actions">
+        <button class="btn" onclick="window.location.href='checkout.html'">Go to Checkout</button>
+        <button class="btn logout" id="logoutBtn">Log Out</button>
+      </div>
+      <div id="status"></div>
+    </div>
+  </main>
+  <div id="footer-placeholder"></div>
+</body>
+</html>

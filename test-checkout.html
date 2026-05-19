@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Checkout Order Summary</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            background: #f5f5f5;
+        }
+        
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #7c3aed;
+            margin-bottom: 20px;
+        }
+        
+        .order-items {
+            border-bottom: 2px solid #f3f4f6;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            color: #9ca3af;
+            padding: 20px;
+            font-size: 14px;
+        }
+        
+        .order-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f9fafb;
+            border-radius: 8px;
+        }
+        
+        .item-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #e5e7eb;
+            flex-shrink: 0;
+        }
+        
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .item-details {
+            flex: 1;
+        }
+        
+        .item-name {
+            font-weight: 600;
+            color: #1f2937;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        
+        .item-meta {
+            font-size: 12px;
+            color: #6b7280;
+        }
+        
+        .item-price {
+            font-weight: 600;
+            color: #764ba2;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        
+        button {
+            background: #7c3aed;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background: #6d28d9;
+        }
+        
+        .status {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        .status.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #6ee7b7;
+        }
+        
+        .status.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+        
+        .log {
+            background: #1f2937;
+            color: #10b981;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .log-line {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Checkout Order Summary Test</h1>
+        
+        <div id="status"></div>
+        
+        <h3>Order Summary</h3>
+        <div class="order-items" id="orderItems">
+            <p class="empty-cart">No items in cart</p>
+        </div>
+        
+        <button onclick="testAddItem()">✅ Test Add Item</button>
+        <button onclick="testClearCart()">🗑️ Clear Cart</button>
+        <button onclick="testLoadFromStorage()">🔄 Load from localStorage</button>
+        <button onclick="checkDOMElements()">🔍 Check DOM</button>
+        
+        <div id="log" class="log"></div>
+    </div>
+    
+    <script>
+        const log = document.getElementById('log');
+        const statusDiv = document.getElementById('status');
+        
+        function addLog(message, type = 'info') {
+            const line = document.createElement('div');
+            line.className = 'log-line';
+            const icon = type === 'success' ? '✅' : type === 'error' ? '❌' : '📍';
+            line.textContent = `${icon} ${message}`;
+            log.appendChild(line);
+            log.scrollTop = log.scrollHeight;
+            console.log(message);
+        }
+        
+        function showStatus(message, isSuccess) {
+            statusDiv.className = `status ${isSuccess ? 'success' : 'error'}`;
+            statusDiv.textContent = message;
+        }
+        
+        function createOrderItemElement(item, rentalDays) {
+            addLog(`Creating order item element for: ${item.name}`);
+            
+            const div = document.createElement('div');
+            div.className = 'order-item';
+            
+            const price = parseInt(item.price);
+            const quantity = parseInt(item.quantity) || 1;
+            const itemTotal = price * rentalDays * quantity;
+            
+            addLog(`Price: ₱${price}, Quantity: ${quantity}, Days: ${rentalDays}, Total: ₱${itemTotal}`);
+            
+            const imageUrl = item.image || 'https://via.placeholder.com/60?text=Camera';
+            
+            div.innerHTML = `
+                <div class="item-image">
+                    <img src="${imageUrl}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/60?text=No+Image'">
+                </div>
+                <div class="item-details">
+                    <div class="item-name">${item.name}</div>
+                    <div class="item-meta">${rentalDays} days × ${quantity} item${quantity > 1 ? 's' : ''}</div>
+                </div>
+                <div class="item-price">₱${itemTotal.toLocaleString('en-PH', { minimumFractionDigits: 2 })}</div>
+            `;
+            
+            return div;
+        }
+        
+        function testAddItem() {
+            log.innerHTML = '';
+            addLog('===== TEST ADD ITEM =====');
+            
+            const orderItemsContainer = document.getElementById('orderItems');
+            if (!orderItemsContainer) {
+                addLog('❌ CRITICAL: orderItems container not found!', 'error');
+                showStatus('FAILED: Container not found', false);
+                return;
+            }
+            
+            addLog('✓ orderItems container found', 'success');
+            
+            // Clear empty message
+            const emptyMessage = orderItemsContainer.querySelector('.empty-cart');
+            if (emptyMessage) {
+                emptyMessage.style.display = 'none';
+                addLog('Empty message hidden');
+            }
+            
+            // Create test item
+            const testItem = {
+                id: 'test-iphone-16',
+                name: 'iPhone 16 Pro Max (256GB)',
+                category: 'Smartphone',
+                price: '2500',
+                quantity: 1,
+                image: 'https://via.placeholder.com/60?text=iPhone'
+            };
+            
+            addLog('Test item created: ' + JSON.stringify(testItem));
+            
+            const orderItem = createOrderItemElement(testItem, 7);
+            addLog('Order item element created');
+            
+            orderItemsContainer.appendChild(orderItem);
+            addLog('✓ Order item appended to container', 'success');
+            
+            // Verify
+            const items = orderItemsContainer.querySelectorAll('.order-item');
+            addLog(`✅ Total items in DOM: ${items.length}`, 'success');
+            
+            if (items.length > 0) {
+                showStatus('✅ SUCCESS: Item added to order summary!', true);
+            } else {
+                showStatus('❌ FAILED: Item not added to DOM', false);
+            }
+        }
+        
+        function testClearCart() {
+            log.innerHTML = '';
+            addLog('===== TEST CLEAR CART =====');
+            
+            const orderItemsContainer = document.getElementById('orderItems');
+            const items = orderItemsContainer.querySelectorAll('.order-item');
+            
+            addLog(`Removing ${items.length} items...`);
+            items.forEach(item => item.remove());
+            
+            const emptyMessage = orderItemsContainer.querySelector('.empty-cart');
+            if (emptyMessage) {
+                emptyMessage.style.display = 'block';
+            }
+            
+            addLog('✅ Cart cleared', 'success');
+            showStatus('Cart cleared', true);
+            
+            // Clear localStorage too
+            localStorage.removeItem('cartItems');
+            addLog('localStorage cleared');
+        }
+        
+        function testLoadFromStorage() {
+            log.innerHTML = '';
+            addLog('===== TEST LOAD FROM LOCALSTORAGE =====');
+            
+            const cart = JSON.parse(localStorage.getItem('cartItems') || '[]');
+            addLog(`Found ${cart.length} items in localStorage`);
+            
+            if (cart.length === 0) {
+                addLog('No items in localStorage. Adding test item first...');
+                const testCart = [{
+                    id: 'test-camera',
+                    name: 'Canon EOS R5',
+                    category: 'Camera',
+                    price: '1500',
+                    quantity: 1,
+                    image: 'https://via.placeholder.com/60?text=Canon'
+                }];
+                localStorage.setItem('cartItems', JSON.stringify(testCart));
+                addLog('Test item added to localStorage');
+                testLoadFromStorage();
+                return;
+            }
+            
+            const orderItemsContainer = document.getElementById('orderItems');
+            
+            // Clear existing
+            const existingItems = orderItemsContainer.querySelectorAll('.order-item');
+            existingItems.forEach(item => item.remove());
+            
+            const emptyMessage = orderItemsContainer.querySelector('.empty-cart');
+            if (emptyMessage) {
+                emptyMessage.style.display = 'none';
+            }
+            
+            // Add items
+            cart.forEach((item, index) => {
+                addLog(`Loading item ${index + 1}: ${item.name}`);
+                const orderItem = createOrderItemElement(item, 7);
+                orderItemsContainer.appendChild(orderItem);
+            });
+            
+            const addedItems = orderItemsContainer.querySelectorAll('.order-item');
+            addLog(`✅ ${addedItems.length} items loaded from localStorage`, 'success');
+            showStatus(`✅ Loaded ${addedItems.length} items from localStorage`, true);
+        }
+        
+        function checkDOMElements() {
+            log.innerHTML = '';
+            addLog('===== CHECK DOM ELEMENTS =====');
+            
+            const orderItems = document.getElementById('orderItems');
+            addLog(`orderItems element: ${orderItems ? '✓ Found' : '❌ Not found'}`, orderItems ? 'success' : 'error');
+            
+            if (orderItems) {
+                addLog(`Element tag: ${orderItems.tagName}`);
+                addLog(`Element class: ${orderItems.className}`);
+                
+                const items = orderItems.querySelectorAll('.order-item');
+                addLog(`Current items count: ${items.length}`);
+                
+                const emptyMsg = orderItems.querySelector('.empty-cart');
+                addLog(`Empty message: ${emptyMsg ? '✓ Found' : '❌ Not found'}`);
+                if (emptyMsg) {
+                    addLog(`Empty message display: ${emptyMsg.style.display || 'default'}`);
+                }
+            }
+            
+            showStatus('DOM check complete - see log', true);
+        }
+        
+        // Initial log
+        addLog('Test page loaded. Click buttons to test functionality.');
+        addLog('This simulates the checkout.js order summary rendering.');
+    </script>
+</body>
+</html>

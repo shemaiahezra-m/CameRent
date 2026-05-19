@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - CameRent MNL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/product-detail.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <script src="js/auth.js" defer></script>
+    <script src="js/common.js" defer></script>
+    <script src="js/navigation.js" defer></script>
+    <script src="js/profile-modal.js" defer></script>
+    <script src="js/product-detail.js" defer></script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb">
+        <div class="container">
+            <a href="cameras.html">All products</a>
+            <i class="fas fa-chevron-right"></i>
+            <span id="productBreadcrumb">Fujifilm X-A3 Mirrorless Camera</span>
+        </div>
+    </section>
+
+    <!-- Product Detail Section -->
+    <section class="product-detail-section">
+        <div class="container">
+            <div class="product-detail-layout">
+                
+                <!-- Left Side - Image Gallery & Product Details -->
+                <div class="product-left-column">
+                    <div class="product-gallery">
+                        <div class="main-image">
+                            <img id="mainProductImage" src="https://beyondthebox.ph/cdn/shop/files/IPHONE16PROMAX5_COLOR-BLACKTITANIUM_CAPACITY-ALL_700x700.jpg?v=1728457466" alt="Product">
+                        </div>
+                    </div>
+
+                    <!-- Product Details Sections -->
+                    <div class="product-details-sections">
+                        <!-- What's Included Section -->
+                        <div class="detail-section active" id="whatsIncluded">
+                            <div class="section-header">
+                                <div class="section-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div>
+                                    <h2>What's Included</h2>
+                                    <p>Your rental package includes all the essential equipment</p>
+                                </div>
+                                <div class="section-toggle">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                            <div class="section-content">
+                                <div class="included-items" id="includedItemsList">
+                                    <!-- Will be populated by JavaScript -->
+                                </div>
+                                <p class="included-note">All equipment is professionally cleaned, tested, and ready for your shoot. Includes protective cases and basic accessories.</p>
+                            </div>
+                        </div>
+
+                        <!-- Overview Section -->
+                        <div class="detail-section" id="overview">
+                            <div class="section-header">
+                                <div class="section-icon">
+                                    <i class="fas fa-list"></i>
+                                </div>
+                                <div>
+                                    <h2>Overview</h2>
+                                    <p>Key highlights of this equipment</p>
+                                </div>
+                                <div class="section-toggle">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                            <div class="section-content">
+                                <div class="overview-list" id="overviewList">
+                                    <!-- Will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Features Section -->
+                        <div class="detail-section" id="features">
+                            <div class="section-header">
+                                <div class="section-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div>
+                                    <h2>Features</h2>
+                                    <p>What makes this equipment special</p>
+                                </div>
+                                <div class="section-toggle">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                            <div class="section-content">
+                                <div class="features-grid" id="featuresList">
+                                    <!-- Will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Specifications Section -->
+                        <div class="detail-section" id="specifications">
+                            <div class="section-header">
+                                <div class="section-icon">
+                                    <i class="fas fa-cog"></i>
+                                </div>
+                                <div>
+                                    <h2>Specifications</h2>
+                                    <p>Technical details and specifications</p>
+                                </div>
+                                <div class="section-toggle">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                            <div class="section-content">
+                                <div class="specs-grid" id="specsList">
+                                    <!-- Will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side - Product Info -->
+                <div class="product-info">
+                    <!-- Back to Details Button (Mobile Only) -->
+                    <button class="back-to-details-btn" id="backToDetailsBtn">
+                        <i class="fas fa-chevron-left"></i>
+                        Back to Details
+                    </button>
+                    
+                    <!-- Progress Bar -->
+                    <div class="order-progress-bar" id="orderProgressBar" style="margin-bottom: 18px;">
+                        <div class="progress-bar-bg" style="background: #e5e7eb; border-radius: 8px; height: 12px; width: 100%; position: relative;">
+                            <div class="progress-bar-fill" id="progressBarFill" style="background: linear-gradient(90deg, #764ba2 0%, #667eea 100%); height: 100%; width: 25%; border-radius: 8px; transition: width 0.4s;"></div>
+                        </div>
+                        <div class="progress-bar-steps" style="display: flex; justify-content: space-between; font-size: 13px; margin-top: 4px; color: #764ba2;">
+                            <span id="step1Label">1. Details</span>
+                            <span id="step2Label">2. Select Dates</span>
+                            <span id="step3Label">3. Add-ons</span>
+                            <span id="step4Label">4. Confirm</span>
+                        </div>
+                    </div>
+                    <h1 class="product-title" id="productTitle">Fujifilm X-A3 Mirrorless Camera (Any Color)</h1>
+                    <div class="product-price-container">
+                        <span id="originalPrice" class="original-price" style="display: none;"></span>
+                        <p class="product-price">from <span id="productPrice">PHP 400</span></p>
+                    </div>
+                    
+                    <p class="product-description">
+                        If you know nothing about photography but want to experiment with the basics of photography, then this product is definitely the camera for you!
+                    </p>
+
+                    <!-- Quantity Selector -->
+                    <div class="quantity-section">
+                        <label id="quantityLabel">Fujifilm X-A3 Mirrorless Camera (Any Color)</label>
+                        <div class="quantity-control">
+                            <button class="qty-btn minus">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <input type="number" id="quantity" value="1" min="1" readonly>
+                            <button class="qty-btn plus">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Calendar Section -->
+                    <div class="calendar-section">
+                        <div class="calendar-label">
+                            <i class="fas fa-calendar-alt"></i>
+                            <h3>Select Rental Period</h3>
+                        </div>
+                        <div class="calendar-navigation">
+                            <button class="calendar-nav-btn" id="prevMonth">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <h4 class="month-title" id="monthTitle">October 2025</h4>
+                            <button class="calendar-nav-btn" id="nextMonth">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        <div class="calendar-grid">
+                            <div class="calendar-header">
+                                <span>Sun</span>
+                                <span>Mon</span>
+                                <span>Tue</span>
+                                <span>Wed</span>
+                                <span>Thu</span>
+                                <span>Fri</span>
+                                <span>Sat</span>
+                            </div>
+                            <div class="calendar-dates" id="calendarDates"></div>
+                        </div>
+                        <div class="calendar-info">
+                            <p><i class="fas fa-info-circle"></i> Click first date for pickup, then click second date for return</p>
+                        </div>
+                        <div class="discount-info">
+                            <p class="discount-item"><i class="fas fa-tag"></i> <strong>10% OFF</strong> for 4+ days rental</p>
+                            <p class="discount-item"><i class="fas fa-tags"></i> <strong>15% OFF</strong> for 11+ days rental</p>
+                        </div>
+                    </div>
+
+                    <!-- Time Selection -->
+                    <div class="time-selection">
+                        <div class="time-slots">
+                            <button class="time-slot">09:00 AM</button>
+                            <button class="time-slot">10:00 AM</button>
+                            <button class="time-slot active">11:00 AM</button>
+                            <button class="time-slot">12:00 PM</button>
+                            <button class="time-slot">01:00 PM</button>
+                            <button class="time-slot">02:00 PM</button>
+                            <button class="time-slot">03:00 PM</button>
+                            <button class="time-slot">04:00 PM</button>
+                            <button class="time-slot">05:00 PM</button>
+                        </div>
+                    </div>
+
+                    <!-- Booking Summary -->
+                    <div class="booking-summary" id="bookingSummary">
+                        <p class="summary-text">Select your rental dates from the calendar above. Choose your <strong>pickup date</strong> and your <strong>return date</strong>, then select a pickup time.</p>
+                    </div>
+
+                    <!-- Add-ons Section -->
+                    <div class="addons-section">
+                        <h3><i class="fas fa-plus-circle"></i> Add-ons (Optional)</h3>
+                        <div class="addons-list">
+                            <label class="addon-item">
+                                <input type="checkbox" class="addon-checkbox" data-name="Rode Wireless GO II" data-price="300">
+                                <div class="addon-info">
+                                    <span class="addon-name">Rode Wireless GO II</span>
+                                    <span class="addon-price">₱300</span>
+                                </div>
+                            </label>
+                            
+                            <label class="addon-item">
+                                <input type="checkbox" class="addon-checkbox" data-name="Rode VideoMic GO II" data-price="250">
+                                <div class="addon-info">
+                                    <span class="addon-name">Rode VideoMic GO II</span>
+                                    <span class="addon-price">₱250</span>
+                                </div>
+                            </label>
+                            
+                            <label class="addon-item">
+                                <input type="checkbox" class="addon-checkbox" data-name="DJI Mic" data-price="350">
+                                <div class="addon-info">
+                                    <span class="addon-name">DJI Mic</span>
+                                    <span class="addon-price">₱350</span>
+                                </div>
+                            </label>
+                            
+                            <label class="addon-item">
+                                <input type="checkbox" class="addon-checkbox" data-name="Boya BY-WM4 Pro" data-price="200">
+                                <div class="addon-info">
+                                    <span class="addon-name">Boya BY-WM4 Pro</span>
+                                    <span class="addon-price">₱200</span>
+                                </div>
+                            </label>
+                            
+                            <label class="addon-item">
+                                <input type="checkbox" class="addon-checkbox" data-name="Ulanzi Tripod" data-price="150">
+                                <div class="addon-info">
+                                    <span class="addon-name">Ulanzi Tripod</span>
+                                    <span class="addon-price">₱150</span>
+                                </div>
+                            </label>
+                            
+                            <label class="addon-item">
+                                <input type="checkbox" class="addon-checkbox" data-name="Joby GorillaPod" data-price="180">
+                                <div class="addon-info">
+                                    <span class="addon-name">Joby GorillaPod</span>
+                                    <span class="addon-price">₱180</span>
+                                </div>
+                            </label>
+                            
+                            <label class="addon-item">
+                                <input type="checkbox" class="addon-checkbox" data-name="LED Light Panel" data-price="250">
+                                <div class="addon-info">
+                                    <span class="addon-name">LED Light Panel</span>
+                                    <span class="addon-price">₱250</span>
+                                </div>
+                            </label>
+                            
+                            <label class="addon-item">
+                                <input type="checkbox" class="addon-checkbox" data-name="RGB Video Light" data-price="300">
+                                <div class="addon-info">
+                                    <span class="addon-name">RGB Video Light</span>
+                                    <span class="addon-price">₱300</span>
+                                </div>
+                            </label>
+                            
+                            <label class="addon-item">
+                                <input type="checkbox" class="addon-checkbox" data-name="Extra Battery" data-price="100">
+                                <div class="addon-info">
+                                    <span class="addon-name">Extra Battery</span>
+                                    <span class="addon-price">₱100</span>
+                                </div>
+                            </label>
+                            
+                            <label class="addon-item">
+                                <input type="checkbox" class="addon-checkbox" data-name="SD Card 128GB" data-price="150">
+                                <div class="addon-info">
+                                    <span class="addon-name">SD Card 128GB</span>
+                                    <span class="addon-price">₱150</span>
+                                </div>
+                            </label>
+                            
+                            <label class="addon-item">
+                                <input type="checkbox" class="addon-checkbox" data-name="Power Bank 20000mAh" data-price="120">
+                                <div class="addon-info">
+                                    <span class="addon-name">Power Bank 20000mAh</span>
+                                    <span class="addon-price">₱120</span>
+                                </div>
+                            </label>
+                            
+                            <label class="addon-item">
+                                <input type="checkbox" class="addon-checkbox" data-name="Waterproof Case" data-price="200">
+                                <div class="addon-info">
+                                    <span class="addon-name">Waterproof Case</span>
+                                    <span class="addon-price">₱200</span>
+                                </div>
+                            </label>
+                            
+                            <label class="addon-item">
+                                <input type="checkbox" class="addon-checkbox" data-name="Camera Bag" data-price="150">
+                                <div class="addon-info">
+                                    <span class="addon-name">Camera Bag</span>
+                                    <span class="addon-price">₱150</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Order Summary -->
+                    <div class="order-summary-box">
+                        <h3>Order Summary</h3>
+                        <p class="selection-date" id="selectionDate">Select dates to see pricing</p>
+                        
+                        <div class="summary-items">
+                            <div class="summary-item">
+                                <span>Quantity</span>
+                                <span>1x</span>
+                            </div>
+                            <div class="summary-item">
+                                <span>Duration</span>
+                                <span>0 Days</span>
+                            </div>
+                            <div class="summary-item">
+                                <span>Price per day</span>
+                                <span>₱850/day</span>
+                            </div>
+                        </div>
+
+                        <div class="summary-subtotal">
+                            <span>Subtotal</span>
+                            <span>₱0</span>
+                        </div>
+
+                        <div class="summary-addons" style="display: none;">
+                            <span>Add-ons</span>
+                            <span>₱0</span>
+                        </div>
+
+                        <div class="summary-discount" style="display: none;">
+                            <span>Discount</span>
+                            <span>-₱0</span>
+                        </div>
+
+                        <div class="summary-total">
+                            <span>Total</span>
+                            <span>₱0</span>
+                        </div>
+                        <em><p> Press <kbd>Ctrl</kbd> + <kbd>P</kbd> to print your order summary</p></em>
+
+                        <button class="btn-add-to-order" id="addToOrderBtn">
+                            ADD TO ORDER
+                        </button>
+                        <script>
+                        // Progress bar logic: Step 1 = Details, Step 2 = Select Dates, Step 3 = Add-ons, Step 4 = Confirm
+                        let currentStep = 1;
+                        function setProgress(step) {
+                            currentStep = step;
+                            const fill = document.getElementById('progressBarFill');
+                            if (step === 1) fill.style.width = '25%';
+                            else if (step === 2) fill.style.width = '50%';
+                            else if (step === 3) fill.style.width = '75%';
+                            else fill.style.width = '100%';
+                            document.getElementById('step1Label').style.fontWeight = (step === 1) ? 'bold' : 'normal';
+                            document.getElementById('step2Label').style.fontWeight = (step === 2) ? 'bold' : 'normal';
+                            document.getElementById('step3Label').style.fontWeight = (step === 3) ? 'bold' : 'normal';
+                            document.getElementById('step4Label').style.fontWeight = (step === 4) ? 'bold' : 'normal';
+                        }
+
+                        // Step 2: Select Dates (simulate by listening to calendar-dates click)
+                        const calendarDates = document.getElementById('calendarDates');
+                        if (calendarDates) {
+                            calendarDates.addEventListener('click', function(e) {
+                                if (currentStep < 3) setProgress(3);
+                            });
+                        }
+
+                        // Step 3: Add-ons (any checkbox change)
+                        const addonCheckboxes = document.querySelectorAll('.addon-checkbox');
+                        addonCheckboxes.forEach(cb => {
+                            cb.addEventListener('change', function() {
+                                if (currentStep < 4) setProgress(4);
+                            });
+                        });
+
+                        // Step 4: Confirm (Add to Order)
+                        document.getElementById('addToOrderBtn').addEventListener('click', function() {
+                            setProgress(4);
+                        });
+                        </script>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Mobile Booking Bar (Fixed Bottom) -->
+    <div class="mobile-booking-bar">
+        <div class="mobile-bar-content">
+            <div class="mobile-bar-price">
+                <span class="price-label">from</span>
+                <span class="price-amount" id="mobilePrice">₱375</span>
+                <span class="price-period">per day</span>
+            </div>
+            <button class="mobile-book-btn" id="mobileBookBtn">
+                Book Now
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+</body>
+</html>

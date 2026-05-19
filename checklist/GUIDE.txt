@@ -1,0 +1,61 @@
+[Start]
+   |
+   v
+[Customer Browses Cameras]
+   - Views available cameras, lenses, and accessories
+   - Checks specs, rates, availability
+   |
+   v
+[Select Product & Rental Dates]
+   - Choose item(s)
+   - Select start and end date
+   - Add optional accessories
+   |
+   v
+[Provide Contact Info / Create Account]
+   - Full name, phone, email, address
+   - Accept rental terms & conditions
+   - ID verification
+   |
+   v
+[Choose Delivery or Pickup]
+   - Option 1: Self-pickup at Manila location
+   - Option 2: Delivery via courier 
+   |
+   v
+[Payment]
+   - Options: GCash, Maya, Bank transfer, Credit/Debit
+   - Pay full amount or partial deposit
+   |
+   v
+[Order Confirmation]
+   - Confirm rental details
+   - Send via email, SMS, or Messenger
+   - Include total cost, deposit, delivery/pickup schedule
+   |
+   v
+[Delivery or Pickup]
+   - Inspect camera with customer
+   - Take photos to document condition
+   - Sign acknowledgment/receipt
+   |
+   v
+[Rental Period]
+   - Customer uses camera responsibly
+   - Support line available for issues
+   - Send reminder for return date
+   |
+   v
+[Return Camera]
+   - Customer returns or schedule pickup
+   - Inspect camera for damage/missing items
+   - Refund deposit if all is okay
+   |
+   v
+[Post-Rental Follow-Up]
+   - Send thank-you message
+   - Request review/feedback
+   - Offer discount for next rental
+   |
+   v
+[End]

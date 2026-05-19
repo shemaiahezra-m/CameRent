@@ -1,0 +1,1170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/navbar.css">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial;background:#f8fafc;min-height:100vh}
+    
+    .admin-container{display:flex;min-height:100vh}
+    
+    /* Sidebar */
+    .sidebar{width:260px;background:linear-gradient(180deg,#667eea 0%,#764ba2 100%);color:white;padding:24px 0;position:fixed;height:100vh;box-shadow:4px 0 12px rgba(0,0,0,0.1)}
+    .sidebar-header{padding:0 24px 24px;border-bottom:1px solid rgba(255,255,255,0.2);margin-bottom:20px}
+    .sidebar-header img{max-width:100%;height:auto;display:block}
+    .sidebar-header h2{font-size:24px;font-weight:700}
+    .sidebar-header p{font-size:13px;opacity:0.85;margin-top:4px}
+    .sidebar-nav{padding:0 12px}
+    .nav-item{display:flex;align-items:center;padding:12px 16px;margin-bottom:6px;border-radius:10px;color:white;text-decoration:none;transition:all 0.3s;cursor:pointer;opacity:0.85}
+    .nav-item:hover,.nav-item.active{background:rgba(255,255,255,0.15);opacity:1}
+    .nav-item.active{background:rgba(255,255,255,0.25)}
+    .nav-icon{width:20px;margin-right:12px;font-size:18px}
+    .sidebar-footer{position:absolute;bottom:20px;left:24px;right:24px;padding:12px;background:rgba(0,0,0,0.2);border-radius:10px}
+    .sidebar-footer a{color:white;text-decoration:none;font-size:13px}
+    
+    /* Main Content */
+    .main-content{margin-left:260px;flex:1;padding:32px}
+    .top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px}
+    .top-bar h1{font-size:32px;color:#1f2937;font-weight:700}
+    .user-badge{display:flex;align-items:center;gap:12px;padding:8px 16px;background:white;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+    .user-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;color:white;font-weight:600}
+    
+    /* Cards Grid */
+    .cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(500px,1fr));gap:24px}
+    .card{background:white;border-radius:16px;box-shadow:0 4px 16px rgba(0,0,0,0.08);padding:24px;transition:transform 0.3s,box-shadow 0.3s}
+    .card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.12)}
+    .card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:16px;border-bottom:2px solid #f3f4f6}
+    .card-header h2{font-size:20px;color:#1f2937;font-weight:700}
+    .card-badge{background:#f0f4ff;color:#667eea;padding:6px 12px;border-radius:8px;font-size:13px;font-weight:600}
+    
+    /* Form Styling */
+    .form-container{background:#f8fafc;padding:16px;border-radius:12px;margin-bottom:20px}
+    .form-container h4{margin:0 0 12px 0;color:#1f2937;font-size:15px}
+    .form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:12px}
+    input[type="text"],input[type="email"],input[type="password"],input[type="tel"],select{padding:10px 14px;border:2px solid #e5e7eb;border-radius:10px;font-size:14px;transition:all 0.3s;width:100%}
+    input:focus,select:focus{outline:none;border-color:#667eea;box-shadow:0 0 0 3px rgba(102,126,234,0.1)}
+    .checkbox-label{display:flex;align-items:center;gap:8px;font-size:14px;color:#374151}
+    
+    /* Table */
+    .table-container{overflow-x:auto}
+    table{width:100%;border-collapse:separate;border-spacing:0 8px}
+    thead th{background:#f8fafc;padding:12px;text-align:left;font-size:13px;color:#6b7280;font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+    tbody tr{background:white;transition:all 0.3s}
+    tbody tr:hover{transform:translateX(4px);box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+    tbody td{padding:14px 12px;border-top:1px solid #f3f4f6;border-bottom:1px solid #f3f4f6;font-size:14px;color:#374151}
+    tbody td:first-child{border-left:1px solid #f3f4f6;border-radius:8px 0 0 8px}
+    tbody td:last-child{border-right:1px solid #f3f4f6;border-radius:0 8px 8px 0}
+    
+    /* Buttons */
+    button{padding:10px 16px;border-radius:10px;border:none;cursor:pointer;font-weight:600;font-size:14px;transition:all 0.3s}
+    .btn-primary{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;box-shadow:0 4px 12px rgba(102,126,234,0.3)}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(102,126,234,0.4)}
+    .btn-outlined{background:transparent;color:#667eea;border:2px solid #e9d5ff;padding:8px 14px}
+    .btn-outlined:hover{background:#faf5ff;border-color:#667eea}
+    .btn-secondary{background:#f3f4f6;color:#374151;border:1px solid #e5e7eb;padding:8px 14px}
+    .btn-secondary:hover{background:#e5e7eb}
+    
+    /* Search & Filters */
+    .filters{display:flex;gap:12px;align-items:center;margin-bottom:16px}
+    .search-box{position:relative;flex:1}
+    .search-box input{padding-left:40px}
+    .search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#9ca3af}
+    
+    .status-badge{padding:4px 10px;border-radius:6px;font-size:12px;font-weight:600}
+    .status-new{background:#dbeafe;color:#1e40af}
+    .status-paid{background:#d1fae5;color:#065f46}
+    
+    /* Modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(4px)}
+    .modal{background:white;border-radius:20px;padding:28px;max-width:900px;width:92%;max-height:85vh;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+    .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:16px;border-bottom:2px solid #f3f4f6}
+    .modal pre{background:#1f2937;color:#f9fafb;padding:16px;border-radius:12px;overflow:auto;font-size:13px}
+    
+    @media(max-width:900px){.cards-grid{grid-template-columns:1fr}.main-content{margin-left:0;padding:20px}.sidebar{transform:translateX(-100%)}}
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <img src="/images/logos/logo-full.png" alt="CameraRent Logo" style="filter:brightness(0) invert(1)">
+        <p style="margin-top:8px">Admin Panel</p>
+      </div>
+      <div class="sidebar-nav">
+        <div class="nav-item active" data-section="dashboard">
+          <span class="nav-icon"></span>
+          Dashboard
+        </div>
+        <div class="nav-item" data-section="users">
+          <span class="nav-icon"></span>
+          Users
+        </div>
+        <div class="nav-item" data-section="orders">
+          <span class="nav-icon"></span>
+          Orders
+        </div>
+        <div class="nav-item" data-section="inventory">
+          <span class="nav-icon"></span>
+          Inventory
+        </div>
+        
+      </div>
+      <div class="sidebar-footer">
+        <a href="/">← Back to Site</a> · <a href="/admin/logout">Logout</a>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="top-bar">
+        <h1>Dashboard</h1>
+        <div class="user-badge">
+          <div class="user-avatar">A</div>
+          <div>
+            <div style="font-weight:600;font-size:14px">Admin</div>
+            <div style="font-size:12px;color:#6b7280">admin@gmail.com</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Overview Section -->
+      <div class="dashboard-section" data-section="dashboard">
+        <div class="cards-grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-bottom:24px">
+          <div class="card" style="text-align:center">
+            <h3 style="font-size:32px;color:#667eea;margin-bottom:4px" id="dashTotalUsers">0</h3>
+            <p style="color:#6b7280;font-size:14px">Total Users</p>
+          </div>
+          <div class="card" style="text-align:center">
+            <h3 style="font-size:32px;color:#667eea;margin-bottom:4px" id="dashTotalOrders">0</h3>
+            <p style="color:#6b7280;font-size:14px">Total Orders</p>
+          </div>
+          <div class="card" style="text-align:center">
+            <h3 style="font-size:32px;color:#667eea;margin-bottom:4px" id="dashTotalInventory">0</h3>
+            <p style="color:#6b7280;font-size:14px">Inventory Items</p>
+          </div>
+          
+        </div>
+        <div class="cards-grid">
+          <div class="card">
+            <div class="card-header">
+              <h2>Recent Activity</h2>
+            </div>
+            <p style="color:#6b7280;padding:20px;text-align:center">No recent activity</p>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h2>Quick Stats</h2>
+            </div>
+            <div style="padding:12px 0">
+              <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f3f4f6">
+                <span style="color:#6b7280">Active Users</span>
+                <strong id="dashActiveUsers">0</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f3f4f6">
+                <span style="color:#6b7280">Pending Orders</span>
+                <strong id="dashPendingOrders">0</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding:12px 0">
+                <span style="color:#6b7280">Available Items</span>
+                <strong id="dashAvailableItems">0</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Users Section -->
+      <div class="dashboard-section" data-section="users" style="display:none">
+        <div class="cards-grid">
+        <div class="card">
+          <div class="card-header">
+            <h2>Users Management</h2>
+            <div class="card-badge" id="userCount">Loading...</div>
+          </div>
+
+          <div class="filters">
+            <div class="search-box">
+              <span class="search-icon">🔍</span>
+              <input id="search" placeholder="Search by name or email..." />
+            </div>
+            <select id="perPage">
+              <option>5</option>
+              <option selected>10</option>
+              <option>25</option>
+            </select>
+          </div>
+
+          <div id="statusUsers" style="font-size:13px;color:#6b7280;margin-bottom:8px">Loading...</div>
+          <div class="table-container">
+            <div id="users"></div>
+          </div>
+          <div id="pagerContainer" style="margin-top:16px"></div>
+        </div>
+        </div>
+      </div>
+
+      <!-- Orders Section -->
+      <div class="dashboard-section" data-section="orders" style="display:none">
+        <div class="cards-grid">
+        <div class="card">
+          <div class="card-header">
+            <h2>Orders Management</h2>
+            <div class="card-badge" id="orderCount">Loading...</div>
+          </div>
+
+          <!-- View Toggle -->
+          <div style="display:flex;gap:8px;margin-bottom:16px">
+            <button id="listViewBtn" class="btn-primary" onclick="OrdersView.switchView('list')" style="font-size:13px;padding:8px 14px">📋 List View</button>
+            <button id="calendarViewBtn" class="btn-secondary" onclick="OrdersView.switchView('calendar')" style="font-size:13px;padding:8px 14px">📅 Calendar View</button>
+          </div>
+
+          <!-- List View -->
+          <div id="listContainer">
+            <div id="statusOrders" style="font-size:13px;color:#6b7280;margin-bottom:8px">Loading...</div>
+            <div class="table-container">
+              <div id="orders"></div>
+            </div>
+            <div id="debug" style="font-size:12px;color:#9ca3af;margin-top:8px"></div>
+          </div>
+
+          <!-- Calendar View -->
+          <div id="calendarContainer" style="display:none">
+            <div style="display:flex;gap:16px;margin:16px 0;padding:12px;background:#f8fafc;border-radius:10px;font-size:13px">
+              <div style="display:flex;align-items:center;gap:6px">
+                <div style="width:16px;height:16px;border-radius:3px;background:#dcfce7;border-left:3px solid #22c55e"></div>
+                <span>📦 Pickup</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px">
+                <div style="width:16px;height:16px;border-radius:3px;background:#fef3c7;border-left:3px solid #f59e0b"></div>
+                <span>📮 Return</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px">
+                <div style="width:16px;height:16px;border-radius:3px;background:#dbeafe;border-left:3px solid #3b82f6"></div>
+                <span>🔄 Ongoing</span>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+              <button class="btn-secondary" onclick="OrdersView.changeMonth(-1)" style="font-size:13px">← Previous</button>
+              <h2 id="currentMonth" style="margin:0"></h2>
+              <button class="btn-secondary" onclick="OrdersView.changeMonth(1)" style="font-size:13px">Next →</button>
+            </div>
+            <div id="calendarGrid"></div>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <!-- Inventory Section -->
+      <div class="dashboard-section" data-section="inventory" style="display:none">
+        <div class="cards-grid">
+        <div class="card">
+          <div class="card-header">
+            <h2>Equipment Inventory</h2>
+            <div class="card-badge" id="inventoryCount">0 Items</div>
+          </div>
+
+          <div class="form-container">
+            <h4>Add New Item</h4>
+            <form id="inventoryForm" onsubmit="event.preventDefault(); Dashboard.addInventory();">
+              <div class="form-grid">
+                <input id="inv_name" placeholder="Item name" required />
+                <input id="inv_category" placeholder="Category" required />
+                <input id="inv_serial" placeholder="Serial number" />
+                <input id="inv_price" type="number" placeholder="Daily rate" required />
+                <select id="inv_status" required>
+                  <option value="">Select status</option>
+                  <option value="available">Available</option>
+                  <option value="rented">Rented</option>
+                  <option value="maintenance">Maintenance</option>
+                </select>
+              </div>
+              <div style="margin-top:12px"><button type="submit" class="btn-primary">➕ Add Item</button></div>
+            </form>
+          </div>
+
+          <div id="statusInventory" style="font-size:13px;color:#6b7280;margin-bottom:8px">No items yet</div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Item Name</th>
+                  <th>Category</th>
+                  <th>Serial</th>
+                  <th>Daily Rate</th>
+                  <th>Stock</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="inventoryTable">
+                <tr>
+                  <td colspan="8" style="text-align:center;color:#9ca3af;padding:32px">No inventory items found. Add your first item above.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <!-- Settings Section -->
+      <div class="dashboard-section" data-section="settings" style="display:none">
+        <div class="cards-grid">
+          <div class="card">
+            <div class="card-header">
+              <h2>General Settings</h2>
+            </div>
+            <div class="form-container">
+              <h4>Site Information</h4>
+              <div style="margin-bottom:16px">
+                <label style="display:block;margin-bottom:6px;font-size:14px;font-weight:500">Site Name</label>
+                <input type="text" id="siteName" value="CameRent" style="width:100%">
+              </div>
+              <div style="margin-bottom:16px">
+                <label style="display:block;margin-bottom:6px;font-size:14px;font-weight:500">Contact Email</label>
+                <input type="email" id="contactEmail" value="info@camerent.com" style="width:100%">
+              </div>
+              <div style="margin-bottom:16px">
+                <label style="display:block;margin-bottom:6px;font-size:14px;font-weight:500">Contact Phone</label>
+                <input type="tel" id="contactPhone" value="+63 917 123 4567" style="width:100%">
+              </div>
+              <div style="margin-bottom:16px">
+                <label style="display:block;margin-bottom:6px;font-size:14px;font-weight:500">Address</label>
+                <input type="text" id="address" value="Metro Manila, Philippines" style="width:100%">
+              </div>
+              <button class="btn-primary" onclick="saveGeneralSettings()">💾 Save Settings</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h2>Pricing & Policies</h2>
+            </div>
+            <div class="form-container">
+              <h4>Rental Policies</h4>
+              <div style="margin-bottom:16px">
+                <label style="display:block;margin-bottom:6px;font-size:14px;font-weight:500">Minimum Rental Days</label>
+                <input type="number" id="minRentalDays" value="1" min="1" style="width:100%">
+              </div>
+              <div style="margin-bottom:16px">
+                <label style="display:block;margin-bottom:6px;font-size:14px;font-weight:500">Maximum Rental Days</label>
+                <input type="number" id="maxRentalDays" value="30" min="1" style="width:100%">
+              </div>
+              <div style="margin-bottom:16px">
+                <label style="display:block;margin-bottom:6px;font-size:14px;font-weight:500">Late Fee (per day)</label>
+                <input type="number" id="lateFee" value="500" min="0" style="width:100%">
+              </div>
+              <div style="margin-bottom:16px">
+                <label style="display:block;margin-bottom:6px;font-size:14px;font-weight:500">Security Deposit (%)</label>
+                <input type="number" id="securityDeposit" value="20" min="0" max="100" style="width:100%">
+              </div>
+              <button class="btn-primary" onclick="savePricingSettings()">💾 Save Pricing</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h2>Email Notifications</h2>
+            </div>
+            <div class="form-container">
+              <h4>Notification Settings</h4>
+              <div style="margin-bottom:12px">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="notifyNewOrder" checked>
+                  <span>Send email on new order</span>
+                </label>
+              </div>
+              <div style="margin-bottom:12px">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="notifyPayment" checked>
+                  <span>Send email on payment confirmation</span>
+                </label>
+              </div>
+              <div style="margin-bottom:12px">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="notifyReturn" checked>
+                  <span>Send email on return reminder</span>
+                </label>
+              </div>
+              <div style="margin-bottom:12px">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="notifyLate" checked>
+                  <span>Send email on late return</span>
+                </label>
+              </div>
+              <button class="btn-primary" onclick="saveNotificationSettings()">💾 Save Notifications</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h2>Admin Security</h2>
+            </div>
+            <div class="form-container">
+              <h4>Change Admin Password</h4>
+              <div style="margin-bottom:16px">
+                <label style="display:block;margin-bottom:6px;font-size:14px;font-weight:500">Current Password</label>
+                <input type="password" id="currentPassword" style="width:100%">
+              </div>
+              <div style="margin-bottom:16px">
+                <label style="display:block;margin-bottom:6px;font-size:14px;font-weight:500">New Password</label>
+                <input type="password" id="newPassword" style="width:100%">
+              </div>
+              <div style="margin-bottom:16px">
+                <label style="display:block;margin-bottom:6px;font-size:14px;font-weight:500">Confirm New Password</label>
+                <input type="password" id="confirmPassword" style="width:100%">
+              </div>
+              <button class="btn-primary" onclick="changeAdminPassword()">🔒 Change Password</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="modalBackdrop" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;z-index:9999;backdrop-filter:blur(4px)">
+    <div style="background:#fff;border-radius:20px;padding:32px;max-width:1000px;width:92%;max-height:85vh;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3)">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;padding-bottom:16px;border-bottom:2px solid #f3f4f6">
+        <h2 style="margin:0;font-size:24px;font-weight:700;color:#1f2937">📦 Order Details</h2>
+        <button class="btn-secondary" onclick="Dashboard.hideModal()" style="padding:8px 16px">✕ Close</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px">
+        <div style="background:#f8fafc;padding:20px;border-radius:12px">
+          <h4 style="margin:0 0 12px 0;font-size:16px;font-weight:600;color:#1f2937">👤 Customer Information</h4>
+          <div id="orderContact" style="font-size:14px;line-height:1.8"></div>
+        </div>
+        <div style="background:#f8fafc;padding:20px;border-radius:12px">
+          <h4 style="margin:0 0 12px 0;font-size:16px;font-weight:600;color:#1f2937">📋 Order Summary</h4>
+          <div id="orderSummary" style="font-size:14px;line-height:1.8"></div>
+        </div>
+      </div>
+      <div style="background:#f8fafc;padding:20px;border-radius:12px;margin-bottom:24px">
+        <h4 style="margin:0 0 12px 0;font-size:16px;font-weight:600;color:#1f2937">📦 Ordered Items</h4>
+        <div id="orderItems" style="font-size:14px"></div>
+      </div>
+      <div style="background:#1f2937;padding:20px;border-radius:12px">
+        <h4 style="margin:0 0 12px 0;font-size:14px;font-weight:600;color:#f9fafb">🔍 Raw Order Data (JSON)</h4>
+        <pre id="orderDetailJson" style="background:#111827;color:#f9fafb;padding:16px;border-radius:8px;overflow:auto;font-size:12px;margin:0">{}</pre>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Namespaced dashboard object to avoid conflicts
+    const Dashboard = (function(){
+      const Users = { __USERS: [], __CSRF: '', currentPage: 1 };
+      const Orders = { __ORDERS: [], __USERS_MAP: {}, __CSRF: '' };
+      const Inventory = { __ITEMS: [] };
+
+      // Declare functions that will be used across sections
+      let renderPager, gotoPage, editUser, updateStatus, deleteOrder, viewOrder, showModal, hideModal, addInventory, deleteInventory;
+
+      // Navigation handler
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', function() {
+          const section = this.getAttribute('data-section');
+          
+          // Update active nav
+          document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+          this.classList.add('active');
+          
+          // Update page title
+          const titles = {
+            dashboard: 'Dashboard',
+            users: 'Users Management',
+            orders: 'Orders Management',
+            inventory: 'Inventory Management',
+            settings: 'Settings'
+          };
+          document.querySelector('.top-bar h1').textContent = titles[section] || 'Dashboard';
+          
+          // Show/hide sections
+          document.querySelectorAll('.dashboard-section').forEach(sec => sec.style.display = 'none');
+          const activeSection = document.querySelector(`.dashboard-section[data-section="${section}"]`);
+          if (activeSection) activeSection.style.display = 'block';
+          
+          // Update dashboard stats when viewing dashboard
+          if (section === 'dashboard') {
+            updateDashboardStats();
+          }
+        });
+      });
+
+      function updateDashboardStats() {
+        document.getElementById('dashTotalUsers').textContent = Users.__USERS.length;
+        document.getElementById('dashTotalOrders').textContent = Orders.__ORDERS.length;
+        document.getElementById('dashTotalInventory').textContent = Inventory.__ITEMS.length;
+        document.getElementById('dashActiveUsers').textContent = Users.__USERS.filter(u => !u.isAdmin).length;
+        document.getElementById('dashPendingOrders').textContent = Orders.__ORDERS.filter(o => o.status === 'new' || o.status === 'processing').length;
+        document.getElementById('dashAvailableItems').textContent = Inventory.__ITEMS.filter(i => i.status === 'available').length;
+      }
+
+      /* Inventory Management */
+      addInventory = function() {
+        const item = {
+          id: Inventory.__ITEMS.length + 1,
+          name: document.getElementById('inv_name').value,
+          category: document.getElementById('inv_category').value,
+          serial: document.getElementById('inv_serial').value,
+          price: parseFloat(document.getElementById('inv_price').value),
+          status: document.getElementById('inv_status').value
+        };
+        
+        Inventory.__ITEMS.push(item);
+        document.getElementById('inventoryForm').reset();
+        renderInventory();
+        alert('Item added successfully!');
+      };
+
+      deleteInventory = function(id) {
+        if (!confirm('Delete this item?')) return;
+        Inventory.__ITEMS = Inventory.__ITEMS.filter(i => i.id !== id);
+        renderInventory();
+      };
+
+      // Edit inventory item
+      let editInventory = function(id) {
+        const item = Inventory.__ITEMS.find(i => i.id === id);
+        if (!item) return;
+        
+        const newStock = prompt(`Update stock for ${item.name}\\n\\nCurrent stock: ${item.stock} units\\n\\nEnter new stock:`, item.stock);
+        if (newStock === null) return; // cancelled
+        
+        const stockNum = parseInt(newStock, 10);
+        if (isNaN(stockNum) || stockNum < 0) {
+          alert('Invalid stock number');
+          return;
+        }
+        
+        // Update via API
+        fetch(`/api/inventory/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ stock: stockNum })
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.ok) {
+            item.stock = stockNum;
+            renderInventory();
+            updateDashboardStats();
+            alert('Stock updated successfully!');
+          } else {
+            alert('Failed to update: ' + data.message);
+          }
+        })
+        .catch(err => {
+          alert('Error updating stock: ' + err.message);
+        });
+      };
+
+      function renderInventory() {
+        const tbody = document.getElementById('inventoryTable');
+        if (Inventory.__ITEMS.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#9ca3af;padding:32px">No inventory items found. Add your first item above.</td></tr>';
+          document.getElementById('statusInventory').textContent = 'No items yet';
+          document.getElementById('inventoryCount').textContent = '0 Items';
+          return;
+        }
+
+        let html = '';
+        let totalStock = 0;
+        Inventory.__ITEMS.forEach(item => {
+          const statusColors = {
+            'available': '#d1fae5|#065f46',
+            'rented': '#fef3c7|#92400e',
+            'maintenance': '#fee2e2|#991b1b',
+            'unavailable': '#e5e7eb|#374151'
+          };
+          const colors = statusColors[item.status] || '#f3f4f6|#6b7280';
+          const [bgColor, textColor] = colors.split('|');
+          const statusLabel = item.status.charAt(0).toUpperCase() + item.status.slice(1);
+          
+          const stock = item.stock || 0;
+          totalStock += stock;
+          let stockColor = '#065f46';
+          let stockBg = '#d1fae5';
+          if (stock === 0) {
+            stockColor = '#991b1b';
+            stockBg = '#fee2e2';
+          } else if (stock <= 5) {
+            stockColor = '#92400e';
+            stockBg = '#fef3c7';
+          }
+          
+          html += `<tr>
+            <td>${item.id}</td>
+            <td><strong>${item.name}</strong></td>
+            <td>${item.category}</td>
+            <td>${item.serial || 'N/A'}</td>
+            <td style="font-weight:600">₱${parseFloat(item.price).toLocaleString()}/day</td>
+            <td><span style="display:inline-block;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;background:${stockBg};color:${stockColor}">${stock} units</span></td>
+            <td><span style="display:inline-block;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;background:${bgColor};color:${textColor}">${statusLabel}</span></td>
+            <td style="white-space:nowrap">
+              <button class="btn-outlined" onclick="Dashboard.editInventory(${item.id})" style="font-size:12px;padding:6px 10px">Edit</button>
+              <button class="btn-secondary" onclick="Dashboard.deleteInventory(${item.id})" style="font-size:12px;padding:6px 10px">Delete</button>
+            </td>
+          </tr>`;
+        });
+        tbody.innerHTML = html;
+        document.getElementById('statusInventory').textContent = `${Inventory.__ITEMS.length} items in inventory (${totalStock} total units)`;
+        document.getElementById('inventoryCount').textContent = `${Inventory.__ITEMS.length} Items`;
+      }
+
+      /* Users section adapted from admin_users.html */
+      Users.renderUsers = function(){
+        const q = (document.getElementById('search').value || '').toLowerCase().trim();
+        const perPage = parseInt(document.getElementById('perPage').value, 10) || 10;
+        const filtered = Users.__USERS.filter(u => {
+          if (!q) return true;
+          const hay = `${u.firstName} ${u.lastName} ${u.email} ${u.phone||''}`.toLowerCase();
+          return hay.includes(q);
+        });
+        const total = filtered.length;
+        const pages = Math.max(1, Math.ceil(total / perPage));
+        if (Users.currentPage > pages) Users.currentPage = pages;
+        const start = (Users.currentPage - 1) * perPage;
+        const pageSlice = filtered.slice(start, start + perPage);
+
+        const container = document.getElementById('users');
+        if (!pageSlice.length) {
+          container.innerHTML = '<p>No users found.</p>';
+          document.getElementById('statusUsers').textContent = '';
+          renderPager(1, pages, total);
+          return;
+        }
+
+        let html = '<table><thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Phone</th></tr></thead><tbody>';
+        pageSlice.forEach(u => {
+          html += `<tr id="user-${u.id}"><td>${u.id}</td><td>${u.firstName} ${u.lastName}</td><td>${u.email}</td><td>${u.phone||''}</td></tr>`;
+        });
+        html += '</tbody></table>';
+        container.innerHTML = html;
+        document.getElementById('statusUsers').textContent = `${total} users`;
+        document.getElementById('userCount').textContent = `${total} Users`;
+        renderPager(Users.currentPage, pages, total);
+      };
+
+      renderPager = function(page, pages, total){
+        const c = document.getElementById('pagerContainer');
+        if (pages <= 1){ c.innerHTML = `<span class="small">${total} users</span>`; return; }
+        let html = `<button onclick="Dashboard.gotoPage(1)">« First</button> `;
+        html += `<button onclick="Dashboard.gotoPage(${page-1})" ${page===1? 'disabled': ''}>‹ Prev</button> `;
+        html += `<span class="small"> Page ${page} / ${pages} </span>`;
+        html += ` <button onclick="Dashboard.gotoPage(${page+1})" ${page===pages? 'disabled': ''}>Next ›</button> `;
+        html += `<button onclick="Dashboard.gotoPage(${pages})">Last »</button>`;
+        c.innerHTML = html;
+      };
+
+      gotoPage = function(n){
+        const perPage = parseInt(document.getElementById('perPage').value, 10) || 10;
+        const q = (document.getElementById('search').value || '').toLowerCase().trim();
+        const filtered = Users.__USERS.filter(u => {
+          if (!q) return true;
+          const hay = `${u.firstName} ${u.lastName} ${u.email} ${u.phone||''}`.toLowerCase();
+          return hay.includes(q);
+        });
+        const pages = Math.max(1, Math.ceil(filtered.length / perPage));
+        if (n < 1) n = 1; if (n > pages) n = pages;
+        Users.currentPage = n;
+        Users.renderUsers();
+      };
+
+      Users.loadUsers = async function(){
+        try {
+          console.log('Loading users...');
+          document.getElementById('statusUsers').textContent = 'Loading...';
+          const res = await fetch('/admin/users.json');
+          if (!res.ok) {
+            console.error('Failed to fetch users:', res.status, res.statusText);
+            throw new Error('Failed to fetch users: ' + res.status);
+          }
+          const data = await res.json();
+          console.log('Users loaded:', data.users.length, 'users, CSRF:', data.csrf);
+          Users.__USERS = data.users || [];
+          Users.__CSRF = data.csrf || '';
+          Orders.__CSRF = data.csrf || Orders.__CSRF || '';
+          Users.renderUsers();
+          updateDashboardStats();
+        } catch(err) {
+          console.error('Load users error:', err);
+          document.getElementById('statusUsers').textContent = 'Error: ' + err.message;
+        }
+      };
+
+      Users.deleteUser = async function(id){
+        if (!confirm('Delete user ID ' + id + '?')) return;
+        const token = Users.__CSRF || Orders.__CSRF || '';
+        const res = await fetch('/admin/users/delete', { method:'POST', headers:{'Content-Type':'application/json','X-CSRF-Token': token}, body: JSON.stringify({id}) });
+        const data = await res.json();
+        if (data.ok){ Users.__USERS = Users.__USERS.filter(u => u.id !== id); Users.renderUsers(); } else { alert('Delete failed: ' + (data.message || 'unknown')); }
+      };
+
+      Users.createUser = async function(){
+        try {
+          const payload = { firstName: document.getElementById('c_first').value, lastName: document.getElementById('c_last').value, email: document.getElementById('c_email').value, phone: document.getElementById('c_phone').value, password: document.getElementById('c_password').value };
+          payload.isAdmin = document.getElementById('c_isadmin').checked ? true : false;
+        const token = Users.__CSRF || Orders.__CSRF || '';
+          console.log('Creating user with token:', token);
+          const res = await fetch('/admin/users/create', { method:'POST', headers:{'Content-Type':'application/json','X-CSRF-Token': token}, body: JSON.stringify(payload) });
+          const data = await res.json();
+          console.log('Create user response:', data);
+          if (data.ok){ 
+            document.getElementById('createForm').reset(); 
+            await Users.loadUsers();
+            alert('User created successfully!');
+          } else { 
+            alert('Create failed: ' + (data.message||'unknown')); 
+          }
+        } catch(err) {
+          console.error('Create user error:', err);
+          alert('Error creating user: ' + err.message);
+        }
+      };
+
+      editUser = async function(id){
+        const user = Users.__USERS.find(u=>u.id===id) || {};
+        const first = prompt('First name', user.firstName||''); if (first === null) return;
+        const last = prompt('Last name', user.lastName||''); if (last === null) return;
+        const email = prompt('Email', user.email||''); if (email === null) return;
+        const phone = prompt('Phone (optional)', user.phone||''); if (phone === null) return;
+        const password = prompt('New password (leave blank to keep)');
+        const payload = { id, firstName: first, lastName: last, email: email, phone: phone };
+        if (password) payload.password = password;
+        const token = Users.__CSRF || '';
+        const res = await fetch('/admin/users/edit', {method:'POST', headers:{'Content-Type':'application/json','X-CSRF-Token': token}, body: JSON.stringify(payload)});
+        const data = await res.json(); if (data.ok){ Users.loadUsers(); } else { alert('Edit failed: ' + (data.message||'unknown')); }
+      };
+
+      /* Orders section adapted from admin_orders.html */
+      Orders.loadOrders = async function(){
+        try {
+          console.log('Loading orders...');
+          document.getElementById('statusOrders').textContent = 'Loading...';
+          const res = await fetch('/admin/orders.json');
+          if (res.status === 401) { location.href = '/admin/login?next=/admin/dashboard'; return; }
+          if (!res.ok) { const txt = await res.text().catch(()=>'<no body>'); document.getElementById('debug').textContent = `Fetch failed: ${res.status} ${res.statusText} - ${txt}`; document.getElementById('statusOrders').textContent = 'Error loading orders'; return; }
+          const data = await res.json();
+          console.log('Orders loaded:', data.orders.length, 'orders, CSRF:', data.csrf);
+          Orders.__CSRF = data.csrf || '';
+          Users.__CSRF = data.csrf || Users.__CSRF || '';
+          Orders.__ORDERS = data.orders || [];
+          const users = data.users || [];
+          Orders.__USERS_MAP = {};
+          users.forEach(u => { Orders.__USERS_MAP[u.id] = u; });
+          document.getElementById('debug').textContent = `Fetched ${Orders.__ORDERS.length} orders, ${users.length} users`;
+          const container = document.getElementById('orders');
+          if (!Orders.__ORDERS.length) { container.innerHTML = '<p>No orders found.</p>'; document.getElementById('statusOrders').textContent = ''; return; }
+
+          let html = '<table><thead><tr><th>ID</th><th>Customer</th><th>Contact</th><th>Shipping Address</th><th>Delivery/Pickup</th><th>Items</th><th>Total</th><th>Pickup Date</th><th>Return Date</th><th>Payment</th><th>Status</th><th>Created</th><th>Actions</th></tr></thead><tbody>';
+          Orders.__ORDERS.forEach(o => {
+            const items = (o.items || []).map(it => { const name = it.name || it.title || (`item-${it.id||''}`); const qty = it.qty || it.quantity || 1; const price = (it.price !== undefined) ? ` @ ₱${it.price}` : ''; return `${name} x${qty}${price}`; }).join('; ');
+            const userName = o.userId ? ((Orders.__USERS_MAP[o.userId] && (Orders.__USERS_MAP[o.userId].firstName||'')) || o.userId) : '';
+            const pickup = o.start_date ? (typeof o.start_date === 'number' ? new Date(o.start_date*1000).toLocaleDateString() : o.start_date) : '';
+            const ret = o.end_date ? (typeof o.end_date === 'number' ? new Date(o.end_date*1000).toLocaleDateString() : o.end_date) : '';
+            const pay = o.payment_method || 'N/A';
+            const userObj = Orders.__USERS_MAP && Orders.__USERS_MAP[o.userId] ? Orders.__USERS_MAP[o.userId] : null;
+            const contactHtml = userObj ? `${userObj.email || ''}<br>${userObj.phone || ''}` : '';
+            const shippingAddress = o.shipping_address || (userObj && userObj.address) || 'N/A';
+            const deliveryMethod = o.delivery_method || o.pickup_method || 'Pickup';
+            const totalFormatted = o.total ? `₱${parseFloat(o.total).toLocaleString()}` : 'N/A';
+            
+            // Get current status and create color-coded badge
+            const currentStatus = o.status || 'new';
+            const statusColors = {
+              'new': '#dbeafe|#1e40af',
+              'pending': '#fef3c7|#92400e', 
+              'confirmed': '#dbeafe|#1e3a8a',
+              'processing': '#fef3c7|#92400e',
+              'paid': '#d1fae5|#065f46',
+              'accepted': '#d1fae5|#065f46',
+              'prepared': '#fed7aa|#c2410c',
+              'shipped': '#e0e7ff|#3730a3',
+              'delivered': '#d1fae5|#065f46',
+              'completed': '#d1fae5|#065f46',
+              'in-use': '#dbeafe|#1e40af',
+              'returned': '#e5e7eb|#374151',
+              'cancelled': '#fee2e2|#991b1b',
+              'rejected': '#fee2e2|#991b1b'
+            };
+            const colors = statusColors[currentStatus] || '#f3f4f6|#6b7280';
+            const [bgColor, textColor] = colors.split('|');
+            const statusLabel = currentStatus.charAt(0).toUpperCase() + currentStatus.slice(1).replace('-', ' ');
+            const statusBadge = `<span style="display:inline-block;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;background:${bgColor};color:${textColor}">${statusLabel}</span>`;
+            
+            html += `<tr id="order-${o.id}"><td>${o.id}</td><td>${userName}</td><td style="font-size:12px">${contactHtml}</td><td style="font-size:12px;max-width:150px;overflow:hidden;text-overflow:ellipsis">${shippingAddress}</td><td style="font-size:12px">${deliveryMethod}</td><td style="font-size:12px;max-width:200px;overflow:hidden;text-overflow:ellipsis" title="${items}">${items}</td><td style="font-weight:600">${totalFormatted}</td><td>${pickup}</td><td>${ret}</td><td>${pay}</td><td>${statusBadge}<br><select id="status-${o.id}" style="padding:4px 8px;font-size:11px;margin-top:4px;width:100%"><option value="new">New Order</option><option value="pending">Pending</option><option value="confirmed">Confirmed</option><option value="processing">Processing</option><option value="paid">Paid</option><option value="accepted">Accepted</option><option value="prepared">Prepared</option><option value="shipped">Shipped</option><option value="delivered">Delivered</option><option value="in-use">In Use</option><option value="completed">Completed</option><option value="returned">Returned</option><option value="cancelled">Cancelled</option><option value="rejected">Rejected</option></select></td><td style="font-size:12px">${o.createdAt? new Date(o.createdAt*1000).toLocaleString() : ''}</td><td style="white-space:nowrap"><button class="btn-outlined" onclick="Dashboard.viewOrder(${o.id})" style="font-size:12px;padding:6px 10px">View</button> <button class="btn-primary" onclick="Dashboard.updateStatus(${o.id})" style="font-size:12px;padding:6px 10px">Update</button> <button class="btn-secondary" onclick="Dashboard.deleteOrder(${o.id})" style="font-size:12px;padding:6px 10px">Delete</button></td></tr>`;
+          });
+          html += '</tbody></table>';
+          container.innerHTML = html;
+          Orders.__ORDERS.forEach(o=>{ const s = document.getElementById('status-' + o.id); if (s) s.value = o.status || 'new'; });
+          document.getElementById('statusOrders').textContent = `${Orders.__ORDERS.length} orders`;
+          document.getElementById('orderCount').textContent = `${Orders.__ORDERS.length} Orders`;
+          updateDashboardStats();
+        } catch (err) {
+          console.error('loadOrders error', err);
+          document.getElementById('debug').textContent = 'Error: ' + (err && err.message ? err.message : String(err));
+          document.getElementById('statusOrders').textContent = 'Error loading orders';
+        }
+      };
+
+      updateStatus = async function(id){
+        try {
+          const sel = document.getElementById('status-' + id); 
+          if (!sel) return; 
+          const status = sel.value; 
+          const token = Users.__CSRF || Orders.__CSRF || '';
+          console.log('Updating order status:', id, 'to', status, 'with token:', token);
+          const res = await fetch('/admin/orders/update', {method:'POST', headers:{'Content-Type':'application/json','X-CSRF-Token': token}, body: JSON.stringify({id, status})}); 
+          const data = await res.json(); 
+          console.log('Update response:', data);
+          if (data.ok){ 
+            alert('Updated'); 
+            await Orders.loadOrders();
+            // Refresh calendar view if active
+            if (window.OrdersView && window.OrdersView.currentView === 'calendar') {
+              window.OrdersView.renderCalendar();
+            }
+          } else { 
+            alert('Update failed: ' + (data.message||'unknown')); 
+          }
+        } catch(err) {
+          console.error('Update status error:', err);
+          alert('Error updating: ' + err.message);
+        }
+      };
+
+      deleteOrder = async function(id){ if (!confirm('Delete order ' + id + '?')) return; const token = Users.__CSRF || Orders.__CSRF || ''; const res = await fetch('/admin/orders/delete', {method:'POST', headers:{'Content-Type':'application/json','X-CSRF-Token': token}, body: JSON.stringify({id})}); const data = await res.json(); if (data.ok){ document.getElementById('order-' + id)?.remove(); } else { alert('Delete failed: ' + (data.message||'unknown')); } };
+
+      viewOrder = function(id){ 
+        const order = Orders.__ORDERS.find(o=>o.id==id) || null; 
+        if (!order){ alert('Order not found'); return; }
+        
+        // Customer Information
+        const contact = document.getElementById('orderContact');
+        let contactHtml = '';
+        if (order.userId){
+          const u = Orders.__USERS_MAP[order.userId] || {};
+          if (u){
+            contactHtml = `
+              <div style="margin-bottom:8px"><strong style="color:#667eea">${u.full_name || (u.firstName||'') + ' ' + (u.lastName||'')}</strong></div>
+              <div><strong>Email:</strong> ${u.email||'N/A'}</div>
+              <div><strong>Phone:</strong> ${u.phone||'N/A'}</div>
+              <div><strong>Address:</strong> ${u.address || order.shipping_address || 'N/A'}</div>
+            `;
+          }
+        }
+        if (!contactHtml) contactHtml = '<div style="color:#9ca3af">No customer information available</div>';
+        contact.innerHTML = contactHtml;
+        
+        // Order Summary
+        const summary = document.getElementById('orderSummary');
+        const pickup = order.start_date ? (typeof order.start_date === 'number' ? new Date(order.start_date*1000).toLocaleDateString() : order.start_date) : 'N/A';
+        const returnDate = order.end_date ? (typeof order.end_date === 'number' ? new Date(order.end_date*1000).toLocaleDateString() : order.end_date) : 'N/A';
+        const statusColors = {'new':'#dbeafe|#1e40af','pending':'#fef3c7|#92400e','confirmed':'#dbeafe|#1e3a8a','processing':'#fef3c7|#92400e','paid':'#d1fae5|#065f46','accepted':'#d1fae5|#065f46','prepared':'#fed7aa|#c2410c','shipped':'#e0e7ff|#3730a3','delivered':'#d1fae5|#065f46','completed':'#d1fae5|#065f46','in-use':'#dbeafe|#1e40af','returned':'#e5e7eb|#374151','cancelled':'#fee2e2|#991b1b','rejected':'#fee2e2|#991b1b'};
+        const statusColor = statusColors[order.status] || '#f3f4f6|#6b7280';
+        const [bgColor, textColor] = statusColor.split('|');
+        const statusLabel = (order.status || 'new').charAt(0).toUpperCase() + (order.status || 'new').slice(1).replace('-', ' ');
+        summary.innerHTML = `
+          <div style="margin-bottom:8px"><strong>Order ID:</strong> #${order.id}</div>
+          <div style="margin-bottom:8px"><strong>Status:</strong> <span style="display:inline-block;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;background:${bgColor};color:${textColor};margin-left:8px">${statusLabel}</span></div>
+          <div style="margin-bottom:8px"><strong>Pickup Date:</strong> ${pickup}</div>
+          <div style="margin-bottom:8px"><strong>Return Date:</strong> ${returnDate}</div>
+          <div style="margin-bottom:8px"><strong>Delivery Method:</strong> ${order.delivery_method || order.pickup_method || 'Pickup'}</div>
+          <div style="margin-bottom:8px"><strong>Payment Method:</strong> ${order.payment_method || 'N/A'}</div>
+          <div style="margin-bottom:8px"><strong>Total:</strong> <strong style="color:#667eea;font-size:18px">₱${order.total ? parseFloat(order.total).toLocaleString() : '0'}</strong></div>
+          <div style="margin-bottom:8px;font-size:12px;color:#6b7280"><strong>Created:</strong> ${order.createdAt ? new Date(order.createdAt*1000).toLocaleString() : 'N/A'}</div>
+        `;
+        
+        // Order Items
+        const items = document.getElementById('orderItems');
+        let itemsHtml = '<table style="width:100%;border-collapse:collapse"><thead><tr style="background:#f3f4f6;text-align:left"><th style="padding:10px;font-size:13px">Item</th><th style="padding:10px;font-size:13px">Quantity</th><th style="padding:10px;font-size:13px">Price</th><th style="padding:10px;font-size:13px;text-align:right">Subtotal</th></tr></thead><tbody>';
+        if (order.items && order.items.length > 0){
+          order.items.forEach(item => {
+            const name = item.name || item.title || 'Unknown Item';
+            const qty = item.qty || item.quantity || 1;
+            const price = item.price || 0;
+            const subtotal = price * qty;
+            itemsHtml += `<tr style="border-bottom:1px solid #f3f4f6"><td style="padding:10px">${name}</td><td style="padding:10px">${qty}</td><td style="padding:10px">₱${parseFloat(price).toLocaleString()}</td><td style="padding:10px;text-align:right;font-weight:600">₱${subtotal.toLocaleString()}</td></tr>`;
+          });
+        } else {
+          itemsHtml += '<tr><td colspan="4" style="padding:20px;text-align:center;color:#9ca3af">No items in this order</td></tr>';
+        }
+        itemsHtml += '</tbody></table>';
+        items.innerHTML = itemsHtml;
+        
+        // JSON Data
+        const modal = document.getElementById('orderDetailJson');
+        if (modal) modal.textContent = JSON.stringify(order, null, 2);
+        
+        showModal();
+      };
+
+      showModal = function(){ const d = document.getElementById('modalBackdrop'); if (d) d.style.display = 'flex'; };
+      hideModal = function(){ const d = document.getElementById('modalBackdrop'); if (d) d.style.display = 'none'; };
+
+      // Orders Calendar View
+      window.OrdersView = {
+        currentView: 'list',
+        currentDate: new Date(),
+        
+        switchView: function(view) {
+          this.currentView = view;
+          const listBtn = document.getElementById('listViewBtn');
+          const calendarBtn = document.getElementById('calendarViewBtn');
+          const listContainer = document.getElementById('listContainer');
+          const calendarContainer = document.getElementById('calendarContainer');
+          
+          if (view === 'list') {
+            listBtn.className = 'btn-primary';
+            calendarBtn.className = 'btn-secondary';
+            listContainer.style.display = 'block';
+            calendarContainer.style.display = 'none';
+          } else {
+            calendarBtn.className = 'btn-primary';
+            listBtn.className = 'btn-secondary';
+            listContainer.style.display = 'none';
+            calendarContainer.style.display = 'block';
+            this.renderCalendar();
+          }
+        },
+        
+        changeMonth: function(direction) {
+          this.currentDate.setMonth(this.currentDate.getMonth() + direction);
+          this.renderCalendar();
+        },
+        
+        renderCalendar: function() {
+          const orders = Orders.__ORDERS || [];
+          const userMap = Orders.__USERS_MAP || {};
+          
+          const year = this.currentDate.getFullYear();
+          const month = this.currentDate.getMonth();
+          
+          const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+          document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
+          
+          const firstDay = new Date(year, month, 1);
+          const lastDay = new Date(year, month + 1, 0);
+          const startDate = new Date(firstDay);
+          startDate.setDate(startDate.getDate() - firstDay.getDay());
+          
+          const calendarGrid = document.getElementById('calendarGrid');
+          let html = '<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px">';
+          
+          const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+          dayNames.forEach(day => {
+            html += `<div style="background:#f3f4f6;padding:10px;text-align:center;font-weight:600;border-radius:8px;font-size:13px">${day}</div>`;
+          });
+          
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          
+          for (let i = 0; i < 42; i++) {
+            const currentDay = new Date(startDate);
+            currentDay.setDate(startDate.getDate() + i);
+            
+            const isOtherMonth = currentDay.getMonth() !== month;
+            const isToday = currentDay.getTime() === today.getTime();
+            
+            let dayStyle = 'background:white;border:2px solid #e5e7eb;border-radius:10px;padding:10px;min-height:90px;position:relative';
+            if (isOtherMonth) dayStyle += ';opacity:0.4';
+            if (isToday) dayStyle += ';border-color:#667eea;background:#eff6ff';
+            
+            const dayBookings = [];
+            orders.forEach(order => {
+              const startDate = order.start_date ? (typeof order.start_date === 'number' ? new Date(order.start_date * 1000) : new Date(order.start_date)) : null;
+              const endDate = order.end_date ? (typeof order.end_date === 'number' ? new Date(order.end_date * 1000) : new Date(order.end_date)) : null;
+              
+              if (startDate) startDate.setHours(0, 0, 0, 0);
+              if (endDate) endDate.setHours(0, 0, 0, 0);
+              
+              const userName = order.userId ? (userMap[order.userId]?.firstName || userMap[order.userId] || 'User') : 'Guest';
+              const itemName = order.items && order.items[0] ? (order.items[0].name || 'Item') : 'Order';
+              
+              if (startDate && startDate.getTime() === currentDay.getTime()) {
+                dayBookings.push({type: 'pickup', order, userName, itemName});
+              }
+              if (endDate && endDate.getTime() === currentDay.getTime()) {
+                dayBookings.push({type: 'return', order, userName, itemName});
+              }
+              if (startDate && endDate && currentDay > startDate && currentDay < endDate) {
+                dayBookings.push({type: 'ongoing', order, userName, itemName});
+              }
+            });
+            
+            let bookingsHtml = '';
+            dayBookings.forEach(booking => {
+              const icon = booking.type === 'pickup' ? '📦' : booking.type === 'return' ? '📮' : '🔄';
+              const shortName = booking.itemName.length > 12 ? booking.itemName.substring(0, 10) + '...' : booking.itemName;
+              const bgColor = booking.type === 'pickup' ? '#dcfce7' : booking.type === 'return' ? '#fef3c7' : '#dbeafe';
+              const borderColor = booking.type === 'pickup' ? '#22c55e' : booking.type === 'return' ? '#f59e0b' : '#3b82f6';
+              const textColor = booking.type === 'pickup' ? '#166534' : booking.type === 'return' ? '#92400e' : '#1e40af';
+              bookingsHtml += `<div onclick="Dashboard.viewOrder(${booking.order.id})" style="display:flex;align-items:center;gap:4px;font-size:10px;padding:3px 5px;margin:2px 0;border-radius:4px;cursor:pointer;background:${bgColor};color:${textColor};border-left:3px solid ${borderColor};transition:all 0.2s" onmouseover="this.style.transform='translateX(2px)';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)'" onmouseout="this.style.transform='translateX(0)';this.style.boxShadow='none'" title="${booking.userName} - ${booking.itemName}"><span style="font-size:11px">${icon}</span><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${shortName}</span></div>`;
+            });
+            
+            html += `<div style="${dayStyle}"><div style="font-weight:600;margin-bottom:6px;color:#111827;font-size:13px">${currentDay.getDate()}</div>${bookingsHtml}</div>`;
+          }
+          
+          html += '</div>';
+          calendarGrid.innerHTML = html;
+        }
+      };
+
+      // Load inventory from API
+      Inventory.loadInventory = function() {
+        fetch('/api/inventory')
+          .then(res => res.json())
+          .then(data => {
+            Inventory.__ITEMS = data.inventory || [];
+            renderInventory();
+            updateDashboardStats();
+          })
+          .catch(err => {
+            console.error('Failed to load inventory:', err);
+            document.getElementById('statusInventory').textContent = 'Failed to load inventory: ' + err.message;
+          });
+      };
+
+      // initialize
+      Users.loadUsers(); 
+      Orders.loadOrders();
+      Inventory.loadInventory();
+
+      // wire search and perPage
+      document.getElementById('search').addEventListener('input', ()=>{ Users.currentPage = 1; Users.renderUsers(); });
+      document.getElementById('perPage').addEventListener('change', ()=>{ Users.currentPage = 1; Users.renderUsers(); });
+
+      return {
+        Users, Orders, Inventory,
+        createUser: Users.createUser,
+        deleteUser: Users.deleteUser,
+        editUser: editUser,
+        updateStatus: updateStatus,
+        deleteOrder: deleteOrder,
+        viewOrder: viewOrder,
+        showModal: showModal,
+        hideModal: hideModal,
+        gotoPage: gotoPage,
+        renderPager: renderPager,
+        addInventory: addInventory,
+        deleteInventory: deleteInventory,
+        editInventory: editInventory
+      };
+    })();
+    
+    // Expose globally for inline handlers
+    window.Dashboard = Dashboard;
+    window.Users = Dashboard.Users;
+    window.Orders = Dashboard.Orders;
+
+    // Settings functions
+    function saveGeneralSettings() {
+      const settings = {
+        siteName: document.getElementById('siteName').value,
+        contactEmail: document.getElementById('contactEmail').value,
+        contactPhone: document.getElementById('contactPhone').value,
+        address: document.getElementById('address').value
+      };
+      
+      localStorage.setItem('siteSettings', JSON.stringify(settings));
+      alert('✅ General settings saved successfully!');
+    }
+
+    function savePricingSettings() {
+      const pricing = {
+        minRentalDays: document.getElementById('minRentalDays').value,
+        maxRentalDays: document.getElementById('maxRentalDays').value,
+        lateFee: document.getElementById('lateFee').value,
+        securityDeposit: document.getElementById('securityDeposit').value
+      };
+      
+      localStorage.setItem('pricingSettings', JSON.stringify(pricing));
+      alert('✅ Pricing settings saved successfully!');
+    }
+
+    function saveNotificationSettings() {
+      const notifications = {
+        notifyNewOrder: document.getElementById('notifyNewOrder').checked,
+        notifyPayment: document.getElementById('notifyPayment').checked,
+        notifyReturn: document.getElementById('notifyReturn').checked,
+        notifyLate: document.getElementById('notifyLate').checked
+      };
+      
+      localStorage.setItem('notificationSettings', JSON.stringify(notifications));
+      alert('✅ Notification settings saved successfully!');
+    }
+
+    function changeAdminPassword() {
+      const current = document.getElementById('currentPassword').value;
+      const newPass = document.getElementById('newPassword').value;
+      const confirm = document.getElementById('confirmPassword').value;
+      
+      if (!current || !newPass || !confirm) {
+        alert('❌ Please fill in all password fields');
+        return;
+      }
+      
+      if (newPass !== confirm) {
+        alert('❌ New passwords do not match');
+        return;
+      }
+      
+      if (newPass.length < 8) {
+        alert('❌ Password must be at least 8 characters long');
+        return;
+      }
+      
+      // Here you would typically call an API to change the password
+      alert('✅ Password changed successfully! Please log in again.');
+      
+      // Clear fields
+      document.getElementById('currentPassword').value = '';
+      document.getElementById('newPassword').value = '';
+      document.getElementById('confirmPassword').value = '';
+    }
+
+    // Load saved settings on page load
+    function loadSettings() {
+      // Load general settings
+      const siteSettings = localStorage.getItem('siteSettings');
+      if (siteSettings) {
+        const settings = JSON.parse(siteSettings);
+        if (settings.siteName) document.getElementById('siteName').value = settings.siteName;
+        if (settings.contactEmail) document.getElementById('contactEmail').value = settings.contactEmail;
+        if (settings.contactPhone) document.getElementById('contactPhone').value = settings.contactPhone;
+        if (settings.address) document.getElementById('address').value = settings.address;
+      }
+      
+      // Load pricing settings
+      const pricingSettings = localStorage.getItem('pricingSettings');
+      if (pricingSettings) {
+        const pricing = JSON.parse(pricingSettings);
+        if (pricing.minRentalDays) document.getElementById('minRentalDays').value = pricing.minRentalDays;
+        if (pricing.maxRentalDays) document.getElementById('maxRentalDays').value = pricing.maxRentalDays;
+        if (pricing.lateFee) document.getElementById('lateFee').value = pricing.lateFee;
+        if (pricing.securityDeposit) document.getElementById('securityDeposit').value = pricing.securityDeposit;
+      }
+      
+      // Load notification settings
+      const notificationSettings = localStorage.getItem('notificationSettings');
+      if (notificationSettings) {
+        const notifications = JSON.parse(notificationSettings);
+        document.getElementById('notifyNewOrder').checked = notifications.notifyNewOrder !== false;
+        document.getElementById('notifyPayment').checked = notifications.notifyPayment !== false;
+        document.getElementById('notifyReturn').checked = notifications.notifyReturn !== false;
+        document.getElementById('notifyLate').checked = notifications.notifyLate !== false;
+      }
+    }
+
+    // Load settings when settings section is shown
+    document.querySelector('.nav-item[data-section="settings"]').addEventListener('click', loadSettings);
+  </script>
+</body>
+</html>
