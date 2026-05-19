@@ -6,29 +6,21 @@ The system aims to help content creators, students, photographers, travelers, an
 
 # Website Preview
 
-## Homepage
-![Homepage](Images/preview/Homepage.png)
+| Homepage | Products |
+|---|---|
+| ![](Images/preview/Homepage.png) | ![](Images/preview/Products.png) |
 
-## Products
-![Products](Images/preview/Products.png)
+| Compare Page | Booking System |
+|---|---|
+| ![](Images/preview/Compare.png) | ![](Images/preview/Booking.png) |
 
-## Compare Page
-![Compare](Images/preview/Compare.png)
+| Checkout | Payment |
+|---|---|
+| ![](Images/preview/Checkout.png) | ![](Images/preview/Payment.png) |
 
-## Booking System
-![Booking](Images/preview/Booking.png)
-
-## Checkout
-![Checkout](Images/preview/Checkout.png)
-
-## Payment
-![Payment](Images/preview/Payment.png)
-
-## Login Page
-![Login](Images/preview/Log\ in.png)
-
-## About Page
-![About](Images/preview/About.png)
+| Login Page | About Page |
+|---|---|
+| ![](Images/preview/Log%20in.png) | ![](Images/preview/About.png) |
 
 ## Key Features
 
