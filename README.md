@@ -7,28 +7,28 @@ The system aims to help content creators, students, photographers, travelers, an
 # Website Preview
 
 ## Homepage
-![Homepage](images/preview/Homepage.png)
+![Homepage](Images/preview/Homepage.png)
 
 ## Products
-![Products](images/preview/Products.png)
+![Products](Images/preview/Products.png)
 
 ## Compare Page
-![Compare](images/preview/Compare.png)
+![Compare](Images/preview/Compare.png)
 
 ## Booking System
-![Booking](images/preview/Booking.png)
+![Booking](Images/preview/Booking.png)
 
 ## Checkout
-![Checkout](images/preview/Checkout.png)
+![Checkout](Images/preview/Checkout.png)
 
 ## Payment
-![Payment](images/preview/Payment.png)
+![Payment](Images/preview/Payment.png)
 
 ## Login Page
-![Login](images/preview/Log\ in.png)
+![Login](Images/preview/Log\ in.png)
 
 ## About Page
-![About](images/preview/About.png)
+![About](Images/preview/About.png)
 
 ## Key Features
 
