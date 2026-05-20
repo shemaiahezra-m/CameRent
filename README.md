@@ -52,9 +52,6 @@ The system aims to help content creators, students, photographers, travelers, an
 * Monitor inventory and stock updates
 * Handle booking records and transactions
 
-## Technologies Used
-Not so sure about this–
-
 ### Frontend
 
 * HTML5
