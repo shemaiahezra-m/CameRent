@@ -1,5 +1,6 @@
 # CameRent
 
+
 CameRent is a modern and user-friendly camera rental website developed to provide a seamless online experience for individuals looking to rent professional photography and videography equipment. The platform was designed to simplify the rental process by allowing users to browse available cameras, compare products, manage bookings, and complete transactions efficiently through a responsive and interactive interface.
 
 The system aims to help content creators, students, photographers, travelers, and media enthusiasts access high-quality camera equipment without the need for expensive purchases. CameRent focuses on accessibility, convenience, and a smooth digital rental workflow while maintaining a clean and modern user experience.
